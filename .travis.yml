@@ -1,0 +1,34 @@
+language: java
+jdk: oraclejdk8
+
+branches:
+  only:
+  - master
+git:
+  depth: 99999
+
+before_install:
+- export CHROME_BIN=/usr/bin/google-chrome
+
+script:
+- mvn clean -Dchromeoptions.args=--no-sandbox,--disable-dev-shm-usage,--headless org.jacoco:jacoco-maven-plugin:prepare-agent install sonar:sonar
+
+before_cache:
+- rm -f  $HOME/.gradle/caches/modules-2/modules-2.lock
+- rm -fr $HOME/.gradle/caches/*/plugin-resolution/
+- rm -fr /home/travis/.m2/repository/webdriver/
+
+cache:
+  directories:
+  - "$HOME/.m2/repository"
+  - "$HOME/.sonar/cache"
+
+addons:
+  apt:
+    update: true
+  chrome: stable
+  sonarcloud:
+    organization: symonk-github
+
+  packages:
+  - google-chrome-stable
