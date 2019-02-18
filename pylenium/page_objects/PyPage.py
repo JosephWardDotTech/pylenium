@@ -1,0 +1,2 @@
+class PyPage(object):
+    pass

@@ -10,8 +10,8 @@
 
 ## What is Pylenium? :flags: 
 
-Pylenium is a test automation harness for web applications written in Python.  Why spend time fussing around
-boilerplate code and instability in your end to end tests, Pylenium takes care of it.  Let's see how simple it really is:
+A port of my java framework 'sylenium' to Python!
+Coming soon...
 
 
 ##  :star: Backers of the project who provide us with free tools:
