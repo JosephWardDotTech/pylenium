@@ -9,7 +9,7 @@ install:
 
 script:
   - pytest
-  - sonar-scanner
+  - sonar-scanner -Dsonar.projectVersion=1.0.0
 
 branches:
   only:
