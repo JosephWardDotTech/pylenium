@@ -31,6 +31,8 @@ addons:
   chrome: stable
   sonarcloud:
     organization: symonk-github
+      token:
+        secure: ${SONAR_TOKEN}
 
 packages:
   - google-chrome-stable
