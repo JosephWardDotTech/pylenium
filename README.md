@@ -14,7 +14,7 @@
 Pylenium is a test automation harness for web applications written in python. Why spend time fussing around boilerplate code and instability in your end to end tests, Pylenium takes care of it. Let's see how simple it really is:
 
 ```python
-    /** Page Objects and business logic sold seperately! **/
+    # Page Objects and business logic sold separately! 
     @CaseDescription("Pylenium can help you login!")
     @Issue("issue-100")
     @TmsLink("testcase-101")
