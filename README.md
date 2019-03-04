@@ -19,7 +19,7 @@ Pylenium is a test automation harness for web applications written in python. Wh
     @issue_id("issue-100")
     @testcase_id("testcase-101")
     def test_my_login():
-      start(self.login_page());
+      start(self.login_page())
       find(name("user.name")).set_value("simon")
       find(name("password")).set_value("securepassword")
       find("#submit").click()
