@@ -11,5 +11,3 @@ class PyElement(WebElement):
 
     def find_all(self):
         pass
-
-
