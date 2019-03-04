@@ -1,6 +1,0 @@
-pip
-setuptools
-selenium==3.141.0
-requests==2.21.0
-urllib3==1.24.1
-pytest>=4.1.1
