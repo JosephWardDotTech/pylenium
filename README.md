@@ -18,12 +18,12 @@ Pylenium is a test automation harness for web applications written in python. Wh
     @case_description("Pylenium can help you login!")
     @issue_id("issue-100")
     @testcase_id("testcase-101")
-    def test_my_login():
+    def test_my_login(self):
       start(self.login_page())
-      find(name("user.name")).set_value("simon")
-      find(name("password")).set_value("securepassword")
-      find("#submit").click()
-      find("#username").should_have(text("Hello, Simon!"))
+      find(By.name("user.name")).set_value("simon")
+      find(By.name("password")).set_value("securepassword")
+      find("#submit").click() # default css_selector lookup
+      find("#username").should_have(text("Hello, Simon!")) # default css_selector lookup
 ```
 
 ---
