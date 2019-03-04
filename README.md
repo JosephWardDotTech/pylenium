@@ -1,6 +1,6 @@
 ![](/.github/.images/sylenium.png)
 
-[![Build Status](https://api.travis-ci.org/symonk/pylenium.svg?branch=master)](https://travis-ci.org/symonk/sylenium)
+[![Build Status](https://api.travis-ci.org/symonk/pylenium.svg?branch=master)](https://travis-ci.org/symonk/pylenium)
 [![License MIT](https://img.shields.io/badge/License-MIT-brightgreen.svg)](https://github.com/symonk/selenide-testng-allure2-test-automation-framework/blob/master/LICENSE)
 [![Sonar Quality Gate](https://sonarcloud.io/api/project_badges/measure?project=io.symonk.sylenium%3Asylenium&metric=alert_status)](https://sonarcloud.io/dashboard?id=io.symonk.sylenium%3Asylenium)
 [![Sonar Code Coverage](https://sonarcloud.io/api/project_badges/measure?project=io.symonk.sylenium%3Asylenium&metric=coverage)](https://sonarcloud.io/component_measures?id=io.symonk.sylenium%3Asylenium&metric=coverage)
