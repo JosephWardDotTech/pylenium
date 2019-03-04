@@ -9,7 +9,7 @@ install:
 
 script:
   - pytest
-  - sonar-scanner -X
+  - sonar-scanner -Dsonar.projectKey=symonk_pylenium  -Dsonar.organization=symonk-github
 
 branches:
   only:
