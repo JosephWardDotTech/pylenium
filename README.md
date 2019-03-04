@@ -27,10 +27,3 @@ Pylenium is a test automation harness for web applications written in python. Wh
 ```
 
 ---
-
-### Attributions! :star:
-
-Here are all the great freebie / open-source things I have used as part of building $ylenium.  A massive thanks to the following:
-
-- Nothing... (yet!)
-
