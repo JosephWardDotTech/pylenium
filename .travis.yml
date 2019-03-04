@@ -9,6 +9,7 @@ install:
 
 script:
   - pytest
+  - sonar-scanner
 
 branches:
   only:
@@ -28,6 +29,8 @@ addons:
   apt:
     update: true
   chrome: stable
+  sonarcloud:
+    organization: symonk-github
 
 packages:
   - google-chrome-stable
