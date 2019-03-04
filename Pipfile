@@ -11,6 +11,7 @@ requests = "==2.21.0"
 urllib3 = "==1.24.1"
 pytest = ">=4.1.1"
 flake8 = ">=3.7.7"
+webdriver-manager = ">=1.7"
 
 [requires]
 python_version = "3.7"

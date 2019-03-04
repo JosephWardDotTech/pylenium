@@ -1,7 +1,7 @@
 {
     "_meta": {
         "hash": {
-            "sha256": "4f2ab7626de6b9fe4ba9769b84fcb40df30a84a8829ffd255df09d2467ecc60a"
+            "sha256": "e982e19fdfc812b0fabdb264ea3cce96fe07859afd716a154e2f24ab87f0434b"
         },
         "pipfile-spec": 6,
         "requires": {
@@ -51,6 +51,20 @@
             ],
             "markers": "sys_platform == 'win32'",
             "version": "==0.4.1"
+        },
+        "configparser": {
+            "hashes": [
+                "sha256:27594cf4fc279f321974061ac69164aaebd2749af962ac8686b20503ac0bcf2d",
+                "sha256:9d51fe0a382f05b6b117c5e601fc219fede4a8c71703324af3f7d883aef476a3"
+            ],
+            "version": "==3.7.3"
+        },
+        "crayons": {
+            "hashes": [
+                "sha256:41f0843815a8e3ac6fb445b7970d8b9c766e6f164092d84e7ea809b4c91418ec",
+                "sha256:8edcadb7f197e25f2cc094aec5bf7f1b6001d3f76c82d56f8d46f6fb1405554f"
+            ],
+            "version": "==0.2.0"
         },
         "entrypoints": {
             "hashes": [
@@ -155,6 +169,13 @@
             ],
             "index": "pypi",
             "version": "==1.24.1"
+        },
+        "webdriver-manager": {
+            "hashes": [
+                "sha256:92f01a5b0f6b71860f5093256d5f27e10e95fcaec9fb0cd4a8d4607fa06364ac"
+            ],
+            "index": "pypi",
+            "version": "==1.7"
         }
     },
     "develop": {}
