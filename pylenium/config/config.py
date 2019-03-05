@@ -178,7 +178,7 @@ class PyleniumConfig(object):
         return self.__capture_screenshot
 
     @capture_screenshot.setter
-    def capture_screenshot(self, value: bool) -> PyleniumConfig
+    def capture_screenshot(self, value: bool) -> PyleniumConfig:
         self.__capture_screenshot = value
         return self
 
@@ -196,7 +196,7 @@ class PyleniumConfig(object):
         return self.__javascript_clicking
 
     @javascript_clicking.setter
-    def javascript_clicking(self, value: bool) -> PyleniumConfig
+    def javascript_clicking(self, value: bool) -> PyleniumConfig:
         self.__javascript_clicking = value
         return self
 
