@@ -27,3 +27,11 @@ Pylenium is a test automation harness for web applications written in python. Wh
 ```
 
 ---
+
+### Configuration :flags:
+Pylenium has a easy to use configuration which assumes sensible defaults
+
+
+
+
+---
