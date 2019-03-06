@@ -32,3 +32,6 @@ class PyleniumDriver(object):
 
     def quit(self):
         self.driver.quit()
+
+    def url(self) -> str:
+        return self.driver.current_url

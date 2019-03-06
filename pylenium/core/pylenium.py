@@ -17,7 +17,6 @@ driver.x = None
 def start(url: str) -> PyleniumDriver:
     if isinstance(driver.x, PyleniumDriver):
         return driver.x.goto(url)
-    print('Calling start when the thread already contains a driver, getting threaded driver instead')
     driver.x = PyleniumDriver(PyleniumConfig(), ChromeBrowserStrategy())
     return driver.x.goto(url)
 
