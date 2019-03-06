@@ -1,21 +1,33 @@
+from abc import abstractmethod, ABC
 
 
-class AbstractStrategy(object):
-    pass
+class AbstractBrowserStrategy(ABC):
+
+    # Prepare web driver manager if applicable and instantiate a thread local driver
+    @abstractmethod
+    def instantiate(self):
+        pass
 
 
-class ChromeStrategy(AbstractStrategy):
-    pass
+class ChromeBrowserStrategy(AbstractBrowserStrategy):
+
+    def instantiate(self):
+        pass
 
 
-class FirefoxStrategy(AbstractStrategy):
-    pass
+class FirefoxBrowserStrategy(AbstractBrowserStrategy):
+
+    def instantiate(self):
+        pass
 
 
-class RemoteWebDriverStrategy(AbstractStrategy):
-    pass
+class RemoteWebDriverBrowserStrategy(AbstractBrowserStrategy):
+
+    def instantiate(self):
+        pass
 
 
 class PyleniumDriver(object):
-    def __init__(self):
-        pass
+    def __init__(self,
+                 driver_strategy: AbstractBrowserStrategy = ChromeBrowserStrategy()):
+        self.driver_strategy = driver_strategy
