@@ -7,6 +7,7 @@ from pylenium.drivers.driver_manager import PyleniumDriver
 from pylenium.drivers.driver_strategy import *
 from pylenium.page_objects.py_locator import PyLocator
 
+
 config = PyleniumConfig()
 driver = threading.local()
 driver.x = None
