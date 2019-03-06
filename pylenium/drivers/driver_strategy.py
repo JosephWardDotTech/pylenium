@@ -1,8 +1,10 @@
 from __future__ import annotations
+
 from abc import abstractmethod, ABC
+
+from selenium import webdriver
 from webdriver_manager.chrome import ChromeDriverManager
 from webdriver_manager.firefox import GeckoDriverManager
-from selenium import webdriver
 
 
 class AbstractBrowserStrategy(ABC):

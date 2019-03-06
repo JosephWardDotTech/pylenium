@@ -1,4 +1,5 @@
 from __future__ import annotations
+
 from pylenium.config.config import PyleniumConfig
 from pylenium.drivers.driver_strategy import *
 

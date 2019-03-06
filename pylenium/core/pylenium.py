@@ -1,11 +1,10 @@
 import threading
 
+from selenium.webdriver.remote import webelement
+
 from pylenium.config.config import PyleniumConfig
 from pylenium.drivers.driver_manager import PyleniumDriver
 from pylenium.drivers.driver_strategy import *
-from selenium.webdriver.common.by import By
-from selenium.webdriver.remote import webelement
-
 from pylenium.page_objects.py_locator import PyLocator
 
 config = PyleniumConfig()

@@ -1,8 +1,9 @@
 from __future__ import annotations
+
 import os
+from enum import Enum
 
 from selenium.webdriver import DesiredCapabilities
-from enum import Enum
 
 
 # Pyleniums possible web element lookup strategy (by default)
