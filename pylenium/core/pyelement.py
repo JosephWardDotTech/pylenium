@@ -1,4 +1,7 @@
+from __future__ import annotations
 from selenium.webdriver.remote.webelement import WebElement
+
+from pylenium.conditions.py_conditions import PyCondition
 
 
 class PyElement(WebElement):
@@ -11,3 +14,14 @@ class PyElement(WebElement):
 
     def find_all(self):
         pass
+
+    def set_value(self, value: str) -> PyElement:
+        super().send_keys(value)
+        return self
+
+    def should_have(self, condition: PyCondition) -> PyElement:
+        condition.evaluate(self)
+        return self
+
+    def click(self) -> None:
+        super().click()

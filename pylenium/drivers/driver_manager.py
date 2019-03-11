@@ -1,6 +1,11 @@
 from __future__ import annotations
 
+from typing import List
+
+from selenium.webdriver.common.by import By
+
 from pylenium.config.config import PyleniumConfig
+from pylenium.core.pyelement import PyElement
 from pylenium.drivers.driver_strategy import *
 
 
@@ -10,7 +15,7 @@ class PyleniumDriver(object):
                  driver_strategy: AbstractBrowserStrategy = ChromeBrowserStrategy()):
         self._config = config
         self.driver_strategy = driver_strategy
-        self._driver: webdriver = self.driver_strategy.instantiate()
+        self._driver = self.driver_strategy.instantiate()
 
     @property
     def driver(self) -> webdriver:
@@ -35,3 +40,9 @@ class PyleniumDriver(object):
 
     def url(self) -> str:
         return self.driver.current_url
+
+    def find(self, by: By) -> PyElement:
+        return self.driver.find_element(by)
+
+    def find_all(self, by: By) -> List[PyElement]:
+        return self.driver.find_elements(by)

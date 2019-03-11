@@ -1,12 +1,12 @@
-from pylenium.core.pylenium import start, terminate
+from pylenium.core.pylenium import *
 
 
 class TestOpen(object):
 
-    def test_redirection(self):
-        github_url = 'https://github.com/'
-        expected_url = start('https://www.bbc.co.uk') \
-            .goto(github_url) \
-            .url()
-        assert expected_url == github_url
+    # Page Objects and business logic sold separately!
+    def test_my_login(self):
+        start('https://www.google.co.uk')
+        find(By.NAME, 'q').set_value("Cheese!")
+        find(By.CSS_SELECTOR, '#submit').click()
+        find(By.CSS_SELECTOR, '#password').should_have(Text("Hello, Simon!"))
         terminate()
