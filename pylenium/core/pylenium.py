@@ -17,7 +17,7 @@ driver.x = None
 def start(url: str) -> PyleniumDriver:
     if isinstance(driver.x, PyleniumDriver):
         return driver.x.goto(url)
-    driver.x = PyleniumDriver(PyleniumConfig(), ChromeBrowserStrategy())
+    driver.x = PyleniumDriver(PyleniumConfig(), ChromeBrowserStrategy()).maximize()
     return driver.x.goto(url)
 
 

@@ -1,11 +1,11 @@
-from pylenium.core.pylenium import *
+from pylenium.core.pylenium import start
 
 
 class TestOpen(object):
-    pass
 
-
-assert start('https://www.bbc.co.uk') \
-    .goto('https://github.com') \
-    .goto('https://www.thesun.co.uk') \
-    .url() is 'https://www.thesun.co.uk'
+    def test_redirection(self):
+        github_url = 'https://github.com/'
+        expected_url = start('https://www.bbc.co.uk') \
+            .goto(github_url) \
+            .url()
+        assert expected_url == github_url
