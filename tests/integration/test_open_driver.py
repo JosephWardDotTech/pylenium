@@ -1,4 +1,4 @@
-from pylenium.core.pylenium import start
+from pylenium.core.pylenium import start, terminate
 
 
 class TestOpen(object):
@@ -9,3 +9,4 @@ class TestOpen(object):
             .goto(github_url) \
             .url()
         assert expected_url == github_url
+        terminate()
