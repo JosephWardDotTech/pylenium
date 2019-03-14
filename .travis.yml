@@ -4,8 +4,8 @@ python:
   - "3.7-dev"
 
 install:
+  - pip install pipenv
   - pipenv install
-  - pipenv shell
 script:
   - pytest
   - sonar-scanner -Dsonar.projectKey=symonk_pylenium  -Dsonar.organization=symonk-github
