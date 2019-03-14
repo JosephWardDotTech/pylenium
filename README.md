@@ -32,25 +32,44 @@ Pylenium is a test automation harness for web applications written in python. Wh
 Pylenium has a easy to use configuration which assumes sensible defaults, configurable programmatically or via environment variables.
 
 ```python
-    __browser = os.getenv('pylenium.browser', Browser.CHROME)  # the browser, duh!
-    __headless = os.getenv('pylenium.headless', False)  # headless browser or not?
-    __remote = os.getenv('pylenium.remote', False)  # is a remote web driver for distributed testing 
-    __browser_size = os.getenv('pylenium.browser_size', '1366x768')  # browser window size
-    __browser_version = os.getenv('pylenium.browser_version', None)  # browser version 
-    __browser_position = os.getenv('pylenium.browser_position', None)  # browser position
-    __browser_maximized = os.getenv('pylenium.maximized', True)  # is browser maximized?
-    __wdm_enabled = os.getenv('pylenium.wdm_enabled', True)  # let us handle webdriver binary management / download etc
-    __browser_binary = os.getenv('pylenium.browser_binary', '')  # binary if you don't want to use __wdm_enabled
-    __page_load_strategy = os.getenv('pylenium.page_load_strategy', PageLoadStrategy.NORMAL)  # how should pylenium load pages, (normal, fast, eager)
-    __desired_capabilities = DesiredCapabilities()  # custom browser desired capabilities
-    __base_url = os.getenv('pylenium.base_url', 'http://localhost:8080')  # web application base url
-    __explicit_wait_timeout = os.getenv('pylenium.wait_timeout', 15000)  # predicate/explicit waiting max timeout
-    __polling_timeout = os.getenv('pylenium.polling_timeout', 200)  # how often should predicate be polled for truth
-    __capture_screenshot = os.getenv('pylenium.screenshot', True)  # should we capture screenshots on failure
-    __capture_pagesource = os.getenv('pylenium.pagesource', True)  # should we capture page source as HTML on failure
-    __javascript_clicking = os.getenv('pylenium.js_click', False)  # should pylenium click with javascript?
-    __javascript_sendkeys = os.getenv('pylenium.js_sendkeys', False) # should pylenium send keys with javascript?
-    __selector_default = Selector.CSS  # default find() lookup, takes CSS by default but customisable
+    # the browser, duh!
+    browser = os.getenv('pylenium.browser', Browser.CHROME)  
+    # headless browser or not?
+    headless = os.getenv('pylenium.headless', False)
+    # is a remote web driver for distributed testing 
+    remote = os.getenv('pylenium.remote', False) 
+    # browser window size 
+    browser_size = os.getenv('pylenium.browser_size', '1366x768')
+    # browser version 
+    browser_version = os.getenv('pylenium.browser_version', None)
+    # browser position
+    browser_position = os.getenv('pylenium.browser_position', None)
+    # is the browser maximized?
+    browser_maximized = os.getenv('pylenium.maximized', True)
+    # should pylenium handle browser binary downloading, management and caching? no more environment setup for binaries
+    wdm_enabled = os.getenv('pylenium.wdm_enabled', True)
+    # with wdm_enabled disabled, specify your own binary path for the driver
+    browser_binary = os.getenv('pylenium.browser_binary', '')
+    # how should pylenium load pages @options -> 'NORMAL', 'FAST', 'EAGER' 
+    page_load_strategy = os.getenv('pylenium.page_load_strategy', PageLoadStrategy.NORMAL)  
+    # custom browser desired capabilities
+    desired_capabilities = DesiredCapabilities()
+    # web application base url
+    base_url = os.getenv('pylenium.base_url', 'http://localhost:8080')
+    # predicate/explicit waiting max timeout
+    explicit_wait_timeout = os.getenv('pylenium.wait_timeout', 15000)
+    # how often should predicate be polled for truth
+    polling_timeout = os.getenv('pylenium.polling_timeout', 200) 
+    # should pylenium capture screenshots on failure ?
+    capture_screenshot = os.getenv('pylenium.screenshot', True)
+    # should we capture page source as HTML on failure ?  
+    capture_pagesource = os.getenv('pylenium.pagesource', True) 
+    # should pylenium click with javascript? 
+    javascript_clicking = os.getenv('pylenium.js_click', False)  
+    # should pylenium send keys with javascript? @options -> 'true', 'false', 'only-on-failure' (only when normal clicking fails)
+    javascript_sendkeys = os.getenv('pylenium.js_sendkeys', False) 
+    # default find() lookup, takes CSS by default but customisable
+    selector_default = Selector.CSS  
 ```
 
 ---
