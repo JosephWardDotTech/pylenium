@@ -57,7 +57,7 @@ Pylenium config is very powerful, but also assumes sensible defaults.  You can m
     # is the browser maximized?: [default: true]
     browser_maximized = os.getenv('pylenium.maximized', True)
     
-    # should pylenium handle browser binary downloading, management and caching? no more environment setup for binaries
+    # sick of managing chrome/geckodriver binaries? we will do it for you :) environment-agnostic automation!
     # only applicable for local driver(s), can support a proxy for pesky networks -> default: [enabled]
     wdm_enabled = os.getenv('pylenium.wdm_enabled', True)
     
@@ -103,10 +103,15 @@ Pylenium config is very powerful, but also assumes sensible defaults.  You can m
 ```
 ---
 
-### Page Objects :hearts: :spades: :8ball:
-Page objects are where Pylenium really shines, no driver hassle, no weird page factory setups, simple, clean and easy to use page objects
+### Page Objects :hearts:
+Easy, hassle free, abstracted -> Exactly how page objects should be!
 
-- No driver management in page(s), pages aren't even 'aware' of the threaded driver
-- No page factory (ew java), simply find your elements and use them as you please!
-- Not necessary, but definitely recommended! (@see: our example doesn't even use page objects, but pylenium makes them awesome)
+    - Page objects don't care or even know about the driver, its magic!
+    - No need for weird locating/page factory style things (ew java!)
+    - Not necessary, but definitely recommended! (@see: our page objectless example code!)
 
+### Page Actions :trophy:
+Repeatable steps and chains of page object commands, all wrapped under one roof!
+
+    - clean abstractions
+    - repeatable and very test friendly
