@@ -28,7 +28,7 @@ Pylenium is a test automation harness for web applications written in python. Wh
 
 ---
 
-### Configuration :computer:
+### Configuration :clipboard:
 Pylenium config is very powerful, but also assumes sensible defaults.  You can modify your config via:
 
  - Runtime via pytest --cli args 
@@ -101,5 +101,12 @@ Pylenium config is very powerful, but also assumes sensible defaults.  You can m
     # -> default: [css_selector]
     selector_default = Selector.CSS  
 ```
-
 ---
+
+### Page Objects :hearts: :spades: :8ball:
+Page objects are where Pylenium really shines, no driver hassle, no weird page factory setups, simple, clean and easy to use page objects
+
+- No driver management in page(s), pages aren't even 'aware' of the threaded driver
+- No page factory (ew java), simply find your elements and use them as you please!
+- Not necessary, but definitely recommended! (@see: our example doesn't even use page objects, but pylenium makes them awesome)
+
