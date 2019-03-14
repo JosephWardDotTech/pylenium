@@ -109,9 +109,13 @@ Easy, hassle free, abstracted -> Exactly how page objects should be!
     - Page objects don't care or even know about the driver, its magic!
     - No need for weird locating/page factory style things (ew java!)
     - Not necessary, but definitely recommended! (@see: our page objectless example code!)
+    
+---
 
 ### Page Actions :trophy:
 Repeatable steps and chains of page object commands, all wrapped under one roof!
 
     - clean abstractions
     - repeatable and very test friendly
+    
+---
