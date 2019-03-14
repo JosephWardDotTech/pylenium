@@ -2,11 +2,12 @@ from __future__ import annotations
 
 from typing import List
 
+from selenium import webdriver
 from selenium.webdriver.common.by import By
 
 from pylenium.config.config import PyleniumConfig
-from pylenium.core.pyelement import PyElement
-from pylenium.drivers.driver_strategy import *
+from pylenium.core.pylenium.elements_and_conditions import PyElement
+from pylenium.drivers.driver_strategy import AbstractBrowserStrategy, ChromeBrowserStrategy
 
 
 class PyleniumDriver(object):

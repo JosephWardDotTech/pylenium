@@ -4,9 +4,9 @@ from typing import List
 from selenium.webdriver.common.by import By
 
 from pylenium.config.config import PyleniumConfig
-from pylenium.core.pyelement import PyElement
+from pylenium.core.pylenium.elements_and_conditions import PyElement
 from pylenium.drivers.driver_manager import PyleniumDriver
-from pylenium.drivers.driver_strategy import *
+from pylenium.drivers.driver_strategy import ChromeBrowserStrategy
 
 
 config = PyleniumConfig()
@@ -32,3 +32,4 @@ def find(by: By, selector: str) -> PyElement:
 
 def find_all(by: By, selector: str) -> List[PyElement]:
     return driver.x.find_element((by, selector))
+
