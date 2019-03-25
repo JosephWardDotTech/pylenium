@@ -8,9 +8,8 @@ install:
   - pipenv sync
 script:
   - python --version
-  - python -m pytest -k travis
+  - pytest -k travis
   - sonar-scanner -Dsonar.projectKey=symonk_pylenium  -Dsonar.organization=symonk-github
-  -
 branches:
   only:
   - master
