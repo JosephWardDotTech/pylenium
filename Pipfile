@@ -6,12 +6,13 @@ verify_ssl = true
 [dev-packages]
 
 [packages]
-selenium = "==3.141.0"
-requests = "==2.21.0"
-urllib3 = "==1.24.1"
+selenium = "*"
+requests = "*"
+urllib3 = "*"
 pytest = "*"
-flake8 = ">=3.7.7"
-webdriver-manager = ">=1.7"
+flake8 = "*"
+webdriver-manager = "*"
+colorama = "*"
 
 [requires]
 python_version = "3.7"
