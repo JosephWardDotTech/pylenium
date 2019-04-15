@@ -1,7 +1,7 @@
 {
     "_meta": {
         "hash": {
-            "sha256": "984437e021bccec78c742cc187b5db53073839dccf5be0a6a4be054ac1a8d3a3"
+            "sha256": "b0f4900b92e491e6ccb194409f0c9665e902dfd77cf46abb264b9ca291bab09b"
         },
         "pipfile-spec": 6,
         "requires": {
@@ -49,15 +49,15 @@
                 "sha256:05eed71e2e327246ad6b38c540c4a3117230b19679b875190486ddd2d721422d",
                 "sha256:f8ac84de7840f5b9c4e3347b3c1eaa50f7e49c2b07596221daec5edaabbd7c48"
             ],
-            "markers": "sys_platform == 'win32'",
+            "index": "pypi",
             "version": "==0.4.1"
         },
         "configparser": {
             "hashes": [
-                "sha256:27594cf4fc279f321974061ac69164aaebd2749af962ac8686b20503ac0bcf2d",
-                "sha256:9d51fe0a382f05b6b117c5e601fc219fede4a8c71703324af3f7d883aef476a3"
+                "sha256:8be81d89d6e7b4c0d4e44bcc525845f6da25821de80cb5e06e7e0238a2899e32",
+                "sha256:da60d0014fd8c55eb48c1c5354352e363e2d30bbf7057e5e171a468390184c75"
             ],
-            "version": "==3.7.3"
+            "version": "==3.7.4"
         },
         "crayons": {
             "hashes": [

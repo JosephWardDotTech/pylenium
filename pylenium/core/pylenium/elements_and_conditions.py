@@ -1,6 +1,7 @@
 from __future__ import annotations
-from abc import abstractmethod, ABC
 from selenium.webdriver.remote.webelement import WebElement
+
+from pylenium.conditions.condition import PyCondition
 
 
 class PyElement(WebElement):
@@ -24,20 +25,4 @@ class PyElement(WebElement):
 
     def click(self) -> None:
         super().click()
-
-
-class PyCondition(ABC):
-
-    @abstractmethod
-    def evaluate(self, py_element: PyElement) -> PyElement:
-        pass
-
-
-class Text(PyCondition):
-    def __init__(self, expected: str):
-        self.expected = expected
-
-    def evaluate(self, py_element: PyElement) -> PyElement:
-        assert py_element.text == self.expected
-        return py_element
 
