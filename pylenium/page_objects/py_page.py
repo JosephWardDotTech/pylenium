@@ -1,2 +1,2 @@
-class PyPage(object):
+class PyPage:
     pass
