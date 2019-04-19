@@ -1,5 +1,6 @@
 from __future__ import annotations
 
+import threading
 from typing import Union, List
 
 from selenium.webdriver.common.by import By
@@ -11,11 +12,17 @@ from drivers.driver_strategy import ChromeBrowserStrategy, FirefoxBrowserStrateg
 from page_objects.page_object import PyPage
 
 config = PyleniumConfig()
+threaded_driver = threading.local()
 
 
-class PyleniumDriver(object):
+class PyleniumDriver:
     def __init__(self):
-        self._driver = self._get_browser_strategy().instantiate()
+        if not hasattr(threaded_driver, 'driver'):
+            print('This thread has no driver, lets make a new one!')
+            self._driver = self._get_browser_strategy().instantiate()
+            threaded_driver.driver = self._driver
+        else:
+            self._driver = threaded_driver.driver
 
     @property
     def driver(self) -> webdriver:
@@ -35,6 +42,7 @@ class PyleniumDriver(object):
 
     def quit(self):
         self.driver.quit()
+        del threaded_driver.driver
 
     def url(self) -> str:
         return self.driver.current_url
@@ -44,6 +52,9 @@ class PyleniumDriver(object):
 
     def find_all(self, by) -> List[PyElement]:
         return self.driver.find_elements(by.lookup())
+
+    def exec_js(self, command: str) -> PyleniumDriver:
+        return self
 
     @staticmethod
     def _get_browser_strategy():

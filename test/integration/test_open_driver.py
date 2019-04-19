@@ -1,3 +1,6 @@
+from __future__ import annotations
+from concurrent.futures.thread import ThreadPoolExecutor
+
 import pytest
 
 from conditions.condition import Text
@@ -20,3 +23,16 @@ class TestOpen(object):
         google = 'https://www.google.co.uk/'
         actual = start(google).url()
         assert actual == google
+
+    @pytest.mark.travis
+    def test_travis2(self):
+        google = 'https://www.google.co.uk/'
+        actual = start(google).url()
+        assert actual == google
+
+    @pytest.mark.travis
+    def test_travis3(self):
+        google = 'https://www.google.co.uk/'
+        actual = start(google).url()
+        assert actual == google
+
