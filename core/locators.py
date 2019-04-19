@@ -9,8 +9,6 @@ from abc import ABC, abstractmethod
 # Name = Class_Name
 # Tag = Tag_Name
 from selenium.webdriver.common.by import By
-
-from core.pylenium import get_driver
 from core.elements import PyElement
 
 
