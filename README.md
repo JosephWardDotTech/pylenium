@@ -1,7 +1,7 @@
 <kbd>
   <img src="https://github.com/symonk/pylenium/blob/master/.github/.images/pylenium.png">
-  <p></p>
 </kbd>
+  <p></p>
 
 [![Build Status](https://api.travis-ci.org/symonk/pylenium.svg?branch=master)](https://travis-ci.org/symonk/pylenium)
 [![License MIT](https://img.shields.io/badge/License-MIT-brightgreen.svg)](https://github.com/symonk/pylenium/blob/master/LICENSE)
