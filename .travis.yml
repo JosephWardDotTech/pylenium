@@ -33,4 +33,4 @@ packages:
   - google-chrome-stable
 
 env:
-  pylenium.headless=true
+  pylenium_headless=true
