@@ -8,7 +8,6 @@ from selenium.webdriver.common.by import By
 from pylenium.config.config import PyleniumConfig
 from pylenium.core.pylenium.web_elements import PyElement
 from pylenium.drivers.driver_strategy import AbstractBrowserStrategy, ChromeBrowserStrategy
-from pylenium.page_objects.py_locator import PyLocator
 
 
 class PyleniumDriver(object):
@@ -46,5 +45,5 @@ class PyleniumDriver(object):
     def find(self, by: By, selector: str) -> PyElement:
         return self.driver.find_element(by.lookup())
 
-    def find_all(self, by: PyLocator) -> List[PyElement]:
+    def find_all(self, by) -> List[PyElement]:
         return self.driver.find_elements(by.lookup())

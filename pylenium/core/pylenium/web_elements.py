@@ -2,8 +2,6 @@ from __future__ import annotations
 
 from selenium.webdriver.remote.webelement import WebElement
 
-from pylenium.conditions.condition import PyCondition
-
 
 class PyElement(WebElement):
 
@@ -14,8 +12,8 @@ class PyElement(WebElement):
         super().send_keys(value)
         return self
 
-    def should_have(self, condition: PyCondition) -> PyElement:
-        condition.evaluate(self)
+    def should_have(self, pylenium_condition) -> PyElement:
+        pylenium_condition.evaluate(self)
         return self
 
     def click(self) -> None:
