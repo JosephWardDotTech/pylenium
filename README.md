@@ -16,13 +16,12 @@ Pylenium is a test automation harness for web applications written in python. Wh
 
 ```python
     # Page Objects and business logic sold separately! 
-    @pylenium.case_description("Pylenium can help you login!")
-    @pylenium.issue_id("issue-100")
-    @pylenium.testcase_id("testcase-101")
+    @pylenium.case_description('Logging in is so easy!')  # Don't ever write a test like this tho, its not e2e!
+    @pylenium.case_data(case='testcase-101', issue_id='issue-949')
     def test_my_login(self):
       start(self.login_page()) # no driver hassle, just get started! we will handle the thread-safe driver for you!
-      find(By.name("user.name")).set_value("simon")
-      find(By.name("password")).set_value("securepassword")
+      find(Name("user.name")).set_value("simon")
+      find(Name("password")).set_value("securepassword")
       find("#submit").click() # default css_selector lookup
       find("#username").should_have(text("Hello, Simon!")) # default css_selector lookup
 ```
