@@ -23,7 +23,7 @@ class ChromeBrowserStrategy(AbstractBrowserStrategy):
         chrome_options.add_argument("--disable-extensions")
         chrome_options.add_argument("--no-sandbox")
         chrome_options.add_argument("--disable-dev-shm-usage")
-        return webdriver.Chrome(ChromeDriverManager().install(), chrome_options=chrome_options)
+        return webdriver.Chrome(ChromeDriverManager().install(), options=chrome_options)
 
 
 class FirefoxBrowserStrategy(AbstractBrowserStrategy):
