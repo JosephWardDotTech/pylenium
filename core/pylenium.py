@@ -1,5 +1,5 @@
 from __future__ import annotations
-import threading
+
 from typing import List, Union
 
 from selenium.webdriver.common.by import By

@@ -25,11 +25,14 @@ class PyLocator(ABC):
 
 
 class PyLocator):  # NOSONAR
+
+
     def __init__(self, selector: str):
         super().__init__(By.XPATH, selector)
 
-    def lookup(self):
-        return get_driver().find()
+
+def lookup(self):
+    return get_driver().find()
 
 
 class CSS(PyLocator):

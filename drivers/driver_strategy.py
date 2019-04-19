@@ -28,7 +28,6 @@ class ChromeBrowserStrategy(AbstractBrowserStrategy):
         return webdriver.Chrome(ChromeDriverManager().install(), options=chrome_options)
 
 
-
 class FirefoxBrowserStrategy(AbstractBrowserStrategy):
 
     def instantiate(self):

@@ -18,4 +18,3 @@ class PyElement(WebElement):
 
     def click(self) -> None:
         super().click()
-

@@ -5,7 +5,6 @@ from enum import Enum
 
 from selenium.webdriver import DesiredCapabilities
 
-
 # Pyleniums possible web element lookup strategy (by default)
 from common.meta import Singleton
 
