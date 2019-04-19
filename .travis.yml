@@ -12,17 +12,17 @@ script:
   - sonar-scanner -Dsonar.projectKey=symonk_pylenium  -Dsonar.organization=symonk-github
 branches:
   only:
-  - master
+    - master
 git:
   depth: 99999
 
 before_install:
-- export CHROME_BIN=/usr/bin/google-chrome
+  - export CHROME_BIN=/usr/bin/google-chrome
 
 cache:
   directories:
-  - "$HOME/.sonar/cache"
-  -
+    - "$HOME/.sonar/cache"
+    -
 addons:
   apt:
     update: true

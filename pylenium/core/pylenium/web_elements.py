@@ -1,4 +1,5 @@
 from __future__ import annotations
+
 from selenium.webdriver.remote.webelement import WebElement
 
 from pylenium.conditions.condition import PyCondition
@@ -8,12 +9,6 @@ class PyElement(WebElement):
 
     def __init__(self, parent, id_):
         super().__init__(parent, id_)
-
-    def find(self):
-        pass
-
-    def find_all(self):
-        pass
 
     def set_value(self, value: str) -> PyElement:
         super().send_keys(value)
@@ -26,3 +21,5 @@ class PyElement(WebElement):
     def click(self) -> None:
         super().click()
 
+    def get_wrapped_elememnt(self) -> WebElement:
+        return super()

@@ -8,6 +8,3 @@ def auto_close(request):
         terminate()
 
     request.addfinalizer(auto_close_browser)
-
-
-

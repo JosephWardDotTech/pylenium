@@ -1,6 +1,6 @@
 import pytest
 
-from pylenium.core.pylenium.elements_and_conditions import Text
+from pylenium.conditions.condition import Text
 from pylenium.core.pylenium.pylenium import start, find, terminate, By
 
 

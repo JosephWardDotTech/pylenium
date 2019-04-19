@@ -1,6 +1,6 @@
 from abc import abstractmethod, ABC
 
-from pylenium.core.pylenium.elements_and_conditions import PyElement
+from pylenium.core.pylenium.web_elements import PyElement
 
 
 class PyCondition(ABC):

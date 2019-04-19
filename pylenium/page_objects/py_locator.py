@@ -1,4 +1,5 @@
 from abc import ABC, abstractmethod
+
 # Shorthand pylenium locators
 # X = XPATH
 # CSS = CSS_SELECTOR
@@ -7,23 +8,28 @@ from abc import ABC, abstractmethod
 # Class = Class
 # Name = Class_Name
 # Tag = Tag_Name
+from selenium.webdriver.common.by import By
+
+from pylenium.core.pylenium.pylenium import get_driver
+from pylenium.core.pylenium.web_elements import PyElement
 
 
 class PyLocator(ABC):
-    def __init__(self, selector: str):
+    def __init__(self, by: By, selector: str):
+        self.by = by
         self.selector = selector
 
     @abstractmethod
-    def lookup(self):
+    def lookup(self) -> PyElement:
         pass
 
 
 class X(PyLocator):
     def __init__(self, selector: str):
-        super().__init__(selector)
+        super().__init__(By.XPATH, selector)
 
     def lookup(self):
-        pass
+        return get_driver().find()
 
 
 class CSS(PyLocator):
