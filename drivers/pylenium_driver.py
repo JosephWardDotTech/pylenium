@@ -1,9 +1,9 @@
 from __future__ import annotations
 
+import logging
 import threading
 from typing import Union, List
 
-import logging
 from selenium.webdriver.common.by import By
 from selenium.webdriver.remote import webdriver
 

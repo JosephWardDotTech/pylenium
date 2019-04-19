@@ -1,8 +1,7 @@
 from __future__ import annotations
 
-import sys
-from typing import List, Union
 import logging
+from typing import List, Union
 
 from selenium.webdriver.common.by import By
 from selenium.webdriver.remote import webdriver
@@ -14,7 +13,6 @@ from page_objects.page_object import PyPage
 
 log = logging.getLogger('pylenium')
 log.setLevel(logging.INFO)
-
 
 # global config object
 config = PyleniumConfig()

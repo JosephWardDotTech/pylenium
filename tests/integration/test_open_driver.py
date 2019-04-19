@@ -1,5 +1,4 @@
 from __future__ import annotations
-from concurrent.futures.thread import ThreadPoolExecutor
 
 import pytest
 
@@ -35,4 +34,3 @@ class TestOpen(object):
         google = 'https://www.google.co.uk/'
         actual = start(google).url()
         assert actual == google
-

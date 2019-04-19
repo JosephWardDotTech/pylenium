@@ -1,8 +1,8 @@
 from __future__ import annotations
 
+import logging
 from abc import abstractmethod, ABC
 
-import logging
 from selenium import webdriver
 from selenium.webdriver.chrome.options import Options
 from webdriver_manager.chrome import ChromeDriverManager
