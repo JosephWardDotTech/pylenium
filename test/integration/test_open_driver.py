@@ -1,7 +1,7 @@
 import pytest
 
-from pylenium.conditions.condition import Text
-from pylenium.core.pylenium.pylenium import start, find, terminate, By
+from conditions.condition import Text
+from common.pylenium import start, find, terminate, By
 
 
 class TestOpen(object):

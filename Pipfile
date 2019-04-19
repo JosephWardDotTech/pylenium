@@ -13,6 +13,7 @@ pytest = "*"
 flake8 = "*"
 webdriver-manager = "*"
 colorama = "*"
+pycmd = "*"
 
 [requires]
 python_version = "3.7"
