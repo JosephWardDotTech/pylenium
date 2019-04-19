@@ -31,8 +31,8 @@ Pylenium is a test automation harness for web applications written in python. Wh
 ### Configuration :clipboard:
 Pylenium config is very powerful, but also assumes sensible defaults.  You can modify your config via:
 
- - Runtime via pytest --cli args 
- - Setting environment variables for any of the values
+ - Setting environment variables for any of the values (see our travis.yml)
+ - Programmatically by just getting the config and modifying it! PyleniumConfig() [Singleton]
  - Do nothing, likely the default will be perfect for your needs!
 
 ```python
