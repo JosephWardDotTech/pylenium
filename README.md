@@ -91,7 +91,7 @@ Pylenium config is very powerful, but also assumes sensible defaults.  You can m
     # -> default: [disabled]
     javascript_clicking = os.getenv('pylenium.js_click', False)  
     
-        # should pylenium send_keys with javascript?
+    # should pylenium send_keys with javascript?
     #  @options -> 'true', 'false', 'only-on-failure' (only when sending keys is failing normally)
     # -> default: [disabled]
     javascript_sendkeys = os.getenv('pylenium.js_sendkeys', False) 
