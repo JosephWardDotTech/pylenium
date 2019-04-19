@@ -6,7 +6,7 @@ from selenium.webdriver.common.by import By
 from selenium.webdriver.remote import webdriver
 
 from config.config import PyleniumConfig
-from core.web_elements import PyElement
+from core.elements import PyElement
 from drivers.driver_strategy import ChromeBrowserStrategy, FirefoxBrowserStrategy
 from page_objects.page_object import PyPage
 

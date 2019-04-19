@@ -11,7 +11,7 @@ from abc import ABC, abstractmethod
 from selenium.webdriver.common.by import By
 
 from core.pylenium import get_driver
-from core.web_elements import PyElement
+from core.elements import PyElement
 
 
 class PyLocator(ABC):
@@ -24,15 +24,13 @@ class PyLocator(ABC):
         pass
 
 
-class PyLocator):  # NOSONAR
-
+class X(PyLocator):  # NOSONAR
 
     def __init__(self, selector: str):
         super().__init__(By.XPATH, selector)
 
-
-def lookup(self):
-    return get_driver().find()
+    def lookup(self):
+        pass
 
 
 class CSS(PyLocator):

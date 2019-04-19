@@ -2,7 +2,7 @@ from __future__ import annotations
 
 from abc import abstractmethod, ABC
 
-from core.web_elements import PyElement
+from core.elements import PyElement
 
 
 class PyCondition(ABC):

@@ -5,7 +5,7 @@ from typing import List, Union
 from selenium.webdriver.common.by import By
 
 from config.config import PyleniumConfig
-from core.web_elements import PyElement
+from core.elements import PyElement
 from drivers.pylenium_driver import PyleniumDriver
 from page_objects.page_object import PyPage
 
