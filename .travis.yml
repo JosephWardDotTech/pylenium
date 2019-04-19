@@ -7,7 +7,7 @@ install:
   - pipenv install
   - pipenv sync
 script:
-  - pytest -m travis --workers 2 --tests-per-worker auto
+  - pytest -m travis
   - sonar-scanner -Dsonar.projectKey=symonk_pylenium  -Dsonar.organization=symonk-github
 branches:
   only:

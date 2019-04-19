@@ -12,7 +12,6 @@ from core.elements import PyElement
 from drivers.pylenium_driver import PyleniumDriver
 from page_objects.page_object import PyPage
 
-logging.basicConfig(stream=sys.stdout, level=logging.INFO)
 log = logging.getLogger('pylenium')
 log.setLevel(logging.INFO)
 
