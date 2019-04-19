@@ -19,5 +19,3 @@ class PyElement(WebElement):
     def click(self) -> None:
         super().click()
 
-    def get_wrapped_elememnt(self) -> WebElement:
-        return super()

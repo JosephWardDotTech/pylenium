@@ -7,6 +7,9 @@ from selenium.webdriver import DesiredCapabilities
 
 
 # Pyleniums possible web element lookup strategy (by default)
+from common.meta import Singleton
+
+
 class Selector(Enum):
     CSS = 'CSS'
     XPATH = 'XPATH'
@@ -27,7 +30,7 @@ class PageLoadStrategy(Enum):
     EAGER = 'eager'
 
 
-class PyleniumConfig(object):
+class PyleniumConfig(metaclass=Singleton):
     __browser = os.getenv('pylenium.browser', Browser.CHROME)
     __headless = os.getenv('pylenium.headless', False)
     __remote = os.getenv('pylenium.remote', False)

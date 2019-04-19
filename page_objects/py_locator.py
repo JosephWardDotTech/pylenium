@@ -10,8 +10,8 @@ from abc import ABC, abstractmethod
 # Tag = Tag_Name
 from selenium.webdriver.common.by import By
 
-from common.pylenium import get_driver
-from common.web_elements import PyElement
+from core.pylenium import get_driver
+from core.web_elements import PyElement
 
 
 class PyLocator(ABC):
@@ -24,7 +24,7 @@ class PyLocator(ABC):
         pass
 
 
-class X(PyLocator):  # NOSONAR
+class PyLocator):  # NOSONAR
     def __init__(self, selector: str):
         super().__init__(By.XPATH, selector)
 
