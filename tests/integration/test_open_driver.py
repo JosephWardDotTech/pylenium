@@ -6,6 +6,7 @@ from conditions.condition import Text
 from core.pylenium import start, find, terminate, By
 
 
+@pytest.mark.IT
 class TestOpen(object):
 
     # Page Objects and business logic sold separately!
