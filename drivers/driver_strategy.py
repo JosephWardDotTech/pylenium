@@ -23,8 +23,10 @@ class AbstractBrowserStrategy(ABC):
 class ChromeBrowserStrategy(AbstractBrowserStrategy):
 
     def instantiate(self):
-        chrome_options = Options()
-        chrome_options.add_argument("--headless")
+        chrome_options = None
+        if config.headless:
+            chrome_options = Options()
+            chrome_options.add_argument("--headless")
         return webdriver.Chrome(ChromeDriverManager().install(), options=chrome_options)
 
 

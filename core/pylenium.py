@@ -9,6 +9,10 @@ from core.elements import PyElement
 from drivers.pylenium_driver import PyleniumDriver
 from page_objects.page_object import PyPage
 
+with open('./resources/ascii.txt') as stream:
+    for line in stream:
+        print(line)
+
 # global config object
 config = PyleniumConfig()
 
