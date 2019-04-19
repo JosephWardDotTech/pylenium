@@ -3,6 +3,7 @@ from __future__ import annotations
 import threading
 from typing import Union, List
 
+import logging
 from selenium.webdriver.common.by import By
 from selenium.webdriver.remote import webdriver
 
@@ -11,6 +12,7 @@ from core.elements import PyElement
 from drivers.driver_strategy import ChromeBrowserStrategy, FirefoxBrowserStrategy
 from page_objects.page_object import PyPage
 
+log = logging.getLogger('pylenium')
 config = PyleniumConfig()
 threaded_driver = threading.local()
 
@@ -18,7 +20,7 @@ threaded_driver = threading.local()
 class PyleniumDriver:
     def __init__(self):
         if not hasattr(threaded_driver, 'driver'):
-            print('This thread has no driver, lets make a new one!')
+            log.info('Thread: {} has no driver, instantiating a new driver for use!')
             self._driver = self._get_browser_strategy().instantiate()
             threaded_driver.driver = self._driver
         else:
@@ -41,6 +43,7 @@ class PyleniumDriver:
         return self
 
     def quit(self):
+        log.info('Quit called, terminating the browser')
         self.driver.quit()
         del threaded_driver.driver
 
@@ -59,6 +62,7 @@ class PyleniumDriver:
     @staticmethod
     def _get_browser_strategy():
         if config.browser.value == 'chrome':
+            log.info('Creating a chrome browser instance')
             return ChromeBrowserStrategy()
         elif config.browser.value == 'firefox':
             return FirefoxBrowserStrategy()
