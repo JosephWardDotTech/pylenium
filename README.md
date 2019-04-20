@@ -111,8 +111,8 @@ Pylenium config is very powerful, but also assumes sensible defaults.  You can m
 ### Page Objects :hearts:
 Easy, hassle free, abstracted -> Exactly how page objects should be!
 
-
     ```python
+    
     # Page objects don't care or even know about the driver, its magic!
     # No need for weird locating/page factory style things (ew java!)
     # Not necessary, but definitely recommended! (@see: our page objectless example code!)
