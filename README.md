@@ -113,23 +113,23 @@ Easy, hassle free, abstracted -> Exactly how page objects should be!
 
 ```python
 
-# Page objects don't care or even know about the driver, its magic!
-# No need for weird locating/page factory style things (ew java!)
-# Not necessary, but definitely recommended! (@see: our page objectless example code!)
-# PyElement is extremely smart, no chance of staleness and built in smart waiting for conditions!
-
-class ExamplePageObject(PyPage):
-_page_field = ID('basic_text')
-
-def __init__(self):
-    super().__init__('basic_text.html')
-
-def retrieve_the_text(self) -> str:
-    return self._page_field.text()
-
-def set_the_text(self, value: str) -> ExamplePageObject:
-    self._page_field.set_text(value)
-    return self
+    # Page objects don't care or even know about the driver, its magic!
+    # No need for weird locating/page factory style things (ew java!)
+    # Not necessary, but definitely recommended! (@see: our page objectless example code!)
+    # PyElement is extremely smart, no chance of staleness and built in smart waiting for conditions!
+    
+    class ExamplePageObject(PyPage):
+    _page_field = ID('basic_text')
+    
+    def __init__(self):
+        super().__init__('basic_text.html')
+    
+    def retrieve_the_text(self) -> str:
+        return self._page_field.text()
+    
+    def set_the_text(self, value: str) -> ExamplePageObject:
+        self._page_field.set_text(value)
+        return self
 ```
     
 ---
