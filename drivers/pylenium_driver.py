@@ -2,7 +2,7 @@ from __future__ import annotations
 
 import logging
 import threading
-from typing import Union, List
+from typing import Union
 
 from selenium.webdriver.remote import webdriver
 

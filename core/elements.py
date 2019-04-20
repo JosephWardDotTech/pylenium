@@ -1,7 +1,9 @@
 from __future__ import annotations
 
-from selenium.webdriver.remote import webelement
 import logging
+
+from selenium.webdriver.remote import webelement
+
 log = logging.getLogger('pylenium')
 
 
@@ -11,6 +13,7 @@ def refresh(f):
         log.info('Re-finding the web element')
         args[0].element = args[0].find()
         return f(*args)
+
     return wrapper
 
 
@@ -19,6 +22,7 @@ def page_stability(f):
         # js, stability, ajax etc!
         log.info('Stabilizing the page')
         return f(*args)
+
     return wrapper
 
 
@@ -41,10 +45,3 @@ class PyElement:
     def find(self) -> webelement:
         from core.pylenium import get_wrapped_driver
         return get_wrapped_driver().find_element(self.locator.by, self.locator.selector)
-
-
-
-
-
-
-

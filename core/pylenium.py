@@ -36,4 +36,3 @@ def get_wrapped_driver() -> webdriver:
 
 def find(locator: PyLocator) -> PyElement:
     return PyleniumDriver().find(locator)
-

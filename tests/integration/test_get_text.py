@@ -1,7 +1,8 @@
 from __future__ import annotations
 
 import pytest
-from core.locators import *
+
+from core.locators import ID
 from core.pylenium import find, terminate
 from tests.integration.integration_test import IntegrationTest
 
