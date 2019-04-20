@@ -15,6 +15,11 @@ from page_objects.page_object import PyPage
 log = logging.getLogger('pylenium')
 log.setLevel(logging.INFO)
 
+# ascii:
+with open('resources/ascii.txt') as art:
+    for line in art:
+        print(line)
+
 # global config object
 config = PyleniumConfig()
 
