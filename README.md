@@ -25,7 +25,19 @@ Pylenium is a test automation harness for web applications written in python. Wh
       find(Name('user.name')).set_value('simon')
       find(Name('password')).set_value('securepassword')
       find('#submit').click() # default css_selector lookup
-      find('#username').should_have(text('Hello, Simon!')) # default css_selector lookup
+      find('#username').should_have(text('Hello, Simon!')) # default css_selector lookup      
+```
+
+```python
+    class ExamplePageObject(PyPage):
+        _page_field = ID('base_text') # a whole assortment of these for all lookups!
+    
+        def retrieve_the_text(self) -> str:
+            return self._page_field.text()
+    
+        def set_the_text(self, value: str) -> ExamplePageObject:
+            self._page_field.set_text(value)
+            return self
 ```
 
 ---

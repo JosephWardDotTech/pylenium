@@ -42,6 +42,11 @@ class PyElement:
     def text(self) -> str:
         return self.element.text
 
+    @page_stability
+    @refresh
+    def set_text(self, value) -> PyElement:
+        return self.element.send_keys(value)
+
     def find(self) -> webelement:
         from core.pylenium import get_wrapped_driver
         return get_wrapped_driver().find_element(self.locator.by, self.locator.selector)

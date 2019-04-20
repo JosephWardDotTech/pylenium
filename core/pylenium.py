@@ -3,6 +3,7 @@ from __future__ import annotations
 import logging
 from typing import Union
 
+from selenium.webdriver.common.by import By
 from selenium.webdriver.remote import webdriver
 
 from config.config import PyleniumConfig
@@ -36,3 +37,7 @@ def get_wrapped_driver() -> webdriver:
 
 def find(locator: PyLocator) -> PyElement:
     return PyleniumDriver().find(locator)
+
+
+def ID(selector: str) -> PyElement:
+    return find(PyLocator(By.ID, selector))
