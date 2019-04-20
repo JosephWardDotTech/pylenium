@@ -6,6 +6,9 @@ from page_objects.page_object import PyPage
 class ExamplePageObject(PyPage):
     _page_field = ID('basic_text')
 
+    def __init__(self):
+        super().__init__('basic_text.html')
+
     def retrieve_the_text(self) -> str:
         return self._page_field.text()
 
