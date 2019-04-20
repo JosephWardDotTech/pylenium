@@ -1,20 +1,41 @@
 from __future__ import annotations
 
-from selenium.webdriver.remote.webelement import WebElement
+from selenium.webdriver.remote import webelement
 
 
-class PyElement(WebElement):
+# refreshes the underlying web element to prevent staleness etc
+def refresh(f):
+    def wrapper(*args):
+        breakpoint()
+        args[0].element = args[0].find()
+        return f(*args)
+    return wrapper
 
-    def __init__(self, parent, id_):
-        super().__init__(parent, id_)
 
-    def set_value(self, value: str) -> PyElement:
-        super().send_keys(value)
-        return self
+def stability(f):
+    def wrapper(*args):
+        # js, stability, ajax etc!
+        return f(*args)
+    return wrapper
 
-    def should_have(self, pylenium_condition) -> PyElement:
-        pylenium_condition.evaluate(self)
-        return self
 
-    def click(self) -> None:
-        super().click()
+class PyElement:
+
+    def __init__(self, locator):
+        self.locator = locator
+        self.element: webelement = None
+
+    @refresh
+    def tag_name(self) -> str:
+        return self.element.tag_name()
+
+    def find(self) -> webelement:
+        from core.pylenium import get_wrapped_driver
+        return get_wrapped_driver().find_element(self.locator.by, self.locator.selector)
+
+
+
+
+
+
+

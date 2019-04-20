@@ -1,9 +1,11 @@
 from __future__ import annotations
 
 import pytest
+from selenium.webdriver.common.by import By
 
 from conditions.condition import Text
-from core.pylenium import start, find, terminate, By
+from core.locators import Tag
+from core.pylenium import start, find, terminate
 
 
 @pytest.mark.IT
@@ -22,16 +24,5 @@ class TestOpen(object):
     def test_travis(self):
         google = 'https://www.google.co.uk/'
         actual = start(google).url()
-        assert actual == google
-
-    @pytest.mark.travis
-    def test_travis2(self):
-        google = 'https://www.google.co.uk/'
-        actual = start(google).url()
-        assert actual == google
-
-    @pytest.mark.travis
-    def test_travis3(self):
-        google = 'https://www.google.co.uk/'
-        actual = start(google).url()
+        tag_is = find(Tag('h1')).tag_name()
         assert actual == google

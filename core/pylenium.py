@@ -1,13 +1,13 @@
 from __future__ import annotations
 
 import logging
-from typing import List, Union
+from typing import Union
 
-from selenium.webdriver.common.by import By
 from selenium.webdriver.remote import webdriver
 
 from config.config import PyleniumConfig
 from core.elements import PyElement
+from core.locators import PyLocator
 from drivers.pylenium_driver import PyleniumDriver
 from page_objects.page_object import PyPage
 
@@ -34,9 +34,6 @@ def get_wrapped_driver() -> webdriver:
     return PyleniumDriver().driver
 
 
-def find(by: By, selector: str) -> PyElement:
-    return PyleniumDriver().find(by, selector)
+def find(locator: PyLocator) -> PyElement:
+    return PyleniumDriver().find(locator)
 
-
-def find_all(by: By, selector: str) -> List[PyElement]:
-    return PyleniumDriver().find_all((by, selector))

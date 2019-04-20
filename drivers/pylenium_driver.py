@@ -4,11 +4,11 @@ import logging
 import threading
 from typing import Union, List
 
-from selenium.webdriver.common.by import By
 from selenium.webdriver.remote import webdriver
 
 from config.config import PyleniumConfig
 from core.elements import PyElement
+from core.locators import PyLocator
 from drivers.driver_strategy import ChromeBrowserStrategy, FirefoxBrowserStrategy
 from page_objects.page_object import PyPage
 
@@ -20,7 +20,7 @@ threaded_driver = threading.local()
 class PyleniumDriver:
     def __init__(self):
         if not hasattr(threaded_driver, 'driver'):
-            log.info('Thread: {} has no driver, instantiating a new driver for use!')
+            log.info('Thread: {} has no driver, instantiating a new driver for use...'.format(threading.get_ident()))
             self._driver = self._get_browser_strategy().instantiate()
             threaded_driver.driver = self._driver
         else:
@@ -50,14 +50,9 @@ class PyleniumDriver:
     def url(self) -> str:
         return self.driver.current_url
 
-    def find(self, by: By, selector: str) -> PyElement:
-        return self.driver.find_element(by.lookup())
-
-    def find_all(self, by) -> List[PyElement]:
-        return self.driver.find_elements(by.lookup())
-
-    def exec_js(self, command: str) -> PyleniumDriver:
-        return self
+    @staticmethod
+    def find(locator: PyLocator) -> PyElement:
+        return PyElement(locator)
 
     @staticmethod
     def _get_browser_strategy():
