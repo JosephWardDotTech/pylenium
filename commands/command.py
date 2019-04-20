@@ -4,9 +4,10 @@ from typing import Union
 from common.decorators import anti_staleness, ready_state
 import logging
 import abc
+from core.pylenium import get_driver
+
 if typing.TYPE_CHECKING:
     from core.elements import PyElement
-    from core.pylenium import get_driver
 
 log = logging.getLogger('pylenium')
 

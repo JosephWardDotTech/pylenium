@@ -1,8 +1,5 @@
 from __future__ import annotations
-from commands.command import Command
-import typing
-if typing.TYPE_CHECKING:
-    from core.elements import PyElement
+from commands.command import Command, PyElement
 
 
 class GetTagCommand(Command):
