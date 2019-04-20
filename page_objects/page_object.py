@@ -17,4 +17,3 @@ class PyPage:
     def url(self, value) -> PyPage:
         self.url = value
         return self
-
