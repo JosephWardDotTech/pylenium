@@ -12,21 +12,21 @@
 [![Find_Me Slack](https://img.shields.io/badge/Find_Me-Slack-brightgreen.svg)](https://testersio.slack.com)
 
 ## What is Pylenium? :flags: 
-From the frustrations of limitations on other framework options in the python space, Pylenium was born.
 Pylenium is a test automation harness for web applications written in python. Why spend time fussing around boilerplate code and instability in your end to end tests, Pylenium takes care of it. Let's see how simple it really is:
 
 
 ```python
-    # Page Objects and business logic sold separately! 
-    @pylenium.case_description('Logging in is so easy!') # <-- don't write tests like this! they aren't end2end
+    # Page objects sold seperately, see below!
+    @pylenium.case_description('Logging in is so easy!') 
     @pylenium.case_data(case='testcase-101', issue_id='issue-949')
     def test_my_login(self):
-      start(self.login_page()) # no driver hassle, just get started! we will handle the thread-safe driver for you!
+      start(self.login_page()) # dont fuss about drivers, just go!
       find(Name('user.name')).set_value('simon')
       find(Name('password')).set_value('securepassword')
-      find('#submit').click() # default css_selector lookup
-      find('#username').should_have(text('Hello, Simon!')) # default css_selector lookup      
+      find('#submit').click() 
+      find('#username').should_have(text('Hello, Simon!'))      
 ```
+---
 
 ```python
     class ExamplePageObject(PyPage):
