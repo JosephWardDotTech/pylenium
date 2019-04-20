@@ -36,7 +36,7 @@ class PyleniumDriver:
         raise Exception('Pylenium manages the driver(s), do not attempt to change the driver reference')
 
     def goto(self, entry_point: Union[str, PyPage]) -> Union[PyleniumDriver, PyPage]:
-        url = entry_point if isinstance(entry_point, str) else entry_point.url
+        url = PyleniumConfig().base_url + entry_point if isinstance(entry_point, str) else entry_point.url
         if not url:
             raise PyPageException('The url was empty, did your page object specify the self.url parameter?')
         else:

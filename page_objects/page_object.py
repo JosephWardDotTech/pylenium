@@ -6,11 +6,12 @@ from config.config import PyleniumConfig
 class PyPage:
     def __init__(self, relative_url: str = ''):
         self.config = PyleniumConfig()
-        self.url = self.config.base_url + relative_url
+        self._relative_url = relative_url
 
     @property
     def url(self) -> str:
-        return self.url
+        # reload in case env has changed
+        return self.config.base_url + self._relative_url
 
     @url.setter
     def url(self, value) -> PyPage:

@@ -19,7 +19,7 @@ config = PyleniumConfig()
 
 
 def start(entry_point: Union[str, PyPage]) -> Union[PyleniumDriver, PyPage]:
-    return PyleniumDriver().maximize().goto(PyleniumConfig().base_url + entry_point)
+    return PyleniumDriver().maximize().goto(entry_point)
 
 
 def terminate() -> None:
