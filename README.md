@@ -111,13 +111,13 @@ Pylenium config is very powerful, but also assumes sensible defaults.  You can m
 ### Page Objects :hearts:
 Easy, hassle free, abstracted -> Exactly how page objects should be!
 
-- Page objects don't care or even know about the driver, its magic!
-- No need for weird locating/page factory style things (ew java!)
-- Not necessary, but definitely recommended! (@see: our page objectless example code!)
-- PyElement is extremely smart, no chance of staleness and built in smart waiting for conditions!
-
 
     ```python
+    # Page objects don't care or even know about the driver, its magic!
+    # No need for weird locating/page factory style things (ew java!)
+    # Not necessary, but definitely recommended! (@see: our page objectless example code!)
+    # PyElement is extremely smart, no chance of staleness and built in smart waiting for conditions!
+    
     class ExamplePageObject(PyPage):
     _page_field = ID('basic_text')
     
