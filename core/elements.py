@@ -8,7 +8,7 @@ log = logging.getLogger('pylenium')
 # refreshes the underlying web element to prevent staleness etc
 def refresh(f):
     def wrapper(*args):
-        log.info('Refinding the webelement')
+        log.info('Re-finding the web element')
         args[0].element = args[0].find()
         return f(*args)
     return wrapper
