@@ -15,6 +15,7 @@ webdriver-manager = "*"
 colorama = "*"
 pycmd = "*"
 pytest-parallel = "*"
+pytest-cov = "*"
 
 [requires]
 python_version = "3.7"

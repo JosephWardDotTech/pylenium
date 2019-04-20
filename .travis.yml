@@ -8,7 +8,7 @@ install:
   - pipenv sync
 script:
   - python -m http.server & # integration server
-  - pytest -m IT
+  - pytest -m IT --cov-report term --cov=./
   - sonar-scanner -Dsonar.projectKey=symonk_pylenium  -Dsonar.organization=symonk-github
 branches:
   only:
@@ -36,3 +36,6 @@ packages:
 env:
   pylenium_headless=true
   pylenium_base_url = 'http://localhost:8000/tests/server/static_content/'
+
+after_success:
+  - codecov
