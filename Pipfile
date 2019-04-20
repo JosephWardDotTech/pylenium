@@ -16,6 +16,7 @@ colorama = "*"
 pycmd = "*"
 pytest-parallel = "*"
 pytest-cov = "*"
+codecov = "*"
 
 [requires]
 python_version = "3.7"
