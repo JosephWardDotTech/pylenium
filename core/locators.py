@@ -42,3 +42,8 @@ class Name(PyLocator):
 class Tag(PyLocator):
     def __init__(self, selector: str):
         super().__init__(By.TAG_NAME, selector)
+
+
+class ID(PyLocator):
+    def __init__(self, selector: str):
+        super().__init__(By.ID, selector)
