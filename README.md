@@ -19,29 +19,16 @@ Pylenium is a test automation harness for web applications written in python. Wh
     # Page objects sold seperately, see below!
     @pylenium.case_description('Logging in is so easy!') 
     @pylenium.case_data(case='testcase-101', issue_id='issue-949')
-    def test_my_login(self):
+    def test_my_login():
       start('http://www.google.co.uk') # don't fuss about drivers, just go!
       find(Name('user.name')).set_value('simon')
       find(Name('password')).set_value('securepassword')
       find('#submit').click() 
       find('#username').should_have(text('Hello, Simon!'))      
-```
----
 
-```python
-    class ExamplePageObject(PyPage):
-        _page_field = ID('base_text') # a whole assortment of these for all lookups!
-    
-        def retrieve_the_text(self) -> str:
-            return self._page_field.text()
-    
-        def set_the_text(self, value: str) -> ExamplePageObject:
-            self._page_field.set_text(value)
-            return self
-            
-        # How does it work, easy!
-        def test_some_cool_page(self):
-            start(ExamplePageObject()) # page loaded, page object instantiated!
+    # But I want page objects! - so easy: @see: below docs for Page object docs
+    def test_some_cool_page(self):
+        start(ExamplePageObject()) # page loaded, page object instantiated!
 ```
 
 ---
@@ -127,6 +114,7 @@ Easy, hassle free, abstracted -> Exactly how page objects should be!
     - Page objects don't care or even know about the driver, its magic!
     - No need for weird locating/page factory style things (ew java!)
     - Not necessary, but definitely recommended! (@see: our page objectless example code!)
+    - PyElement is extremely smart, no chance of staleness and built in smart waiting for conditions!
     
     ```python
     class ExamplePageObject(PyPage):
