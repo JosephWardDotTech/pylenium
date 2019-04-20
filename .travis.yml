@@ -35,3 +35,4 @@ packages:
 
 env:
   pylenium_headless=true
+  pylenium_base_url = 'http://localhost:8000/tests/server/static_content/'
