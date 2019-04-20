@@ -10,45 +10,47 @@ from common.meta import Singleton
 
 
 class Selector(Enum):
-    CSS = 'CSS'
-    XPATH = 'XPATH'
-    ID = 'ID'
+    CSS = "CSS"
+    XPATH = "XPATH"
+    ID = "ID"
 
 
 # Pyleniums possible browser (by default)
 class Browser(Enum):
-    CHROME = 'chrome'
-    FIREFOX = 'firefox'
+    CHROME = "chrome"
+    FIREFOX = "firefox"
 
 
 # Pyleniums page loading strategy (by default)
 # This is basically how quickly Pylenium will attempt to proceed on page loads and click follow up actions
 class PageLoadStrategy(Enum):
-    NORMAL = 'normal'
-    FAST = 'fast'
-    EAGER = 'eager'
+    NORMAL = "normal"
+    FAST = "fast"
+    EAGER = "eager"
 
 
 class PyleniumConfig(metaclass=Singleton):
     def __init__(self):
-        self._browser = os.getenv('pylenium_browser', Browser.CHROME)
-        self._headless = os.getenv('pylenium_headless', False)
-        self._remote = os.getenv('pylenium_remote', False)
-        self._browser_size = os.getenv('pylenium_browser_size', '1366x768')
-        self._browser_version = os.getenv('pylenium_browser_version', None)
-        self._browser_position = os.getenv('pylenium_browser_position', None)
-        self._browser_maximized = os.getenv('pylenium_maximized', True)
-        self._wdm_enabled = os.getenv('pylenium_wdm_enabled', True)
-        self._browser_binary = os.getenv('pylenium_browser_binary', '')
-        self._page_load_strategy = os.getenv('pylenium_page_load_strategy', PageLoadStrategy.NORMAL)
+        self._browser = os.getenv("pylenium_browser", Browser.CHROME)
+        self._headless = os.getenv("pylenium_headless", False)
+        self._remote = os.getenv("pylenium_remote", False)
+        self._browser_size = os.getenv("pylenium_browser_size", "1366x768")
+        self._browser_version = os.getenv("pylenium_browser_version", None)
+        self._browser_position = os.getenv("pylenium_browser_position", None)
+        self._browser_maximized = os.getenv("pylenium_maximized", True)
+        self._wdm_enabled = os.getenv("pylenium_wdm_enabled", True)
+        self._browser_binary = os.getenv("pylenium_browser_binary", "")
+        self._page_load_strategy = os.getenv(
+            "pylenium_page_load_strategy", PageLoadStrategy.NORMAL
+        )
         self._desired_capabilities = DesiredCapabilities()
-        self._base_url = os.getenv('pylenium_base_url', 'http://localhost:8080/')
-        self._explicit_wait_timeout = os.getenv('pylenium_wait_timeout', 15000)
-        self._polling_timeout = os.getenv('pylenium_polling_timeout', 200)
-        self._capture_screenshot = os.getenv('pylenium_screenshot', True)
-        self._capture_pagesource = os.getenv('pylenium_pagesource', True)
-        self._javascript_clicking = os.getenv('pylenium_js_click', False)
-        self._javascript_sendkeys = os.getenv('pylenium_js_sendkeys', False)
+        self._base_url = os.getenv("pylenium_base_url", "http://localhost:8080/")
+        self._explicit_wait_timeout = os.getenv("pylenium_wait_timeout", 15000)
+        self._polling_timeout = os.getenv("pylenium_polling_timeout", 200)
+        self._capture_screenshot = os.getenv("pylenium_screenshot", True)
+        self._capture_pagesource = os.getenv("pylenium_pagesource", True)
+        self._javascript_clicking = os.getenv("pylenium_js_click", False)
+        self._javascript_sendkeys = os.getenv("pylenium_js_sendkeys", False)
         self._selector_default = Selector.CSS
 
     @property

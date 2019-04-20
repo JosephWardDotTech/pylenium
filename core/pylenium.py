@@ -12,11 +12,11 @@ from core.locators import PyLocator
 from drivers.pylenium_driver import PyleniumDriver
 from page_objects.page_object import PyPage
 
-log = logging.getLogger('pylenium')
+log = logging.getLogger("pylenium")
 log.setLevel(logging.INFO)
 
 # ascii:
-with open('resources/ascii.txt') as art:
+with open("resources/ascii.txt") as art:
     for line in art:
         print(line)
 

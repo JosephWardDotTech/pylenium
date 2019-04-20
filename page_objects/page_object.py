@@ -4,7 +4,7 @@ from config.config import PyleniumConfig
 
 
 class PyPage:
-    def __init__(self, relative_url: str = ''):
+    def __init__(self, relative_url: str = ""):
         self.config = PyleniumConfig()
         self._relative_url = relative_url
 

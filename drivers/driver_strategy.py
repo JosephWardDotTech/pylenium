@@ -11,7 +11,7 @@ from webdriver_manager.firefox import GeckoDriverManager
 from config.config import PyleniumConfig
 
 config = PyleniumConfig()
-log = logging.getLogger('pylenium')
+log = logging.getLogger("pylenium")
 
 
 class AbstractBrowserStrategy(ABC):
@@ -23,23 +23,20 @@ class AbstractBrowserStrategy(ABC):
 
 
 class ChromeBrowserStrategy(AbstractBrowserStrategy):
-
     def instantiate(self):
         chrome_options = None
         if config.headless:
-            log.info('you specified headless, setting chrome options for headless now')
+            log.info("you specified headless, setting chrome options for headless now")
             chrome_options = Options()
             chrome_options.add_argument("--headless")
         return webdriver.Chrome(ChromeDriverManager().install(), options=chrome_options)
 
 
 class FirefoxBrowserStrategy(AbstractBrowserStrategy):
-
     def instantiate(self):
         return webdriver.Firefox(GeckoDriverManager().install())
 
 
 class RemoteWebDriverBrowserStrategy(AbstractBrowserStrategy):
-
     def instantiate(self):
         pass

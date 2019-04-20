@@ -1,15 +1,17 @@
 from __future__ import annotations
+
+import abc
+import logging
 import typing
 from typing import Union
+
 from common.decorators import anti_staleness, ready_state
-import logging
-import abc
 from core.pylenium import get_driver
 
 if typing.TYPE_CHECKING:
     from core.elements import PyElement
 
-log = logging.getLogger('pylenium')
+log = logging.getLogger("pylenium")
 
 
 class Command(metaclass=abc.ABCMeta):

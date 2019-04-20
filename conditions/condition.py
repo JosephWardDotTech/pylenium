@@ -6,7 +6,6 @@ from core.elements import PyElement
 
 
 class PyCondition(ABC):
-
     @abstractmethod
     def evaluate(self, py_element: PyElement) -> PyElement:
         pass

@@ -6,9 +6,8 @@ from core.locators import ID
 from core.pylenium import find
 
 
-@pytest.mark.IT(page='basic_text.html')
+@pytest.mark.IT(page="basic_text.html")
 class TestRetrieveText:
-
     def test_basic_text_retrieval(self):
-        text = find(ID('basic_text')).text()
-        assert text == 'Hello World'
+        text = find(ID("basic_text")).text()
+        assert text == "Hello World"

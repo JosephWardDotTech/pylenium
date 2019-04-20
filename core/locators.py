@@ -10,7 +10,6 @@ class PyLocator(ABC):
 
 
 class X(PyLocator):  # NOSONAR
-
     def __init__(self, selector: str):
         super().__init__(By.XPATH, selector)
 
