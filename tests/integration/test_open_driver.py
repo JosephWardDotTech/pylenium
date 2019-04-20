@@ -1,10 +1,8 @@
 from __future__ import annotations
 
 import pytest
-from selenium.webdriver.common.by import By
-
 from conditions.condition import Text
-from core.locators import Tag
+from core.locators import *
 from core.pylenium import start, find, terminate
 
 
@@ -23,6 +21,6 @@ class TestOpen(object):
     @pytest.mark.travis
     def test_travis(self):
         google = 'https://www.google.co.uk/'
-        actual = start(google).url()
-        tag_is = find(Tag('h1')).tag_name()
-        assert actual == google
+        start(google).url()
+        tag_is = find(Name('q')).text()
+        assert tag_is == ''
