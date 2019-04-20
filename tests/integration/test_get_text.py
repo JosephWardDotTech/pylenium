@@ -10,5 +10,5 @@ from core.pylenium import find
 class TestRetrieveText:
 
     def test_basic_text_retrieval(self):
-        text = find(ID('heyworld')).text()
-        assert text == 'Hello Wurld!'
+        text = find(ID('basic_text')).text()
+        assert text == 'Hello World'
