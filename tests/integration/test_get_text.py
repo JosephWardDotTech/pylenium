@@ -3,18 +3,11 @@ from __future__ import annotations
 import pytest
 
 from core.locators import ID
-from core.pylenium import find, terminate
-from tests.integration.integration_test import IntegrationTest
+from core.pylenium import find
 
 
-@pytest.mark.IT
-class TestRetrieveText(IntegrationTest):
-
-    @pytest.fixture(scope='function', autouse=True)
-    def manage_test(self, request):
-        IntegrationTest.open_file('basic_text.html')
-        yield
-        terminate()
+@pytest.mark.IT(page='basic_text.html')
+class TestRetrieveText:
 
     def test_basic_text_retrieval(self):
         text = find(ID('heyworld')).text()

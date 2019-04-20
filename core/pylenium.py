@@ -19,6 +19,7 @@ config = PyleniumConfig()
 
 
 def start(entry_point: Union[str, PyPage]) -> PyleniumDriver:
+    log.info('opening: {}'.format(entry_point))
     return PyleniumDriver().maximize().goto(entry_point)
 
 
