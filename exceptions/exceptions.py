@@ -43,3 +43,7 @@ class TimeoutException(Exception):
 
 class UIAssertionException(Exception):
     pass
+
+
+class PyPageException(Exception):
+    pass

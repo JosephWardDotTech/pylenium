@@ -10,6 +10,7 @@ from config.config import PyleniumConfig
 from core.elements import PyElement
 from core.locators import PyLocator
 from drivers.driver_strategy import ChromeBrowserStrategy, FirefoxBrowserStrategy
+from exceptions.exceptions import PyPageException
 from page_objects.page_object import PyPage
 
 log = logging.getLogger('pylenium')
@@ -35,7 +36,11 @@ class PyleniumDriver:
         raise Exception('Pylenium manages the driver(s), do not attempt to change the driver reference')
 
     def goto(self, entry_point: Union[str, PyPage]) -> PyleniumDriver:
-        self.driver.get(entry_point)
+        url = entry_point if isinstance(entry_point, str) else entry_point.url
+        if not url:
+            raise PyPageException('The url was empty, did your page object specify the self.url parameter?')
+        else:
+            self.driver.get(url)
         return self
 
     def maximize(self) -> PyleniumDriver:
