@@ -27,7 +27,7 @@ with open(os.path.join(ROOT_DIR, "resources", "ascii.txt")) as art:
 config = PyleniumConfig()
 
 
-def start(entry_point: Union[str, PyPage]) -> Union[PyleniumDriver, PyPage]:
+def start(entry_point):
     return driver().maximize().goto(entry_point)
 
 
@@ -36,6 +36,7 @@ def terminate() -> None:
 
 
 def driver() -> PyleniumDriver:
+    log.info('Fetching the driver')
     return PyleniumDriver()
 
 

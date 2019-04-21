@@ -18,9 +18,10 @@ log = logging.getLogger("pylenium")
 def anti_staleness(f):
     def wrapper(*args):
         log.info("refresh reference to the underlying webelement to prevent staleness")
-        args[0].wrapped_element = args[0].driver.driver.find_element(
-                args[0].locator.by, args[0].locator.selector
-        )
+        driver = args[0].driver.driver
+        selenium_by = args[0].locator.by
+        selenium_selector = args[0].locator.selector
+        args[0].wrapped_element = driver.find_element(selenium_by, selenium_selector)
         return f(*args)
 
     return wrapper

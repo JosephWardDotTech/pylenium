@@ -2,7 +2,6 @@ from __future__ import annotations
 
 import logging
 import threading
-from typing import Union
 
 from selenium.webdriver.common.by import By
 
@@ -11,7 +10,6 @@ from core.locators import PyLocator
 from exceptions.exceptions import PyPageException
 from pages.page_object import PyPage
 from proxy.proxy import ElementFinder, PyElementProxy
-from utility.meta import Singleton
 from web_drivers.driver_strategy import ChromeBrowserStrategy, FirefoxBrowserStrategy
 
 log = logging.getLogger("pylenium")
@@ -20,16 +18,17 @@ config = PyleniumConfig()
 threaded = threading.local()
 
 
-class PyleniumDriver(metaclass=Singleton):
+class PyleniumDriver:
     def __init__(self):
-        if hasattr(threaded, 'driver'):
-            log.info('This thread: {} already has a driver assigned, pylenium will use it')
-        else:
-            log.info('No driver associated with this thread, creating one')
-            threaded.driver = self._get_browser_strategy().instantiate()
-            self.driver = threaded.driver
+        self._driver = None
+        self._driver = threaded.driver if hasattr(threaded, 'driver') else self._get_browser_strategy().instantiate()
+        threaded.driver = self._driver
 
-    def goto(self, entry_point: Union[str, PyPage]) -> Union[PyleniumDriver, PyPage]:
+    @property
+    def driver(self):
+        return self._driver
+
+    def goto(self, entry_point):
         url = (
             PyleniumConfig().base_url + entry_point
             if isinstance(entry_point, str)
@@ -52,6 +51,7 @@ class PyleniumDriver(metaclass=Singleton):
     def quit(self):
         log.info("Quit called, terminating the browser")
         self.driver.quit()
+        del threaded.driver
 
     def url(self) -> str:
         return self.driver.current_url
