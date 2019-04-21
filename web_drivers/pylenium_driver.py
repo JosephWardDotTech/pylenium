@@ -17,10 +17,17 @@ from web_drivers.driver_strategy import ChromeBrowserStrategy, FirefoxBrowserStr
 log = logging.getLogger("pylenium")
 config = PyleniumConfig()
 
+threaded = threading.local()
+
 
 class PyleniumDriver(metaclass=Singleton):
     def __init__(self):
-        self.driver = self._get_browser_strategy().instantiate()
+        if hasattr(threaded, 'driver'):
+            log.info('This thread: {} already has a driver assigned, pylenium will use it')
+        else:
+            log.info('No driver associated with this thread, creating one')
+            threaded.driver = self._get_browser_strategy().instantiate()
+            self.driver = threaded.driver
 
     def goto(self, entry_point: Union[str, PyPage]) -> Union[PyleniumDriver, PyPage]:
         url = (

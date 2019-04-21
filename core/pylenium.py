@@ -25,7 +25,6 @@ with open(os.path.join(ROOT_DIR, "resources", "ascii.txt")) as art:
 
 # global configuration object
 config = PyleniumConfig()
-t_drivers = threading.local()
 
 
 def start(entry_point: Union[str, PyPage]) -> Union[PyleniumDriver, PyPage]:
@@ -33,16 +32,11 @@ def start(entry_point: Union[str, PyPage]) -> Union[PyleniumDriver, PyPage]:
 
 
 def terminate() -> None:
-    t_drivers.threaded_driver.quit()
-    breakpoint()
+    driver().quit()
 
 
 def driver() -> PyleniumDriver:
-    if hasattr(t_drivers, 'threaded_driver'):
-        return t_drivers.threaded_driver
-    else:
-        t_drivers.threaded_driver = PyleniumDriver()
-        return t_drivers.threaded_driver
+    return PyleniumDriver()
 
 
 def get_wrapped_driver() -> webdriver:
