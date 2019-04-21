@@ -2,7 +2,7 @@ from __future__ import annotations
 
 import pytest
 
-from conditions.condition import text, attribute
+from conditions.condition import attribute
 from core.pylenium import *
 
 

@@ -1,10 +1,11 @@
+import logging
 import threading
 
 import pytest
-import logging
 
 from configuration.config import PyleniumConfig
 from core.pylenium import start, terminate
+
 log = logging.getLogger('pylenium')
 
 

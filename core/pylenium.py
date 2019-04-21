@@ -5,7 +5,6 @@ import os
 import time
 import typing
 
-from selenium.common.exceptions import WebDriverException
 from selenium.webdriver.common.by import By
 from selenium.webdriver.remote import webdriver, webelement
 
@@ -67,6 +66,7 @@ def anti_staleness(f):
         args[0].driver = driver()
         args[0].wrapped_element = args[0].driver.driver.find_element(args[0].locator.by, args[0].locator.selector)
         return f(*args)
+
     return wrapper
 
 
@@ -87,6 +87,7 @@ def ready_state(f):
         else:
             log.error('Jquery was not finished in time')
         return f(*args)
+
     return wrapper
 
 

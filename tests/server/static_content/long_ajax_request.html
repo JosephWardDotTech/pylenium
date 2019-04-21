@@ -1,10 +1,10 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <title>long ajax request</title>
-  <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
-  <script type="text/javascript" src="jquery.min.js" language="JavaScript"></script>
-  <script type="text/javascript" language="JavaScript">
+    <title>long ajax request</title>
+    <meta content="text/html; charset=utf-8" http-equiv="Content-Type"/>
+    <script language="JavaScript" src="jquery.min.js" type="text/javascript"></script>
+    <script language="JavaScript" type="text/javascript">
       var commandDuration = 100;
 
       function runLongAjaxRequest() {
@@ -14,7 +14,8 @@
         setTimeout(function() {$("#loading").remove();}, commandDuration*10);
       }
 
-  </script>
+
+    </script>
 </head>
 <body>
 <h1>The long ajax request test</h1>
@@ -22,17 +23,17 @@
 <div id="results">
 </div>
 
-<table id="multirowTable" border="1">
-  <tbody>
-  <tr>
-    <td class="first_row">Chack</td>
-    <td>Norris</td>
-  </tr>
-  <tr>
-    <td class="second_row">Chack</td>
-    <td>Lä Baskerville</td>
-  </tr>
-  </tbody>
+<table border="1" id="multirowTable">
+    <tbody>
+    <tr>
+        <td class="first_row">Chack</td>
+        <td>Norris</td>
+    </tr>
+    <tr>
+        <td class="second_row">Chack</td>
+        <td>Lä Baskerville</td>
+    </tr>
+    </tbody>
 </table>
 </body>
 </html>
