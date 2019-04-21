@@ -33,8 +33,8 @@ def start(entry_point: Union[str, PyPage]) -> Union[PyleniumDriver, PyPage]:
 
 
 def terminate() -> None:
-    driver().quit()
-    del t_drivers.driver
+    t_drivers.threaded_driver.quit()
+    breakpoint()
 
 
 def driver() -> PyleniumDriver:
