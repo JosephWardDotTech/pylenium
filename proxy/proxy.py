@@ -6,6 +6,7 @@ import logging
 
 from commands.get_tag_command import GetTagCommand
 from commands.get_text_command import GetTextCommand
+from commands.should_have_command import ShouldHaveCommand
 from conditions.condition import PyCondition
 from core.locators import PyLocator
 log = logging.getLogger("pylenium")
@@ -14,7 +15,7 @@ log = logging.getLogger("pylenium")
 # refreshes the underlying web element to prevent staleness etc
 def anti_staleness(f):
     def wrapper(*args):
-        log.info("Lazy loading or refreshing of web elements!")
+        log.info("refresh reference to the underlying webelement to prevent staleness")
         args[0].wrapped_element = PyElement(
             args[0].driver.driver.find_element(
                 args[0].locator.by, args[0].locator.selector
@@ -28,7 +29,7 @@ def anti_staleness(f):
 def ready_state(f):
     def wrapper(*args):
         # js, stability, ajax etc!
-        log.info("Stabilizing the page")
+        log.info("Waiting for the page ready state")
         return f(*args)
 
     return wrapper
@@ -107,4 +108,4 @@ class PyElement(ElementInterface):
         return GetTextCommand(self).execute()
 
     def should_have(self, conditions: typing.Union[PyCondition, typing.List[PyCondition]]) -> PyElement:
-        return Should
+        return ShouldHaveCommand(self, conditions).execute()

@@ -6,7 +6,7 @@ import typing
 from typing import Union
 
 if typing.TYPE_CHECKING:
-    from core.elements import PyElement
+    from proxy.proxy import PyElement
 
 log = logging.getLogger("pylenium")
 
