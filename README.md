@@ -141,3 +141,10 @@ Repeatable steps and chains of page object commands, all wrapped under one roof!
     - repeatable and very test friendly
     
 ---
+
+##  :star: Backers of the project who provide us with free tools:
+
+[![Intellij IDEA](https://cloud.google.com/tools/images/icon_IntelliJIDEA.png)](http://www.jetbrains.com/idea)
+[![BrowserStack](https://www.browserstack.com/images/mail/browserstack-logo-footer.png)](https://www.browserstack.com)
+
+---
