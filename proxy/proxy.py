@@ -1,7 +1,7 @@
 from __future__ import annotations
+
 import abc
 import typing
-
 
 from conditions.condition import PyCondition
 from core.locators import PyLocator
@@ -26,7 +26,9 @@ class Subject(metaclass=abc.ABCMeta):
         pass
 
     @abc.abstractmethod
-    def should_have(self, conditions: typing.Union[PyCondition, typing.List[PyCondition]]) -> PyElement:
+    def should_have(
+            self, conditions: typing.Union[PyCondition, typing.List[PyCondition]]
+    ) -> PyElement:
         pass
 
 
@@ -68,4 +70,3 @@ class ElementFinder:
     @staticmethod
     def wrap(driver, locator):
         return PyElementProxy(driver, locator)
-

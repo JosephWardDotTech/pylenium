@@ -21,5 +21,7 @@ class PyElement(Subject):
     def text(self) -> str:
         return GetTextCommand(self).execute()
 
-    def should_have(self, conditions: Union[PyCondition, List[PyCondition]]) -> PyElement:
+    def should_have(
+            self, conditions: Union[PyCondition, List[PyCondition]]
+    ) -> PyElement:
         return self
