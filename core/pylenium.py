@@ -11,6 +11,7 @@ from configuration.config import PyleniumConfig
 from core.elements import PyElement
 from core.locators import PyLocator
 from pages.page_object import PyPage
+from proxy.proxy import PyElementProxy
 from web_drivers.pylenium_driver import PyleniumDriver
 
 log = logging.getLogger("pylenium")
@@ -42,11 +43,11 @@ def get_wrapped_driver() -> webdriver:
     return PyleniumDriver().driver
 
 
-def find(locator: PyLocator) -> PyElement:
+def find(locator: PyLocator) -> PyElementProxy:
     return PyleniumDriver().find(locator)
 
 
-def ID(selector: str) -> PyElement:
+def ID(selector: str) -> PyElementProxy:
     return find(PyLocator(By.ID, selector))
 
 

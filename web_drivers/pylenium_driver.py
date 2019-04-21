@@ -12,7 +12,7 @@ from core.elements import PyElement
 from core.locators import PyLocator
 from exceptions.exceptions import PyPageException
 from pages.page_object import PyPage
-from proxy.proxy import ElementFinder
+from proxy.proxy import ElementFinder, PyElementProxy
 from web_drivers.driver_strategy import ChromeBrowserStrategy, FirefoxBrowserStrategy
 
 log = logging.getLogger("pylenium")
@@ -71,31 +71,31 @@ class PyleniumDriver:
     def url(self) -> str:
         return self.driver.current_url
 
-    def find(self, locator: PyLocator) -> PyElement:
+    def find(self, locator: PyLocator) -> PyElementProxy:
         return ElementFinder.wrap(self, locator)
 
-    def X(self, identifier: str) -> PyElement:
+    def X(self, identifier: str) -> PyElementProxy:
         return self.find(PyLocator(By.XPATH, identifier))
 
-    def ID(self, identifier: str) -> PyElement:
+    def ID(self, identifier: str) -> PyElementProxy:
         return self.find(PyLocator(By.ID, identifier))
 
-    def CSS(self, identifier: str) -> PyElement:
+    def CSS(self, identifier: str) -> PyElementProxy:
         return self.find(PyLocator(By.CSS_SELECTOR, identifier))
 
-    def PLT(self, identifier: str) -> PyElement:
+    def PLT(self, identifier: str) -> PyElementProxy:
         return self.find(PyLocator(By.PARTIAL_LINK_TEXT, identifier))
 
-    def LT(self, identifier: str) -> PyElement:
+    def LT(self, identifier: str) -> PyElementProxy:
         return self.find(PyLocator(By.LINK_TEXT, identifier))
 
-    def NAME(self, identifier: str) -> PyElement:
+    def NAME(self, identifier: str) -> PyElementProxy:
         return self.find(PyLocator(By.NAME, identifier))
 
-    def TAG_NAME(self, identifier: str) -> PyElement:
+    def TAG_NAME(self, identifier: str) -> PyElementProxy:
         return self.find(PyLocator(By.TAG_NAME, identifier))
 
-    def CLASS(self, identifier: str) -> PyElement:
+    def CLASS(self, identifier: str) -> PyElementProxy:
         return self.find(PyLocator(By.CLASS_NAME, identifier))
 
     @staticmethod

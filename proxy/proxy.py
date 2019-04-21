@@ -23,7 +23,7 @@ class Subject(metaclass=abc.ABCMeta):
         pass
 
     @abc.abstractmethod
-    def should_have(self, conditions: Union[PyCondition, List[PyCondition]]) -> PyElement:
+    def should_have(self, conditions: typing.Union[PyCondition, typing.List[PyCondition]]) -> PyElement:
         pass
 
 
