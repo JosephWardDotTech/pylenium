@@ -4,10 +4,11 @@ import logging
 import threading
 from typing import Union
 
+from selenium.webdriver.common.by import By
 from selenium.webdriver.remote import webdriver
 
 from config.config import PyleniumConfig
-from core.elements import PyElement
+from core.elements import PyElement, ElementFinder
 from core.locators import PyLocator
 from drivers.driver_strategy import ChromeBrowserStrategy, FirefoxBrowserStrategy
 from exceptions.exceptions import PyPageException
@@ -69,9 +70,11 @@ class PyleniumDriver:
     def url(self) -> str:
         return self.driver.current_url
 
-    @staticmethod
-    def find(locator: PyLocator) -> PyElement:
-        return PyElement(locator)
+    def find(self, locator: PyLocator) -> PyElement:
+        return ElementFinder.wrap(self, locator)
+
+    def X(self, xpath_expression: str) -> PyElement:
+        return self.find(PyLocator(By.XPATH, xpath_expression))
 
     @staticmethod
     def _get_browser_strategy():

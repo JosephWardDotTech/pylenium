@@ -1,5 +1,4 @@
 from __future__ import annotations
-
 import logging
 from typing import Union
 
@@ -32,7 +31,7 @@ def terminate() -> None:
     PyleniumDriver().quit()
 
 
-def get_driver() -> PyleniumDriver:
+def driver() -> PyleniumDriver:
     return PyleniumDriver()
 
 
@@ -46,3 +45,7 @@ def find(locator: PyLocator) -> PyElement:
 
 def ID(selector: str) -> PyElement:
     return find(PyLocator(By.ID, selector))
+
+
+def X(selector: str) -> PyElement:
+    return find(PyLocator(By.XPATH, selector))
