@@ -67,6 +67,7 @@ class PyleniumDriver(metaclass=Singleton):
     def quit(self):
         log.info("Quit called, terminating the browser")
         self.driver.quit()
+        del threaded_driver.driver
 
     def url(self) -> str:
         return self.driver.current_url
