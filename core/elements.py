@@ -23,22 +23,22 @@ class PyElement(WebElement):
     def text(self) -> str:
         return GetTextCommand(self).execute()
 
-    def should_have(self, conditions: Union[PyCondition, List[PyCondition]]) -> PyElement:
+    def should_have(
+            self, conditions: Union[PyCondition, List[PyCondition]]
+    ) -> PyElement:
         return self
 
 
 class PyElementProxy:
-    __soft_asserts = {'should',
-                      'should_be',
-                      'should_have'
-                      'should_not',
-                      'should_not_have',
-                      'should_not_be'
-                      'wait_until'
-                      'wait_while'}
+    __soft_asserts = {
+        "should",
+        "should_be",
+        "should_have" "should_not",
+        "should_not_have",
+        "should_not_be" "wait_until" "wait_while",
+    }
 
-    def __init__(self,
-                 web_element_source: WebElementSource):
+    def __init__(self, web_element_source: WebElementSource):
         self.web_element_source = web_element_source
 
 
@@ -47,9 +47,7 @@ class WebElementSource:
 
 
 class ElementFinder:
-    def __init__(self,
-                 driver,
-                 locator):
+    def __init__(self, driver, locator):
         self.driver = driver
         self.locator = locator
 

@@ -1,4 +1,5 @@
 from __future__ import annotations
+
 import logging
 import os
 from typing import Union
@@ -9,16 +10,15 @@ from selenium.webdriver.remote import webdriver
 from configuration.config import PyleniumConfig
 from core.elements import PyElement
 from core.locators import PyLocator
-from conditions.condition import attribute, text
-from web_drivers.pylenium_driver import PyleniumDriver
 from pages.page_object import PyPage
+from web_drivers.pylenium_driver import PyleniumDriver
 
 log = logging.getLogger("pylenium")
 log.setLevel(logging.INFO)
 ROOT_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
 # ascii:
-with open(os.path.join(ROOT_DIR, 'resources', 'ascii.txt')) as art:
+with open(os.path.join(ROOT_DIR, "resources", "ascii.txt")) as art:
     for line in art:
         print(line)
 
