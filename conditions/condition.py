@@ -11,10 +11,18 @@ class PyCondition(ABC):
         pass
 
 
-class Text(PyCondition):
+class text(PyCondition):  # NOSONAR
     def __init__(self, expected: str):
         self.expected = expected
 
     def evaluate(self, py_element: PyElement) -> PyElement:
         assert py_element.text == self.expected
         return py_element
+
+
+class attribute(PyCondition):  # NOSONAR
+    def __init__(self, expected: str):
+        self.expected = expected
+
+    def evaluate(self, py_element: PyElement):
+        pass

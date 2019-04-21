@@ -2,12 +2,10 @@ from __future__ import annotations
 
 import pytest
 
-from core.locators import ID
-from core.pylenium import find
+from core.pylenium import *
 
 
 @pytest.mark.IT(page="basic_text.html")
 class TestRetrieveText:
     def test_basic_text_retrieval(self):
-        text = find(ID("basic_text")).text()
-        assert text == "Hello World"
+        ID("basic_text").should_have(text('hello world'))
