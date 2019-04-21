@@ -12,6 +12,7 @@ from core.locators import PyLocator
 from exceptions.exceptions import PyPageException
 from pages.page_object import PyPage
 from proxy.proxy import ElementFinder, PyElementProxy
+from utility.meta import Singleton
 from web_drivers.driver_strategy import ChromeBrowserStrategy, FirefoxBrowserStrategy
 
 log = logging.getLogger("pylenium")
@@ -19,7 +20,7 @@ config = PyleniumConfig()
 threaded_driver = threading.local()
 
 
-class PyleniumDriver:
+class PyleniumDriver(metaclass=Singleton):
     def __init__(self):
         if not hasattr(threaded_driver, "driver"):
             log.info(
@@ -28,6 +29,7 @@ class PyleniumDriver:
                 )
             )
             self._driver = self._get_browser_strategy().instantiate()
+            log.info(id(self._driver))
             threaded_driver.driver = self._driver
         else:
             self._driver = threaded_driver.driver
@@ -65,7 +67,6 @@ class PyleniumDriver:
     def quit(self):
         log.info("Quit called, terminating the browser")
         self.driver.quit()
-        del threaded_driver.driver
 
     def url(self) -> str:
         return self.driver.current_url

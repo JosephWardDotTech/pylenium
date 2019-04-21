@@ -27,11 +27,11 @@ config = PyleniumConfig()
 
 
 def start(entry_point: Union[str, PyPage]) -> Union[PyleniumDriver, PyPage]:
-    return PyleniumDriver().maximize().goto(entry_point)
+    return driver().maximize().goto(entry_point)
 
 
 def terminate() -> None:
-    PyleniumDriver().quit()
+    driver().quit()
 
 
 def driver() -> PyleniumDriver:
@@ -39,11 +39,11 @@ def driver() -> PyleniumDriver:
 
 
 def get_wrapped_driver() -> webdriver:
-    return PyleniumDriver().driver
+    return driver().driver
 
 
 def find(locator: PyLocator) -> PyElementProxy:
-    return PyleniumDriver().find(locator)
+    return driver().find(locator)
 
 
 def ID(selector: str) -> PyElementProxy:
