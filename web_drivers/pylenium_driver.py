@@ -7,12 +7,12 @@ from typing import Union
 from selenium.webdriver.common.by import By
 from selenium.webdriver.remote import webdriver
 
-from config.config import PyleniumConfig
+from configuration.config import PyleniumConfig
 from core.elements import PyElement, ElementFinder
 from core.locators import PyLocator
-from drivers.driver_strategy import ChromeBrowserStrategy, FirefoxBrowserStrategy
+from web_drivers.driver_strategy import ChromeBrowserStrategy, FirefoxBrowserStrategy
 from exceptions.exceptions import PyPageException
-from page_objects.page_object import PyPage
+from pages.page_object import PyPage
 
 log = logging.getLogger("pylenium")
 config = PyleniumConfig()

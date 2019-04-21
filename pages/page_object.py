@@ -1,6 +1,6 @@
 from __future__ import annotations
 
-from config.config import PyleniumConfig
+from configuration.config import PyleniumConfig
 
 
 class PyPage:

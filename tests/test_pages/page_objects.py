@@ -1,7 +1,7 @@
 from __future__ import annotations
 
 from core.pylenium import ID
-from page_objects.page_object import PyPage
+from pages.page_object import PyPage
 
 
 class ExamplePageObject(PyPage):

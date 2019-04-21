@@ -5,7 +5,7 @@ import logging
 import typing
 from typing import Union
 
-from common.decorators import anti_staleness, ready_state
+from utility.decorators import anti_staleness, ready_state
 
 if typing.TYPE_CHECKING:
     from core.elements import PyElement

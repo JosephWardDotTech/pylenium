@@ -6,12 +6,12 @@ from typing import Union
 from selenium.webdriver.common.by import By
 from selenium.webdriver.remote import webdriver
 
-from config.config import PyleniumConfig
+from configuration.config import PyleniumConfig
 from core.elements import PyElement
 from core.locators import PyLocator
 from conditions.condition import attribute, text
-from drivers.pylenium_driver import PyleniumDriver
-from page_objects.page_object import PyPage
+from web_drivers.pylenium_driver import PyleniumDriver
+from pages.page_object import PyPage
 
 log = logging.getLogger("pylenium")
 log.setLevel(logging.INFO)
@@ -22,7 +22,7 @@ with open(os.path.join(ROOT_DIR, 'resources', 'ascii.txt')) as art:
     for line in art:
         print(line)
 
-# global config object
+# global configuration object
 config = PyleniumConfig()
 
 
