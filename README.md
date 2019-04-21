@@ -142,9 +142,9 @@ Repeatable steps and chains of page object commands, all wrapped under one roof!
     
 ---
 
-##  :star: Backers of the project who provide us with free tools:
+###  :star: Companies who back the project:
 
-[![Intellij IDEA](https://cloud.google.com/tools/images/icon_IntelliJIDEA.png)](http://www.jetbrains.com/idea)
+[![Intellij IDEA](https://cloud.google.com/tools/images/icon_IntelliJIDEA.png )](http://www.jetbrains.com/idea)
 [![BrowserStack](https://www.browserstack.com/images/mail/browserstack-logo-footer.png)](https://www.browserstack.com)
 
 ---
