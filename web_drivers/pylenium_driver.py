@@ -73,11 +73,29 @@ class PyleniumDriver:
     def find(self, locator: PyLocator) -> PyElement:
         return ElementFinder.wrap(self, locator)
 
-    def X(self, xpath_expression: str) -> PyElement:
-        return self.find(PyLocator(By.XPATH, xpath_expression))
+    def X(self, identifier: str) -> PyElement:
+        return self.find(PyLocator(By.XPATH, identifier))
 
     def ID(self, identifier: str) -> PyElement:
         return self.find(PyLocator(By.ID, identifier))
+
+    def CSS(self, identifier: str) -> PyElement:
+        return self.find(PyLocator(By.CSS_SELECTOR, identifier))
+
+    def PLT(self, identifier: str) -> PyElement:
+        return self.find(PyLocator(By.PARTIAL_LINK_TEXT, identifier))
+
+    def LT(self, identifier: str) -> PyElement:
+        return self.find(PyLocator(By.LINK_TEXT, identifier))
+
+    def NAME(self, identifier: str) -> PyElement:
+        return self.find(PyLocator(By.NAME, identifier))
+
+    def TAG_NAME(self, identifier: str) -> PyElement:
+        return self.find(PyLocator(By.TAG_NAME, identifier))
+
+    def CLASS(self, identifier: str) -> PyElement:
+        return self.find(PyLocator(By.CLASS_NAME, identifier))
 
     @staticmethod
     def _get_browser_strategy():
