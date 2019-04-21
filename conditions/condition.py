@@ -31,7 +31,7 @@ class attribute(PyCondition):  # NOSONAR
     def __init__(self, expected: str):
         self.expected = expected
 
-    def evaluate(self, proxy) -> bool:
+    def evaluate(self, proxy):
         try:
             assert proxy.wrapped_element.get_attribute(self.expected) is not None
         except AssertionError:

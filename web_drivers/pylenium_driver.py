@@ -9,6 +9,7 @@ from configuration.config import PyleniumConfig
 from core.locators import PyLocator
 from exceptions.exceptions import PyPageException
 from pages.page_object import PyPage
+from utility.meta import Singleton
 from web_drivers.driver_strategy import ChromeBrowserStrategy, FirefoxBrowserStrategy
 
 log = logging.getLogger("pylenium")
