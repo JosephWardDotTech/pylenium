@@ -8,10 +8,11 @@ from selenium.webdriver.common.by import By
 from selenium.webdriver.remote import webdriver
 
 from configuration.config import PyleniumConfig
-from core.elements import PyElement, ElementFinder
+from core.elements import PyElement
 from core.locators import PyLocator
 from exceptions.exceptions import PyPageException
 from pages.page_object import PyPage
+from proxy.proxy import ElementFinder
 from web_drivers.driver_strategy import ChromeBrowserStrategy, FirefoxBrowserStrategy
 
 log = logging.getLogger("pylenium")

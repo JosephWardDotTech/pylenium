@@ -8,11 +8,12 @@ from selenium.webdriver.remote.webelement import WebElement
 from commands.get_tag_command import GetTagCommand
 from commands.get_text_command import GetTextCommand
 from conditions.condition import PyCondition
+from proxy.proxy import Subject
 
 log = logging.getLogger("pylenium")
 
 
-class PyElement(WebElement):
+class PyElement(WebElement, Subject):
     def __init__(self, locator, parent, id_):
         super().__init__(parent, id_)
         self.locator = locator
@@ -23,48 +24,6 @@ class PyElement(WebElement):
     def text(self) -> str:
         return GetTextCommand(self).execute()
 
-    def should_have(
-            self, conditions: Union[PyCondition, List[PyCondition]]
+    def should_have(self, conditions: Union[PyCondition, List[PyCondition]]
     ) -> PyElement:
         return self
-
-
-class PyElementProxy:
-    __soft_asserts = {
-        "should",
-        "should_be",
-        "should_have" "should_not",
-        "should_not_have",
-        "should_not_be" "wait_until" "wait_while",
-    }
-
-    def __init__(self, web_element_source: WebElementSource):
-        self.web_element_source = web_element_source
-
-
-class WebElementSource:
-    pass
-
-    def find(self, proxy: PyElementProxy, arg, index: int) -> PyElement:
-        return ElementFinder.wrap(driver, proxy, self.get_selector(arg), index)
-
-    @staticmethod
-    def get_selector(*arg):
-        pass
-
-
-class ElementFinder(WebElementSource):
-    def __init__(self, driver, locator):
-        self.driver = driver
-        self.locator = locator
-
-    @staticmethod
-    def wrap(driver, locator):
-        # return dynamic proxy of PyElement
-        return ElementFinder.dynamic_wrap(driver, locator)
-
-    @staticmethod
-    def dynamic_wrap(driver, locator):
-        # return a proxy instance here
-        pass
-
