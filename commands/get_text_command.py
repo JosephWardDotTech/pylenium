@@ -6,4 +6,4 @@ class GetTextCommand(Command):
         super().__init__(py_element)
 
     def execute(self) -> str:
-        return self.py_element.element.text
+        return self.py_element.wrapped_element.text

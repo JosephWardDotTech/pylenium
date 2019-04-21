@@ -10,4 +10,5 @@ from core.pylenium import *
 @pytest.mark.debug
 class TestRetrieveText:
     def test_basic_text_retrieval(self):
-        assert ID("basic_text").should_have(text("Hello world"))
+        ID("basic_text").should_have(text('Hello World'))
+

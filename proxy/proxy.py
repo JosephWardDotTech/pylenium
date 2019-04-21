@@ -14,7 +14,7 @@ log = logging.getLogger("pylenium")
 # refreshes the underlying web element to prevent staleness etc
 def anti_staleness(f):
     def wrapper(*args):
-        log.info("Lazy loading or refreshing of webelements!")
+        log.info("Lazy loading or refreshing of web elements!")
         args[0].wrapped_element = PyElement(
             args[0].driver.driver.find_element(
                 args[0].locator.by, args[0].locator.selector
@@ -34,7 +34,7 @@ def ready_state(f):
     return wrapper
 
 
-class Subject(metaclass=abc.ABCMeta):
+class ElementInterface(metaclass=abc.ABCMeta):
     """
     common interface between our pyelement and the pyelement proxy so that the proxy can be used
     anywhere where pyelement is used
@@ -55,7 +55,7 @@ class Subject(metaclass=abc.ABCMeta):
         pass
 
 
-class PyElementProxy(Subject):
+class PyElementProxy(ElementInterface):
     __soft_asserts = {
         "should",
         "should_be",
@@ -77,6 +77,7 @@ class PyElementProxy(Subject):
     @ready_state
     @anti_staleness
     def text(self) -> str:
+        breakpoint()
         return self.wrapped_element.text()
 
     @ready_state
@@ -95,7 +96,7 @@ class ElementFinder:
         return PyElementProxy(driver, locator)
 
 
-class PyElement(Subject):
+class PyElement(ElementInterface):
     def __init__(self, wrapped_element):
         self.wrapped_element = wrapped_element
 
@@ -105,7 +106,5 @@ class PyElement(Subject):
     def text(self) -> str:
         return GetTextCommand(self).execute()
 
-    def should_have(
-            self, conditions: typing.Union[PyCondition, typing.List[PyCondition]]
-    ) -> PyElement:
-        return self
+    def should_have(self, conditions: typing.Union[PyCondition, typing.List[PyCondition]]) -> PyElement:
+        return Should
