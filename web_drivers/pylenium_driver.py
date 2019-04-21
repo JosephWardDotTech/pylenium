@@ -55,6 +55,10 @@ class PyleniumDriver:
     def url(self) -> str:
         return self.driver.current_url
 
+    def execute_javascript(self, script: str, *args):
+        log.info('Executing javascript command')
+        return self.driver.execute_script(script, args)
+
     @staticmethod
     def find(locator: PyLocator):
         from core.pylenium import PyElementWrapper
