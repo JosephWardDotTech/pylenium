@@ -2,6 +2,7 @@ from __future__ import annotations
 
 import logging
 import os
+import threading
 from typing import Union
 
 from selenium.webdriver.common.by import By
@@ -24,6 +25,7 @@ with open(os.path.join(ROOT_DIR, "resources", "ascii.txt")) as art:
 
 # global configuration object
 config = PyleniumConfig()
+t_drivers = threading.local()
 
 
 def start(entry_point: Union[str, PyPage]) -> Union[PyleniumDriver, PyPage]:
@@ -32,10 +34,15 @@ def start(entry_point: Union[str, PyPage]) -> Union[PyleniumDriver, PyPage]:
 
 def terminate() -> None:
     driver().quit()
+    del t_drivers.driver
 
 
 def driver() -> PyleniumDriver:
-    return PyleniumDriver()
+    if hasattr(t_drivers, 'threaded_driver'):
+        return t_drivers.threaded_driver
+    else:
+        t_drivers.threaded_driver = PyleniumDriver()
+        return t_drivers.threaded_driver
 
 
 def get_wrapped_driver() -> webdriver:

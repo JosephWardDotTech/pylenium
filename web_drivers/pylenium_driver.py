@@ -5,7 +5,6 @@ import threading
 from typing import Union
 
 from selenium.webdriver.common.by import By
-from selenium.webdriver.remote import webdriver
 
 from configuration.config import PyleniumConfig
 from core.locators import PyLocator
@@ -17,32 +16,11 @@ from web_drivers.driver_strategy import ChromeBrowserStrategy, FirefoxBrowserStr
 
 log = logging.getLogger("pylenium")
 config = PyleniumConfig()
-threaded_driver = threading.local()
 
 
 class PyleniumDriver(metaclass=Singleton):
     def __init__(self):
-        if not hasattr(threaded_driver, "driver"):
-            log.info(
-                "Thread: {} has no driver, instantiating a new driver for use...".format(
-                    threading.get_ident()
-                )
-            )
-            self._driver = self._get_browser_strategy().instantiate()
-            log.info(id(self._driver))
-            threaded_driver.driver = self._driver
-        else:
-            self._driver = threaded_driver.driver
-
-    @property
-    def driver(self) -> webdriver:
-        return self._driver
-
-    @driver.setter
-    def driver(self, value):
-        raise Exception(
-            "Pylenium manages the driver(s), do not attempt to change the driver reference"
-        )
+        self.driver = self._get_browser_strategy().instantiate()
 
     def goto(self, entry_point: Union[str, PyPage]) -> Union[PyleniumDriver, PyPage]:
         url = (
@@ -67,7 +45,6 @@ class PyleniumDriver(metaclass=Singleton):
     def quit(self):
         log.info("Quit called, terminating the browser")
         self.driver.quit()
-        del threaded_driver.driver
 
     def url(self) -> str:
         return self.driver.current_url
