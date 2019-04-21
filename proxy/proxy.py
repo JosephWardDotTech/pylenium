@@ -4,6 +4,8 @@ import abc
 import typing
 import logging
 
+from selenium.webdriver.firefox import webelement
+
 from commands.get_tag_command import GetTagCommand
 from commands.get_text_command import GetTextCommand
 from commands.should_have_command import ShouldHaveCommand
@@ -16,10 +18,8 @@ log = logging.getLogger("pylenium")
 def anti_staleness(f):
     def wrapper(*args):
         log.info("refresh reference to the underlying webelement to prevent staleness")
-        args[0].wrapped_element = PyElement(
-            args[0].driver.driver.find_element(
+        args[0].wrapped_element = args[0].driver.driver.find_element(
                 args[0].locator.by, args[0].locator.selector
-            )
         )
         return f(*args)
 
@@ -52,7 +52,7 @@ class ElementInterface(metaclass=abc.ABCMeta):
     @abc.abstractmethod
     def should_have(
             self, conditions: typing.Union[PyCondition, typing.List[PyCondition]]
-    ) -> PyElement:
+    ) -> PyElementProxy:
         pass
 
 
@@ -68,23 +68,22 @@ class PyElementProxy(ElementInterface):
     def __init__(self, driver, locator: PyLocator):
         self.driver = driver
         self.locator: PyLocator = locator
-        self.wrapped_element: PyElement = None
+        self.wrapped_element: webelement = None
 
     @ready_state
     @anti_staleness
     def tag_name(self) -> str:
-        return self.wrapped_element.tag_name()
+        return GetTagCommand(self).execute()
 
     @ready_state
     @anti_staleness
     def text(self) -> str:
-        breakpoint()
-        return self.wrapped_element.text()
+        return GetTextCommand(self).execute()
 
     @ready_state
     @anti_staleness
-    def should_have(self, conditions) -> PyElement:
-        return self.wrapped_element.should_have(conditions)
+    def should_have(self, conditions: typing.Union[PyCondition, typing.List[PyCondition]]) -> PyElementProxy:
+        return ShouldHaveCommand(self, conditions).execute()
 
 
 class ElementFinder:
@@ -95,17 +94,3 @@ class ElementFinder:
     @staticmethod
     def wrap(driver, locator):
         return PyElementProxy(driver, locator)
-
-
-class PyElement(ElementInterface):
-    def __init__(self, wrapped_element):
-        self.wrapped_element = wrapped_element
-
-    def tag_name(self) -> str:
-        return GetTagCommand(self).execute()
-
-    def text(self) -> str:
-        return GetTextCommand(self).execute()
-
-    def should_have(self, conditions: typing.Union[PyCondition, typing.List[PyCondition]]) -> PyElement:
-        return ShouldHaveCommand(self, conditions).execute()
