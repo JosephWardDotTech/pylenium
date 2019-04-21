@@ -4,6 +4,8 @@ import typing
 
 
 from conditions.condition import PyCondition
+from core.locators import PyLocator
+
 if typing.TYPE_CHECKING:
     from core.elements import PyElement
 
@@ -36,9 +38,10 @@ class PyElementProxy(Subject):
         "should_not_be" "wait_until" "wait_while",
     }
 
-    def __init__(self, driver, py_element: PyElement):
+    def __init__(self, driver, locator: PyLocator):
         self._driver = driver
-        self._real_subject = py_element
+        self._real_locator = locator
+        self._real_subject = None
 
     def tag_name(self) -> str:
         return self._real_subject.tag_name()

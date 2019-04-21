@@ -8,7 +8,6 @@ from selenium.webdriver.common.by import By
 from selenium.webdriver.remote import webdriver
 
 from configuration.config import PyleniumConfig
-from core.elements import PyElement
 from core.locators import PyLocator
 from pages.page_object import PyPage
 from proxy.proxy import PyElementProxy
