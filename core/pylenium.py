@@ -51,5 +51,5 @@ def ID(selector: str) -> PyElementProxy:
     return find(PyLocator(By.ID, selector))
 
 
-def X(selector: str) -> PyElement:
+def X(selector: str) -> PyElementProxy:
     return find(PyLocator(By.XPATH, selector))

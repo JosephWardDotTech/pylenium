@@ -36,8 +36,8 @@ class PyElementProxy(Subject):
         "should_not_be" "wait_until" "wait_while",
     }
 
-    def __init__(self, driver, py_element):
-        self.driver = driver
+    def __init__(self, driver, py_element: PyElement):
+        self._driver = driver
         self._real_subject = py_element
 
     def tag_name(self) -> str:
@@ -47,7 +47,7 @@ class PyElementProxy(Subject):
         return self._real_subject.text()
 
     def should_have(self, conditions) -> PyElement:
-        return self._real_subject.should_have()
+        return self._real_subject.should_have(conditions)
 
 
 class ElementFinder:
