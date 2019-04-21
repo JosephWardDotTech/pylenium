@@ -45,13 +45,26 @@ class PyElementProxy:
 class WebElementSource:
     pass
 
+    def find(self, proxy: PyElementProxy, arg, index: int) -> PyElement:
+        return ElementFinder.wrap(driver, proxy, self.get_selector(arg), index)
 
-class ElementFinder:
+    @staticmethod
+    def get_selector(*arg):
+        pass
+
+
+class ElementFinder(WebElementSource):
     def __init__(self, driver, locator):
         self.driver = driver
         self.locator = locator
 
     @staticmethod
     def wrap(driver, locator):
-        # return proxy!
+        # return dynamic proxy of PyElement
+        return ElementFinder.dynamic_wrap(driver, locator)
+
+    @staticmethod
+    def dynamic_wrap(driver, locator):
+        # return a proxy instance here
         pass
+
