@@ -12,9 +12,8 @@ log = logging.getLogger("pylenium")
 
 
 class PyElement(Subject):
-    def __init__(self, locator):
-        self.locator = locator
-        self.wrapped_element = None
+    def __init__(self, wrapped_element):
+        self.wrapped_element = wrapped_element
 
     def tag_name(self) -> str:
         return GetTagCommand(self).execute()

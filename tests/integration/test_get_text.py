@@ -7,7 +7,7 @@ from core.pylenium import *
 
 
 @pytest.mark.IT(page="basic_text.html")
+@pytest.mark.debug
 class TestRetrieveText:
     def test_basic_text_retrieval(self):
-        element = ID("basic_text")
-        a = 25
+        assert ID("basic_text").should_have(text('Hello world'))

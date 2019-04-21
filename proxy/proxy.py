@@ -5,6 +5,7 @@ import typing
 
 from conditions.condition import PyCondition
 from core.locators import PyLocator
+from utility.decorators import anti_staleness, ready_state
 
 if typing.TYPE_CHECKING:
     from core.elements import PyElement
@@ -39,18 +40,24 @@ class PyElementProxy(Subject):
     }
 
     def __init__(self, driver, locator: PyLocator):
-        self._driver = driver
-        self._real_locator = locator
-        self._real_subject = None
+        self.driver = driver
+        self.locator: PyLocator = locator
+        self.wrapped_element: PyElement = None
 
+    @ready_state
+    @anti_staleness
     def tag_name(self) -> str:
-        return self._real_subject.tag_name()
+        return self.wrapped_element.tag_name()
 
+    @ready_state
+    @anti_staleness
     def text(self) -> str:
-        return self._real_subject.text()
+        return self.wrapped_element.text()
 
+    @ready_state
+    @anti_staleness
     def should_have(self, conditions) -> PyElement:
-        return self._real_subject.should_have(conditions)
+        return self.wrapped_element.should_have(conditions)
 
 
 class ElementFinder:

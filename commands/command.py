@@ -5,7 +5,6 @@ import logging
 import typing
 from typing import Union
 
-from core.pylenium import driver
 from utility.decorators import anti_staleness, ready_state
 
 if typing.TYPE_CHECKING:
@@ -16,7 +15,6 @@ log = logging.getLogger("pylenium")
 
 class Command(metaclass=abc.ABCMeta):
     def __init__(self, py_element: PyElement):
-        self.driver = driver()
         self.py_element = py_element
 
     @abc.abstractmethod
