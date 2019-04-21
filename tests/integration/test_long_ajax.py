@@ -7,6 +7,7 @@ from core.pylenium import *
 
 
 @pytest.mark.IT(page="long_ajax_request.html")
+@pytest.mark.ajax
 class TestLongAjaxLoading:
     def test_chained_text_retrieval(self):
         X("//button").click()
