@@ -9,7 +9,6 @@ from configuration.config import PyleniumConfig
 from core.locators import PyLocator
 from exceptions.exceptions import PyPageException
 from pages.page_object import PyPage
-from proxy.proxy import ElementFinder, PyElementProxy
 from web_drivers.driver_strategy import ChromeBrowserStrategy, FirefoxBrowserStrategy
 
 log = logging.getLogger("pylenium")
@@ -56,31 +55,33 @@ class PyleniumDriver:
     def url(self) -> str:
         return self.driver.current_url
 
-    def find(self, locator: PyLocator) -> PyElementProxy:
-        return ElementFinder.wrap(self, locator)
+    @staticmethod
+    def find(locator: PyLocator):
+        from core.pylenium import PyElementWrapper
+        return PyElementWrapper(locator)
 
-    def X(self, identifier: str) -> PyElementProxy:
+    def X(self, identifier: str):
         return self.find(PyLocator(By.XPATH, identifier))
 
-    def ID(self, identifier: str) -> PyElementProxy:
+    def ID(self, identifier: str):
         return self.find(PyLocator(By.ID, identifier))
 
-    def CSS(self, identifier: str) -> PyElementProxy:
+    def CSS(self, identifier: str):
         return self.find(PyLocator(By.CSS_SELECTOR, identifier))
 
-    def PLT(self, identifier: str) -> PyElementProxy:
+    def PLT(self, identifier: str):
         return self.find(PyLocator(By.PARTIAL_LINK_TEXT, identifier))
 
-    def LT(self, identifier: str) -> PyElementProxy:
+    def LT(self, identifier: str):
         return self.find(PyLocator(By.LINK_TEXT, identifier))
 
-    def NAME(self, identifier: str) -> PyElementProxy:
+    def NAME(self, identifier: str):
         return self.find(PyLocator(By.NAME, identifier))
 
-    def TAG_NAME(self, identifier: str) -> PyElementProxy:
+    def TAG_NAME(self, identifier: str):
         return self.find(PyLocator(By.TAG_NAME, identifier))
 
-    def CLASS(self, identifier: str) -> PyElementProxy:
+    def CLASS(self, identifier: str):
         return self.find(PyLocator(By.CLASS_NAME, identifier))
 
     @staticmethod

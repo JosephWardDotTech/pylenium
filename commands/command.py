@@ -6,15 +6,15 @@ import typing
 from typing import Union
 
 if typing.TYPE_CHECKING:
-    from proxy.proxy import PyElement
+    from core.pylenium import PyElementWrapper
 
 log = logging.getLogger("pylenium")
 
 
 class Command(metaclass=abc.ABCMeta):
-    def __init__(self, py_element: PyElement):
+    def __init__(self, py_element: PyElementWrapper):
         self.py_element = py_element
 
     @abc.abstractmethod
-    def execute(self) -> Union[str, PyElement, bool, int]:
+    def execute(self) -> Union[str, PyElementWrapper, bool, int]:
         pass

@@ -2,16 +2,17 @@ from __future__ import annotations
 
 import logging
 import os
-import threading
-from typing import Union
+import typing
 
 from selenium.webdriver.common.by import By
-from selenium.webdriver.remote import webdriver
+from selenium.webdriver.remote import webdriver, webelement
 
+from commands.get_tag_command import GetTagCommand
+from commands.get_text_command import GetTextCommand
+from commands.should_have_command import ShouldHaveCommand
+from conditions.condition import PyCondition
 from configuration.config import PyleniumConfig
 from core.locators import PyLocator
-from pages.page_object import PyPage
-from proxy.proxy import PyElementProxy
 from web_drivers.pylenium_driver import PyleniumDriver
 
 log = logging.getLogger("pylenium")
@@ -44,13 +45,61 @@ def get_wrapped_driver() -> webdriver:
     return driver().driver
 
 
-def find(locator: PyLocator) -> PyElementProxy:
+def find(locator: PyLocator) -> PyElementWrapper:
     return driver().find(locator)
 
 
-def ID(selector: str) -> PyElementProxy:
+def ID(selector: str) -> PyElementWrapper:
     return find(PyLocator(By.ID, selector))
 
 
-def X(selector: str) -> PyElementProxy:
+def X(selector: str) -> PyElementWrapper:
     return find(PyLocator(By.XPATH, selector))
+
+
+# refreshes the underlying web element to prevent staleness etc
+def anti_staleness(f):
+    def wrapper(*args):
+        log.info("refresh reference to the underlying webelement to prevent staleness")
+        args[0].driver = driver()
+        args[0].wrapped_element = args[0].driver.driver.find_element(args[0].locator.by, args[0].locator.selector)
+        return f(*args)
+    return wrapper
+
+
+def ready_state(f):
+    def wrapper(*args):
+        # js, stability, ajax etc!
+        log.info("Waiting for the page ready state")
+        return f(*args)
+    return wrapper
+
+
+class PyElementWrapper:
+    __soft_asserts = {
+        "should",
+        "should_be",
+        "should_have" "should_not",
+        "should_not_have",
+        "should_not_be" "wait_until" "wait_while",
+    }
+
+    def __init__(self, locator):
+        self.locator = locator
+        self.driver = driver()
+        self.wrapped_element: webelement = None
+
+    @ready_state
+    @anti_staleness
+    def tag_name(self) -> str:
+        return GetTagCommand(self).execute()
+
+    @ready_state
+    @anti_staleness
+    def text(self) -> str:
+        return GetTextCommand(self).execute()
+
+    @ready_state
+    @anti_staleness
+    def should_have(self, conditions: typing.Union[PyCondition, typing.List[PyCondition]]) -> PyElementWrapper:
+        return ShouldHaveCommand(self, conditions).execute()
