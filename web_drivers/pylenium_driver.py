@@ -76,6 +76,9 @@ class PyleniumDriver:
     def X(self, xpath_expression: str) -> PyElement:
         return self.find(PyLocator(By.XPATH, xpath_expression))
 
+    def ID(self, identifier: str) -> PyElement:
+        return self.find(PyLocator(By.ID, identifier))
+
     @staticmethod
     def _get_browser_strategy():
         if config.browser.value == "chrome":
