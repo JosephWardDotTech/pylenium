@@ -2,13 +2,36 @@ from __future__ import annotations
 
 import abc
 import typing
+import logging
 
+from commands.get_tag_command import GetTagCommand
+from commands.get_text_command import GetTextCommand
 from conditions.condition import PyCondition
 from core.locators import PyLocator
-from utility.decorators import anti_staleness, ready_state
+log = logging.getLogger("pylenium")
 
-if typing.TYPE_CHECKING:
-    from core.elements import PyElement
+
+# refreshes the underlying web element to prevent staleness etc
+def anti_staleness(f):
+    def wrapper(*args):
+        log.info("Lazy loading or refreshing of webelements!")
+        args[0].wrapped_element = PyElement(
+            args[0].driver.driver.find_element(
+                args[0].locator.by, args[0].locator.selector
+            )
+        )
+        return f(*args)
+
+    return wrapper
+
+
+def ready_state(f):
+    def wrapper(*args):
+        # js, stability, ajax etc!
+        log.info("Stabilizing the page")
+        return f(*args)
+
+    return wrapper
 
 
 class Subject(metaclass=abc.ABCMeta):
@@ -70,3 +93,19 @@ class ElementFinder:
     @staticmethod
     def wrap(driver, locator):
         return PyElementProxy(driver, locator)
+
+
+class PyElement(Subject):
+    def __init__(self, wrapped_element):
+        self.wrapped_element = wrapped_element
+
+    def tag_name(self) -> str:
+        return GetTagCommand(self).execute()
+
+    def text(self) -> str:
+        return GetTextCommand(self).execute()
+
+    def should_have(
+            self, conditions: typing.Union[PyCondition, typing.List[PyCondition]]
+    ) -> PyElement:
+        return self
