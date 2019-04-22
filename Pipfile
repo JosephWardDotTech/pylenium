@@ -17,6 +17,7 @@ pycmd = "*"
 pytest-parallel = "*"
 pytest-cov = "*"
 codecov = "*"
+pytest-xdist = "*"
 
 [requires]
 python_version = "3.7"
