@@ -3,7 +3,7 @@ from __future__ import annotations
 import pytest
 
 from conditions.condition import text
-from core.pylenium import *
+from core.pylenium import ID
 
 
 @pytest.mark.IT(page="basic_text.html")

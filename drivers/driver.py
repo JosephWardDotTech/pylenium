@@ -1,5 +1,7 @@
 from __future__ import annotations
 
+from exceptions.exceptions import PyleniumProxyException
+from configuration.config import PyleniumConfig, FileDownloadMode
 import logging
 import threading
 from enum import Enum
@@ -15,9 +17,6 @@ from drivers.commands import CreateDriverCommand
 from drivers.factories import WebDriverFactory
 
 log = logging.getLogger("pylenium")
-
-from configuration.config import PyleniumConfig, FileDownloadMode
-from exceptions.exceptions import PyleniumProxyException
 
 
 class BasicAuth:
@@ -244,9 +243,9 @@ class Navigator:
             password: str,
     ):
         return (
-                self._has_auth(domain, login, password)
-                and not config.proxy_enabled
-                and auth == AuthenticationType.BASIC
+            self._has_auth(domain, login, password)
+            and not config.proxy_enabled
+            and auth == AuthenticationType.BASIC
         )
 
     @staticmethod

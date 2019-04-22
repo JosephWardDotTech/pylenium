@@ -3,7 +3,7 @@ from __future__ import annotations
 import pytest
 
 from conditions.condition import text
-from core.pylenium import *
+from core.pylenium import X
 
 
 @pytest.mark.IT(page="long_ajax_request.html")
