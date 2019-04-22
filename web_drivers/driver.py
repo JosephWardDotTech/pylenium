@@ -1,8 +1,8 @@
 from __future__ import annotations
 
+import logging
 import threading
 from enum import Enum
-import logging
 
 from selenium.common.exceptions import WebDriverException
 from selenium.webdriver.remote import webdriver
@@ -50,8 +50,8 @@ class PyleniumDriver:
         self.listeners = driver_listeners
         self.driver = LazyDriver(self.config, self.proxy, self.listeners)
 
-    def open(self, url: str):
-        self.navigator.open(url)
+    def start(self, url: str):
+        self.navigator.open(self, url)
 
     def get_and_check_driver(self):
         return self.driver.get_and_check_webdriver()
@@ -73,7 +73,8 @@ class LazyDriver:
         self.closed = False
 
     def get_and_check_webdriver(self):
-        if not self.web_driver and self.config.reopen_browser and not self.browser_health_checker.is_browser_open(self.web_driver):
+        if not self.web_driver and self.config.reopen_browser and not self.browser_health_checker.is_browser_open(
+                self.web_driver):
             log.info('Web driver has been closed, Lets recreate it')
             self.close()
             self.create_driver()
@@ -109,9 +110,8 @@ class Navigator:
         url = self.append_basic_auth_if_necessary(driver.config, url, auth, domain, login, password)
 
         driver = driver.get_and_check_driver()
-        before_navigate_to()
+        self.before_navigate_to(driver.config, driver.proxy, auth, domain, login, password)
         driver.get(url)
-
 
     def before_navigate_to(self, config, proxy, auth, domain, login, password):
         if config.proxy_enabled:
@@ -186,5 +186,3 @@ class BrowserHealthChecker:
         except WebDriverException as ex:
             log.info('Driver window, session or window was not found!')
             return False
-
-

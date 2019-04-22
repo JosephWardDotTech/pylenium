@@ -15,7 +15,7 @@ from commands.should_have_command import ShouldHaveCommand
 from conditions.condition import PyCondition
 from configuration.config import PyleniumConfig
 from core.locators import PyLocator
-from web_drivers.pylenium_driver import PyleniumDriver
+from web_drivers.driver import PyleniumDriver
 
 log = logging.getLogger("pylenium")
 log.setLevel(logging.INFO)
@@ -40,7 +40,7 @@ def terminate() -> None:
 
 def driver() -> PyleniumDriver:
     log.info('Fetching the driver')
-    return PyleniumDriver()
+    return PyleniumDriver(config, None, None)
 
 
 def get_wrapped_driver() -> webdriver:

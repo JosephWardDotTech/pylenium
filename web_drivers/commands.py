@@ -1,5 +1,5 @@
-import threading
 import logging
+import threading
 
 from selenium.webdriver.support.event_firing_webdriver import EventFiringWebDriver
 

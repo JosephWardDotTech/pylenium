@@ -54,7 +54,6 @@ class ChromeFactory(AbstractFactory):
 
 
 class WebDriverFactory:
-
     _supported_factories = [ChromeFactory()]
     _browser_resizer = BrowserResizer()
 
@@ -74,7 +73,8 @@ class WebDriverFactory:
             pass
 
         # stream factories to build supported driver
-        actual_driver = next(filter(lambda x: x.supports(config, browser), self._supported_factories)).create(config, browser)
+        actual_driver = next(filter(lambda x: x.supports(config, browser), self._supported_factories)).create(config,
+                                                                                                              browser)
 
         # set sizing of browser
         actual_driver = self._browser_resizer.adjust_size(config, actual_driver)
