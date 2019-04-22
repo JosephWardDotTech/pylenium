@@ -19,7 +19,6 @@ class WebDriverThreadLocalContainer:
 
         self._drivers[thread_id] = PyleniumDriver(driver, proxy)
 
-
     def get_pylenium_driver(self):
         pass
 
