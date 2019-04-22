@@ -1,33 +1,36 @@
 import abc
 import logging
+
+from selenium import webdriver
+from webdriver_manager.chrome import ChromeDriverManager
+
 log = logging.getLogger('pylenium')
 
 
 class AbstractFactory(metaclass=abc.ABCMeta):
 
     @abc.abstractmethod
-    def create(self, config, browser):
+    def create(self, config, proxy):
         pass
 
     @abc.abstractmethod
-    def supports(self, config, proxy) -> bool:
+    def supports(self, config, browser) -> bool:
         pass
 
 
 class ChromeFactory(AbstractFactory):
-    def create(self, config, browser):
-        pass
+    def create(self, config, proxy):
+        return webdriver.Chrome(ChromeDriverManager().install())
 
-    def supports(self, config, proxy) -> bool:
-        pass
+    def supports(self, config, browser) -> bool:
+        return browser.is_chrome()
 
 
 class WebDriverFactory:
 
     __supported_factories = [ChromeFactory()]
 
-    @staticmethod
-    def create_driver(config, proxy):
+    def create_driver(self, config, proxy):
         log.info('Browser: {}'.format(config.browser()))
         log.info('Browser version: {}'.format(config.browser_version()))
         log.info('Remote: {}'.format(config.remote()))
@@ -43,6 +46,7 @@ class WebDriverFactory:
             pass
 
         # stream factories to build supported driver
+        actual_driver = any(filter(lambda x: x.supports(config, browser), self.__supported_factories))
 
         # set sizing of browser
 

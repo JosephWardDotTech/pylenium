@@ -38,11 +38,6 @@ class AuthenticationType(Enum):
     BASIC = 'basic'
 
 
-class FileDownloadMode(Enum):
-    HTTP_GET = 'http_get',
-    PROXY = 'proxy',
-
-
 class PyleniumDriver:
     def __init__(self,
                  config,
@@ -109,9 +104,7 @@ class Navigator:
         url = self.absolute_url(driver.config, url)
         url = self.append_basic_auth_if_necessary(driver.config, url, auth, domain, login, password)
 
-        try:
-            driver = driver.get_and_check_driver()
-
+        driver.get_and_check_driver()
 
     @staticmethod
     def check_proxy_is_enabled(config: PyleniumConfig):

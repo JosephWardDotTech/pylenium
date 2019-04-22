@@ -7,7 +7,11 @@ from selenium.webdriver import DesiredCapabilities
 
 # Pyleniums possible web element lookup strategy (by default)
 from utility.meta import Singleton
-from web_drivers.driver import FileDownloadMode
+
+
+class FileDownloadMode(Enum):
+    HTTP_GET = 'http_get',
+    PROXY = 'proxy',
 
 
 class Selector(Enum):
