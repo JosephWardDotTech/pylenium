@@ -47,3 +47,7 @@ class UIAssertionException(Exception):
 
 class PyPageException(Exception):
     pass
+
+
+class PyleniumProxyException(Exception):
+    pass

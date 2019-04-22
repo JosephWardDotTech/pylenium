@@ -7,6 +7,7 @@ from selenium.webdriver import DesiredCapabilities
 
 # Pyleniums possible web element lookup strategy (by default)
 from utility.meta import Singleton
+from web_drivers.driver import FileDownloadMode
 
 
 class Selector(Enum):
@@ -52,6 +53,26 @@ class PyleniumConfig(metaclass=Singleton):
         self._javascript_clicking = os.getenv("pylenium_js_click", False)
         self._javascript_sendkeys = os.getenv("pylenium_js_sendkeys", False)
         self._selector_default = Selector.CSS
+        self._proxy_enabled = os.getenv("pylenium_proxy_on", False)
+        self._file_Download = os.getenv("pylenium_file_Download", FileDownloadMode.HTTP_GET)
+
+    @property
+    def proxy_enabled(self) -> bool:
+        return self._proxy_enabled
+
+    @proxy_enabled.setter
+    def proxy_enabled(self, value: bool) -> PyleniumConfig:
+        self._proxy_enabled = value
+        return self
+
+    @property
+    def file_download(self) -> FileDownloadMode:
+        return self._file_Download
+
+    @proxy_enabled.setter
+    def file_download(self, value: FileDownloadMode) -> PyleniumConfig:
+        self.file_download = value
+        return self
 
     @property
     def browser(self) -> Browser:
