@@ -6,7 +6,7 @@ import time
 import typing
 
 from selenium.webdriver.common.by import By
-from selenium.webdriver.remote import webdriver, webelement
+from selenium.webdriver.remote import webelement
 
 from commands.click_command import ClickCommand
 from commands.get_tag_command import GetTagCommand
@@ -32,32 +32,23 @@ config = PyleniumConfig()
 
 
 def start(entry_point):
-    return runner.start(entry_point)
-
-
-def go(url: str):
-    pass
+    return get_pylenium_driver().start(entry_point)
 
 
 def terminate() -> None:
-    driver().quit()
+    get_pylenium_driver().quit()
 
 
-def driver() -> PyleniumDriver:
-    log.info("Fetching the driver")
-    return PyleniumDriver(config)
-
-
-def get_wrapped_driver() -> webdriver:
-    return driver().driver
+def get_pylenium_driver() -> PyleniumDriver:
+    return runner.web_driver_container.get_pylenium_driver()
 
 
 def find(locator: PyLocator) -> PyElementWrapper:
-    return driver().find(locator)
+    return get_pylenium_driver().find(locator)
 
 
 def ID(selector: str) -> PyElementWrapper:
-    return find(PyLocator(By.ID, selector))
+    return get_pylenium_driver().find(PyLocator(By.ID, selector))
 
 
 def X(selector: str) -> PyElementWrapper:
@@ -68,8 +59,7 @@ def X(selector: str) -> PyElementWrapper:
 def anti_staleness(f):
     def wrapper(*args):
         log.info("refresh reference to the underlying webelement to prevent staleness")
-        args[0].driver = driver()
-        args[0].wrapped_element = args[0].driver.driver.find_element(
+        args[0].wrapped_element = get_pylenium_driver().driver.web_driver.find_element(
             args[0].locator.by, args[0].locator.selector
         )
         return f(*args)
@@ -79,28 +69,33 @@ def anti_staleness(f):
 
 def ready_state(f):
     def wrapper(*args):
-        start = time.time()
-        log.info("Waiting for page readystate")
-        while time.time() < start + config.explicit_wait_timeout:
-            if (
-                    args[0].driver.execute_javascript("return document.readyState")
-                    == "complete"
-            ):
+        start_ready_state = time.time()
+        log.info("Waiting for page ready state")
+        while time.time() < start_ready_state + config.explicit_wait_timeout:
+            if get_pylenium_driver().execute_javascript("return document.readyState") == "complete":
                 break
         else:
             log.error("page was not ready in time...")
-        start = time.time()
         log.info("Waiting for jquery")
-        while time.time() < start + config.explicit_wait_timeout:
-            if not args[0].driver.execute_javascript(
-                    "return !!window.jQuery && window.jQuery.active == 0"
-            ):
+        start_jquery = time.time()
+        while time.time() < start_jquery + config.explicit_wait_timeout:
+            if not get_pylenium_driver().execute_javascript("return !!window.jQuery && window.jQuery.active == 0"):
                 break
         else:
             log.error("Jquery was not finished in time")
         return f(*args)
 
     return wrapper
+
+
+# apply a decorator to every 'callable' method in a class
+def for_all_methods(decorator):
+    def decorate(cls):
+        for attr in cls.__dict__:
+            if callable(getattr(cls, attr) and attr != '__init__'):
+                setattr(cls, attr, decorator(getattr(cls, attr)))
+        return cls
+    return decorate
 
 
 class PyElementWrapper:
@@ -114,7 +109,6 @@ class PyElementWrapper:
 
     def __init__(self, locator):
         self.locator = locator
-        self.driver = driver()
         self.wrapped_element: webelement = None
 
     @ready_state
@@ -129,9 +123,7 @@ class PyElementWrapper:
 
     @ready_state
     @anti_staleness
-    def should_have(
-            self, conditions: typing.Union[PyCondition, typing.List[PyCondition]]
-    ) -> PyElementWrapper:
+    def should_have(self, conditions: typing.Union[PyCondition, typing.List[PyCondition]]) -> PyElementWrapper:
         return ShouldHaveCommand(self, conditions).execute()
 
     @ready_state

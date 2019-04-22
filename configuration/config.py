@@ -50,7 +50,7 @@ class PyleniumConfig(metaclass=Singleton):
         )
         self._desired_capabilities = DesiredCapabilities()
         self._base_url = os.getenv("pylenium_base_url", "http://localhost:8080/")
-        self._explicit_wait_timeout = os.getenv("pylenium_wait_timeout", 30)
+        self._explicit_wait_timeout = os.getenv("pylenium_wait_timeout", 8)
         self._polling_timeout = os.getenv("pylenium_polling_timeout", 200)
         self._capture_screenshot = os.getenv("pylenium_screenshot", True)
         self._capture_pagesource = os.getenv("pylenium_pagesource", True)

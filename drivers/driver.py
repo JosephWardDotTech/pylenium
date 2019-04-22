@@ -62,6 +62,9 @@ class PyleniumDriver:
     def url(self) -> str:
         return self.driver.web_driver.current_url
 
+    def quit(self):
+        self.driver.web_driver.quit()
+
     def execute_javascript(self, script: str, *args):
         log.info("Executing javascript command")
         return self.driver.web_driver.execute_script(script, args)
@@ -69,7 +72,6 @@ class PyleniumDriver:
     @staticmethod
     def find(locator: PyLocator):
         from core.pylenium import PyElementWrapper
-
         return PyElementWrapper(locator)
 
     def X(self, identifier: str):

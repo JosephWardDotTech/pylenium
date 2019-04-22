@@ -2,9 +2,10 @@ import threading
 
 from configuration.config import PyleniumConfig
 from drivers.driver import PyleniumDriver
+from utility.meta import Singleton
 
 
-class WebDriverThreadLocalContainer:
+class WebDriverThreadLocalContainer(metaclass=Singleton):
     _listeners = []
     _driver_threads = {}
     _drivers = {}
@@ -21,7 +22,11 @@ class WebDriverThreadLocalContainer:
         self._drivers[thread_id] = PyleniumDriver(PyleniumConfig(), proxy)
 
     def get_pylenium_driver(self):
-        return self._drivers.get(threading.get_ident(),  PyleniumDriver(PyleniumConfig(), None))
+        if threading.get_ident() not in self._drivers:
+            self._drivers[threading.get_ident()] = PyleniumDriver(PyleniumConfig(), None)
+            return self._drivers[threading.get_ident()]
+        else:
+            return self._drivers[threading.get_ident()]
 
     def get_and_check_webdriver(self):
         return self.get_pylenium_driver().get_and_check_webdriver()
