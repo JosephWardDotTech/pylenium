@@ -67,9 +67,6 @@ class PyleniumDriver:
         log.info('Executing javascript command')
         return self.driver.web_driver.execute_script(script, args)
 
-    def quit(self):
-        self.driver.web_driver.quit()
-
     @staticmethod
     def find(locator: PyLocator):
         from core.pylenium import PyElementWrapper
@@ -223,7 +220,7 @@ class Navigator:
 
     @staticmethod
     def _has_auth(domain, login, password):
-        return domain == '' or login == '' or password == ''
+        return domain != '' or login != '' or password != ''
 
 
 class BrowserHealthChecker:

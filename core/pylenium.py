@@ -34,6 +34,11 @@ def start(entry_point):
     return driver().open(entry_point)
 
 
+def go(url: str):
+    
+
+
+
 def terminate() -> None:
     driver().quit()
 
