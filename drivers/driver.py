@@ -11,8 +11,8 @@ from selenium.webdriver.remote import webdriver
 from selenium.webdriver.support.abstract_event_listener import AbstractEventListener
 
 from core.locators import PyLocator
-from web_drivers.commands import CreateDriverCommand
-from web_drivers.factories import WebDriverFactory
+from drivers.commands import CreateDriverCommand
+from drivers.factories import WebDriverFactory
 
 log = logging.getLogger('pylenium')
 

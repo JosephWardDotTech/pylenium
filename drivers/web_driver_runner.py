@@ -1,7 +1,7 @@
 from __future__ import annotations
 
 # facade module for accessing web driver instance for threads
-from web_drivers.containers import WebDriverThreadLocalContainer
+from drivers.containers import WebDriverThreadLocalContainer
 
 web_driver_container = WebDriverThreadLocalContainer()
 

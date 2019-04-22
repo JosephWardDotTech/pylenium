@@ -1,6 +1,6 @@
 import threading
 
-from web_drivers.driver import PyleniumDriver
+from drivers.driver import PyleniumDriver
 
 
 class WebDriverThreadLocalContainer:
