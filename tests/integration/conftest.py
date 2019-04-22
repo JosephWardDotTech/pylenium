@@ -4,7 +4,7 @@ import threading
 import pytest
 
 from configuration.config import PyleniumConfig
-from core.pylenium import start, terminate
+from core.pylenium import terminate
 from web_drivers.driver import PyleniumDriver
 
 log = logging.getLogger('pylenium')

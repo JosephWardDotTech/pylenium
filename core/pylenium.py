@@ -40,7 +40,7 @@ def terminate() -> None:
 
 def driver() -> PyleniumDriver:
     log.info('Fetching the driver')
-    return PyleniumDriver(config, None, None)
+    return PyleniumDriver(config)
 
 
 def get_wrapped_driver() -> webdriver:

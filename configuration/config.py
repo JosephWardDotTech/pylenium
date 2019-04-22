@@ -59,11 +59,11 @@ class PyleniumConfig(metaclass=Singleton):
         self._selector_default = Selector.CSS
         self._proxy_enabled = os.getenv("pylenium_proxy_on", False)
         self._file_Download = os.getenv("pylenium_file_Download", FileDownloadMode.HTTP_GET)
-        self._reopen_browser = os.getenv("pylenium_reopen_browser", False)
+        self._reopen_browser = os.getenv("pylenium_reopen_browser", True)
 
     @property
     def reopen_browser(self) -> bool:
-        return self.reopen_browser
+        return self._reopen_browser
 
     @reopen_browser.setter
     def reopen_browser(self, value: bool) -> PyleniumConfig:

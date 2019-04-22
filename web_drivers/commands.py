@@ -24,7 +24,7 @@ class CreateDriverCommand:
             # build out the pylenium proxy capabilities!, but not yet!
             pass
 
-        driver = factory.create_webdriver(config, browser_proxy)
+        driver = factory.build_driver(config, browser_proxy)
         log.info('Creating web driver in current thread: {}'.format(threading.get_ident()))
         driver = CreateDriverCommand.add_listeners(driver, listener)
         return CreateDriverResult(driver, pylenium_proxy_server)

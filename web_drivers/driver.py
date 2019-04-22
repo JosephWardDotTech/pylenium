@@ -3,10 +3,12 @@ from __future__ import annotations
 import logging
 import threading
 from enum import Enum
+from typing import Optional
 
 from selenium.common.exceptions import WebDriverException
 from selenium.webdriver.common.by import By
 from selenium.webdriver.remote import webdriver
+from selenium.webdriver.support.abstract_event_listener import AbstractEventListener
 
 from core.locators import PyLocator
 from web_drivers.commands import CreateDriverCommand
@@ -44,13 +46,13 @@ class AuthenticationType(Enum):
 class PyleniumDriver:
     def __init__(self,
                  config,
-                 users_proxy,
-                 driver_listeners):
+                 users_proxy=None,
+                 listener: Optional[AbstractEventListener] = None):
         self.navigator = Navigator()
         self.config = config
         self.proxy = users_proxy
-        self.listeners = driver_listeners
-        self.driver = LazyDriver(self.config, self.proxy, self.listeners)
+        self.listener = listener
+        self.driver = LazyDriver(self.config, self.proxy, self.listener)
 
     def start(self, url: str):
         self.navigator.open(self, url)
@@ -102,35 +104,41 @@ class LazyDriver:
     def __init__(self,
                  config,
                  user_proxy,
-                 listeners,
+                 listener,
                  factory: WebDriverFactory = None,
                  browser_health_checker: BrowserHealthChecker = None):
         self.config: PyleniumConfig = config
         self.proxy = user_proxy
-        self.listeners = listeners,
+        self.listener = listener
         self.factory = factory or WebDriverFactory()
         self.browser_health_checker = browser_health_checker or BrowserHealthChecker()
         self.web_driver = None
         self.closed = False
 
     def get_and_check_webdriver(self):
-        if not self.web_driver and self.config.reopen_browser and not self.browser_health_checker.is_browser_open(
+        if self.web_driver is not None and self.config.reopen_browser and not self.browser_health_checker.is_browser_open(
                 self.web_driver):
             log.info('Web driver has been closed, Lets recreate it')
             self.close()
             self.create_driver()
-        else:
+        elif self.web_driver is None:
             log.info('No web driver is bound to the current thread: {} - lets create one'.format(threading.get_ident()))
             self.create_driver()
-        return self.web_driver
+        return self.get_web_driver()
+
+    def get_web_driver(self):
+        if self.closed or self.web_driver is None:
+            raise ValueError('Web driver has been closed, you need to call start() to open another browser')
+        else:
+            return self.web_driver
 
     def close(self):
         pass
 
     def create_driver(self):
-        result = CreateDriverCommand().create_driver(self.config, self.factory, self.proxy, self.listeners)
-        driver = result.driver
-        pylenium_proxy = result.proxy
+        result = CreateDriverCommand().create_driver(self.config, self.factory, self.proxy, self.listener)
+        self.web_driver = result.driver
+        self.proxy = result.proxy
         self.closed = False
 
 
@@ -150,16 +158,16 @@ class Navigator:
         url = self.absolute_url(driver.config, url)
         url = self.append_basic_auth_if_necessary(driver.config, url, auth, domain, login, password)
 
-        driver = driver.get_and_check_driver()
+        web_driver = driver.get_and_check_driver()
         self.before_navigate_to(driver.config, driver.proxy, auth, domain, login, password)
-        driver.get(url)
+        web_driver.get(url)
 
     def before_navigate_to(self, config, proxy, auth, domain, login, password):
         if config.proxy_enabled:
             self.check_that_proxy_is_started(proxy)
             self.before_navigate_to_with_proxy(proxy, auth, domain, login, password)
         else:
-            self.before_navigate_to_without_proxy()
+            self.before_navigate_to_without_proxy(auth, domain, login, password)
 
     def check_that_proxy_is_started(self):
         pass
@@ -198,12 +206,13 @@ class Navigator:
                                        login: str,
                                        password: str):
         return self.__basic_auth.append_basic_auth_to_url(url, domain, login,
-                                                          password) if self._pass_basic_auth_through_url(config, url,
-                                                                                                         auth, domain,
+                                                          password) if self._pass_basic_auth_through_url(config,
+                                                                                                         auth,
+                                                                                                         domain,
                                                                                                          login,
-                                                                                                         password) else url
+                                                                                                         password) \
+            else url
 
-    @staticmethod
     def _pass_basic_auth_through_url(self,
                                      config: PyleniumConfig,
                                      auth: AuthenticationType,

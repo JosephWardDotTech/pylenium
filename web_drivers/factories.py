@@ -57,7 +57,7 @@ class WebDriverFactory:
     _supported_factories = [ChromeFactory()]
     _browser_resizer = BrowserResizer()
 
-    def create_driver(self, config, proxy):
+    def build_driver(self, config, proxy):
         log.info('Browser: {}'.format(config.browser))
         log.info('Browser version: {}'.format(config.browser_version))
         log.info('Remote: {}'.format(config.remote))
