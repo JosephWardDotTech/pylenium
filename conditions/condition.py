@@ -19,10 +19,11 @@ class text(PyCondition):  # NOSONAR
         try:
             assert proxy.wrapped_element.text == self.expected
         except AssertionError:
-            raise UIAssertionException('Element should of had text: {} but it was actually: {}'.format(
-                self.expected,
-                proxy.wrapped_element.text,
-            ))
+            raise UIAssertionException(
+                "Element should of had text: {} but it was actually: {}".format(
+                    self.expected, proxy.wrapped_element.text
+                )
+            )
 
         return proxy
 
@@ -35,6 +36,8 @@ class attribute(PyCondition):  # NOSONAR
         try:
             assert proxy.wrapped_element.get_attribute(self.expected) is not None
         except AssertionError:
-            raise UIAssertionException('Expected element have the attribute: {} but it did not'.format(
-                self.expected
-            ))
+            raise UIAssertionException(
+                "Expected element have the attribute: {} but it did not".format(
+                    self.expected
+                )
+            )

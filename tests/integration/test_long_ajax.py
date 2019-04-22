@@ -11,4 +11,4 @@ from core.pylenium import *
 class TestLongAjaxLoading:
     def test_chained_text_retrieval(self):
         X("//button").click()
-        X("//span[@id='result-2']").should_have(text('r2'))
+        X("//span[@id='result-2']").should_have(text("r2"))

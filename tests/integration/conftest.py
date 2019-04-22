@@ -7,7 +7,7 @@ from configuration.config import PyleniumConfig
 from core.pylenium import terminate
 from drivers.driver import PyleniumDriver
 
-log = logging.getLogger('pylenium')
+log = logging.getLogger("pylenium")
 
 
 @pytest.fixture(scope="function", autouse=True)

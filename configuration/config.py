@@ -10,8 +10,8 @@ from utility.meta import Singleton
 
 
 class FileDownloadMode(Enum):
-    HTTP_GET = 'http_get',
-    PROXY = 'proxy',
+    HTTP_GET = ("http_get",)
+    PROXY = ("proxy",)
 
 
 class Selector(Enum):
@@ -58,7 +58,9 @@ class PyleniumConfig(metaclass=Singleton):
         self._javascript_sendkeys = os.getenv("pylenium_js_sendkeys", False)
         self._selector_default = Selector.CSS
         self._proxy_enabled = os.getenv("pylenium_proxy_on", False)
-        self._file_Download = os.getenv("pylenium_file_Download", FileDownloadMode.HTTP_GET)
+        self._file_Download = os.getenv(
+            "pylenium_file_Download", FileDownloadMode.HTTP_GET
+        )
         self._reopen_browser = os.getenv("pylenium_reopen_browser", True)
 
     @property

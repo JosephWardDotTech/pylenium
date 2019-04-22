@@ -5,7 +5,9 @@ from conditions.condition import PyCondition
 
 
 class ShouldHaveCommand(Command):
-    def __init__(self, proxy, conditions: typing.Union[typing.List[PyCondition], PyCondition]):
+    def __init__(
+        self, proxy, conditions: typing.Union[typing.List[PyCondition], PyCondition]
+    ):
         super().__init__(proxy)
         self.conditions = conditions
 
