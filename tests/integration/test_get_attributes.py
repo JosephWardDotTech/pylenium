@@ -13,4 +13,4 @@ class TestRetrieveAttribute:
 
     def test_something(self):
         from web_drivers.factories import WebDriverFactory
-        WebDriverFactory(PyleniumConfig(), None)
+        WebDriverFactory().create_driver(PyleniumConfig(), None)

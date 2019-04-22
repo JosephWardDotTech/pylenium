@@ -31,16 +31,16 @@ class WebDriverFactory:
     __supported_factories = [ChromeFactory()]
 
     def create_driver(self, config, proxy):
-        log.info('Browser: {}'.format(config.browser()))
-        log.info('Browser version: {}'.format(config.browser_version()))
-        log.info('Remote: {}'.format(config.remote()))
-        log.info('Browser size: {}'.format(config.browser_size()))
-        log.info('Start Maximized: {}'.format(config.start_maximized()))
+        log.info('Browser: {}'.format(config.browser))
+        log.info('Browser version: {}'.format(config.browser_version))
+        log.info('Remote: {}'.format(config.remote))
+        log.info('Browser size: {}'.format(config.browser_size))
+        log.info('Start Maximized: {}'.format(config.browser_maximized))
 
         # build browser
-        browser = Browser(config.browser(), config.headless())
+        browser = Browser(config.browser, config.headless)
         # do web driver manager stuff
-        if config.wdm_enabled() and not config.remote():
+        if config.wdm_enabled and not config.remote:
             #  todo -> pythons wdm is tightly coupled to driver instantiation?
             log.info('Still to setup the wdm capabilities!')
             pass
@@ -64,6 +64,8 @@ class Browser:
         return self.is_phantom_js() or self.is_html_unit() or self.headless
 
     def is_chrome(self) -> bool:
+        if isinstance(self.name, Browser):
+            return self.name.value.lower().startswith('chrome')
         return self.name.lower().startswith('chrome')
 
     def is_firefox(self) -> bool:

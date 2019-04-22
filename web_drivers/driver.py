@@ -11,7 +11,7 @@ from web_drivers.factories import WebDriverFactory
 
 log = logging.getLogger('pylenium')
 
-from configuration.config import PyleniumConfig
+from configuration.config import PyleniumConfig, FileDownloadMode
 from exceptions.exceptions import PyleniumProxyException
 
 
@@ -144,6 +144,7 @@ class Navigator:
 
     def _has_auth(self, domain, login, password):
         return domain == '' or login == '' or password == ''
+
 
 class BrowserHealthChecker:
 
