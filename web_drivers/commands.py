@@ -1,6 +1,8 @@
 import threading
 import logging
 
+from selenium.webdriver.support.event_firing_webdriver import EventFiringWebDriver
+
 log = logging.getLogger('pylenium')
 
 
@@ -10,7 +12,7 @@ class CreateDriverCommand:
     def create_driver(config,
                       factory,
                       proxy,
-                      listeners):
+                      listener):
         if not config.reopen_browser:
             raise ValueError('No web driver is bound to the current thread: {} and we cannot launch a new one'
                              'because pylenium_reopen_browser is False'.format(threading.get_ident()))
@@ -24,12 +26,14 @@ class CreateDriverCommand:
 
         driver = factory.create_webdriver(config, browser_proxy)
         log.info('Creating web driver in current thread: {}'.format(threading.get_ident()))
-        driver = add_listeners(listeners)
+        driver = CreateDriverCommand.add_listeners(driver, listener)
+        return CreateDriverResult(driver, pylenium_proxy_server)
 
     @staticmethod
-    def add_listeners(driver, listeners):
-        if not listeners:
+    def add_listeners(driver, listener):
+        if not listener:
             return driver
+        return EventFiringWebDriver(driver, listener)
 
 
 class CreateDriverResult:
