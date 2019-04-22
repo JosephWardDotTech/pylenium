@@ -51,3 +51,4 @@ class PyPageException(Exception):
 
 class PyleniumProxyException(Exception):
     pass
+

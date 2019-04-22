@@ -74,6 +74,7 @@ class LazyDriver:
         self.factory = factory or WebDriverFactory()
         self.browser_health_checker = browser_health_checker or BrowserHealthChecker()
         self.web_driver = None
+        self.closed = False
 
     def get_and_check_webdriver(self, lock):
         with lock:
@@ -84,6 +85,12 @@ class LazyDriver:
             else:
                 log.info('No web driver is bound to the current thread: {} - lets create one'.format(threading.get_ident()))
                 self.create_driver()
+
+    def close(self):
+        pass
+
+    def create_driver(self):
+        pass
 
 
 class Navigator:
