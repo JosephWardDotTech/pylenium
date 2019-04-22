@@ -23,7 +23,7 @@ from exceptions.exceptions import PyleniumProxyException
 class BasicAuth:
     @staticmethod
     def append_basic_auth_to_url(
-        url: str, domain: str, login: str, password: str
+            url: str, domain: str, login: str, password: str
     ) -> str:
         if domain:
             domain += "%5C"
@@ -46,7 +46,7 @@ class AuthenticationType(Enum):
 
 class PyleniumDriver:
     def __init__(
-        self, config, users_proxy=None, listener: Optional[AbstractEventListener] = None
+            self, config, users_proxy=None, listener: Optional[AbstractEventListener] = None
     ):
         self.navigator = Navigator()
         self.config = config
@@ -100,12 +100,12 @@ class PyleniumDriver:
 
 class LazyDriver:
     def __init__(
-        self,
-        config,
-        user_proxy,
-        listener,
-        factory: WebDriverFactory = None,
-        browser_health_checker: BrowserHealthChecker = None,
+            self,
+            config,
+            user_proxy,
+            listener,
+            factory: WebDriverFactory = None,
+            browser_health_checker: BrowserHealthChecker = None,
     ):
         self.config: PyleniumConfig = config
         self.proxy = user_proxy
@@ -117,9 +117,9 @@ class LazyDriver:
 
     def get_and_check_webdriver(self):
         if (
-            self.web_driver is not None
-            and self.config.reopen_browser
-            and not self.browser_health_checker.is_browser_open(self.web_driver)
+                self.web_driver is not None
+                and self.config.reopen_browser
+                and not self.browser_health_checker.is_browser_open(self.web_driver)
         ):
             log.info("Web driver has been closed, Lets recreate it")
             self.close()
@@ -160,13 +160,13 @@ class Navigator:
         self.navigate_to(driver, url, AuthenticationType.BASIC, "", "", "")
 
     def navigate_to(
-        self,
-        driver: PyleniumDriver,
-        url: str,
-        auth: AuthenticationType,
-        domain: str,
-        login: str,
-        password: str,
+            self,
+            driver: PyleniumDriver,
+            url: str,
+            auth: AuthenticationType,
+            domain: str,
+            login: str,
+            password: str,
     ):
         self.check_proxy_is_enabled(driver.config)
         url = self.absolute_url(driver.config, url)
@@ -221,13 +221,13 @@ class Navigator:
         return relative_or_absolute_url.lower().startswith(("http", "https", "file:"))
 
     def append_basic_auth_if_necessary(
-        self,
-        config: PyleniumConfig,
-        url: str,
-        auth: AuthenticationType,
-        domain: str,
-        login: str,
-        password: str,
+            self,
+            config: PyleniumConfig,
+            url: str,
+            auth: AuthenticationType,
+            domain: str,
+            login: str,
+            password: str,
     ):
         return (
             self.__basic_auth.append_basic_auth_to_url(url, domain, login, password)
@@ -236,17 +236,17 @@ class Navigator:
         )
 
     def _pass_basic_auth_through_url(
-        self,
-        config: PyleniumConfig,
-        auth: AuthenticationType,
-        domain: str,
-        login: str,
-        password: str,
+            self,
+            config: PyleniumConfig,
+            auth: AuthenticationType,
+            domain: str,
+            login: str,
+            password: str,
     ):
         return (
-            self._has_auth(domain, login, password)
-            and not config.proxy_enabled
-            and auth == AuthenticationType.BASIC
+                self._has_auth(domain, login, password)
+                and not config.proxy_enabled
+                and auth == AuthenticationType.BASIC
         )
 
     @staticmethod

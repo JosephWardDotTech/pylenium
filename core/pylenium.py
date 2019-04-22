@@ -82,8 +82,8 @@ def ready_state(f):
         log.info("Waiting for page readystate")
         while time.time() < start + config.explicit_wait_timeout:
             if (
-                args[0].driver.execute_javascript("return document.readyState")
-                == "complete"
+                    args[0].driver.execute_javascript("return document.readyState")
+                    == "complete"
             ):
                 break
         else:
@@ -92,7 +92,7 @@ def ready_state(f):
         log.info("Waiting for jquery")
         while time.time() < start + config.explicit_wait_timeout:
             if not args[0].driver.execute_javascript(
-                "return !!window.jQuery && window.jQuery.active == 0"
+                    "return !!window.jQuery && window.jQuery.active == 0"
             ):
                 break
         else:
@@ -129,7 +129,7 @@ class PyElementWrapper:
     @ready_state
     @anti_staleness
     def should_have(
-        self, conditions: typing.Union[PyCondition, typing.List[PyCondition]]
+            self, conditions: typing.Union[PyCondition, typing.List[PyCondition]]
     ) -> PyElementWrapper:
         return ShouldHaveCommand(self, conditions).execute()
 
