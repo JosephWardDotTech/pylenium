@@ -35,8 +35,7 @@ def start(entry_point):
 
 
 def go(url: str):
-    
-
+    pass
 
 
 def terminate() -> None:
