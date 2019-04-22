@@ -21,6 +21,7 @@ class BrowserResizer:
             driver.set_window_size(width, height)
         elif config.browser_maximized:
             driver.maximize_window()
+        return driver
 
     @staticmethod
     def adjust_position(config, driver):
@@ -29,7 +30,8 @@ class BrowserResizer:
             coordinates = config.browser_size.split('x')
             width = int(coordinates[0])
             height = int(coordinates[1])
-            driver.set_window.position(width, height)
+            driver.set_window_position(width, height)
+        return driver
 
 
 class AbstractFactory(metaclass=abc.ABCMeta):
