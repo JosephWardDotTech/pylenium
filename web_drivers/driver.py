@@ -80,12 +80,16 @@ class LazyDriver:
         else:
             log.info('No web driver is bound to the current thread: {} - lets create one'.format(threading.get_ident()))
             self.create_driver()
+        return self.web_driver
 
     def close(self):
         pass
 
     def create_driver(self):
         result = CreateDriverCommand().create_driver(self.config, self.factory, self.proxy, self.listeners)
+        driver = result.driver
+        pylenium_proxy = result.proxy
+        self.closed = False
 
 
 class Navigator:
@@ -104,7 +108,32 @@ class Navigator:
         url = self.absolute_url(driver.config, url)
         url = self.append_basic_auth_if_necessary(driver.config, url, auth, domain, login, password)
 
-        driver.get_and_check_driver()
+        driver = driver.get_and_check_driver()
+        before_navigate_to()
+        driver.get(url)
+
+
+    def before_navigate_to(self, config, proxy, auth, domain, login, password):
+        if config.proxy_enabled:
+            self.check_that_proxy_is_started(proxy)
+            self.before_navigate_to_with_proxy(proxy, auth, domain, login, password)
+        else:
+            self.before_navigate_to_without_proxy()
+
+    def check_that_proxy_is_started(self):
+        pass
+
+    def before_navigate_to_with_proxy(self, proxy, auth, domain, login, password):
+        if self._has_auth(domain, login, password):
+            # BasicAuthRequestFilter(proxy).set_auth(auth, Credentials(login, password))
+            pass
+        else:
+            # BasicAuthRequestFilter(proxy).remove_auth()
+            pass
+
+    def before_navigate_to_without_proxy(self, auth, domain, login, password):
+        if self._has_auth(domain, login, password) and auth != AuthenticationType.BASIC:
+            raise PyleniumProxyException('Cannot use: {} authentication without a proxy server'.format(auth))
 
     @staticmethod
     def check_proxy_is_enabled(config: PyleniumConfig):
