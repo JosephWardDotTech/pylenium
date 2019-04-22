@@ -45,13 +45,13 @@ class AuthenticationType(Enum):
 
 class PyleniumDriver:
     def __init__(
-            self, config, users_proxy=None, listener: Optional[AbstractEventListener] = None
+            self, config, users_proxy=None, driver=None, listener: Optional[AbstractEventListener] = None
     ):
         self.navigator = Navigator()
         self.config = config
         self.proxy = users_proxy
         self.listener = listener
-        self.driver = LazyDriver(self.config, self.proxy, self.listener)
+        self.driver = driver or LazyDriver(self.config, self.proxy, self.listener)
 
     def start(self, url: str):
         self.navigator.open(self, url)

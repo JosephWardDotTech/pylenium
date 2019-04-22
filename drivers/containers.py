@@ -1,5 +1,6 @@
 import threading
 
+from configuration.config import PyleniumConfig
 from drivers.driver import PyleniumDriver
 
 
@@ -17,10 +18,10 @@ class WebDriverThreadLocalContainer:
         if previous is not None:
             previous.close()
 
-        self._drivers[thread_id] = PyleniumDriver(driver, proxy)
+        self._drivers[thread_id] = PyleniumDriver(PyleniumConfig(), proxy)
 
     def get_pylenium_driver(self):
-        pass
+        return self._drivers.get(threading.get_ident(),  PyleniumDriver(PyleniumConfig(), None))
 
     def get_and_check_webdriver(self):
         return self.get_pylenium_driver().get_and_check_webdriver()

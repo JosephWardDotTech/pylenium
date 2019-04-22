@@ -16,6 +16,7 @@ from conditions.condition import PyCondition
 from configuration.config import PyleniumConfig
 from core.locators import PyLocator
 from drivers.driver import PyleniumDriver
+import drivers.web_driver_runner as runner
 
 log = logging.getLogger("pylenium")
 log.setLevel(logging.INFO)
@@ -31,7 +32,7 @@ config = PyleniumConfig()
 
 
 def start(entry_point):
-    return driver().open(entry_point)
+   return runner.start(entry_point)
 
 
 def go(url: str):
