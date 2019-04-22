@@ -1,12 +1,32 @@
 from __future__ import annotations
+
 from enum import Enum
 
 from configuration.config import PyleniumConfig
 from exceptions.exceptions import PyleniumProxyException
 
 
+class BasicAuth:
+    @staticmethod
+    def append_basic_auth_to_url(url: str,
+                                 domain: str,
+                                 login: str,
+                                 password: str) -> str:
+        if domain:
+            domain += '%5C'
+        if login:
+            login += ':'
+        if password:
+            password += '@'
+        index = url.index('://') + 3
+
+        return domain + login + password + url if index < 3 else url[
+                                                                 :index - 3] + '://' + domain + login + password + \
+                                                                 url[:index]
+
+
 class AuthenticationType(Enum):
-    pass
+    BASIC = 'basic'
 
 
 class FileDownloadMode(Enum):
@@ -28,17 +48,25 @@ class PyleniumDriver:
         self.navigator.open(url)
 
 
+class LazyDriver:
+    pass
+
+
 class Navigator:
+    __basic_auth: BasicAuth = BasicAuth()
 
     def open(self, driver, url):
         pass
 
     def navigate_to(self, driver: PyleniumDriver,
-                    url: str, auth: AuthenticationType,
+                    url: str,
+                    auth: AuthenticationType,
                     domain: str,
                     login: str,
                     password: str):
-        self.check_proxy_is_enabled(driver.con)
+        self.check_proxy_is_enabled(driver.config)
+        url = self.absolute_url(driver.config, url)
+        url = self.append_basic_auth_if_necessary(driver.config, url, auth, domain, login, password)
 
     @staticmethod
     def check_proxy_is_enabled(config: PyleniumConfig):
@@ -54,12 +82,27 @@ class Navigator:
     def _is_absolute_url(relative_or_absolute_url: str) -> bool:
         return relative_or_absolute_url.lower().startswith(('http', 'https', 'file:'))
 
+    def append_basic_auth_if_necessary(self,
+                                       config: PyleniumConfig,
+                                       url: str,
+                                       auth: AuthenticationType,
+                                       domain: str,
+                                       login: str,
+                                       password: str):
+        return self.__basic_auth.append_basic_auth_to_url(url, domain, login,
+                                                          password) if self._pass_basic_auth_through_url(config, url,
+                                                                                                         auth, domain,
+                                                                                                         login,
+                                                                                                         password) else url
 
+    @staticmethod
+    def _pass_basic_auth_through_url(self,
+                                     config: PyleniumConfig,
+                                     auth: AuthenticationType,
+                                     domain: str,
+                                     login: str,
+                                     password: str):
+        return self._has_auth(domain, login, password) and not config.proxy_enabled and auth == AuthenticationType.BASIC
 
-class BasicAuth:
-    pass
-
-
-
-
-
+    def _has_auth(self, domain, login, password):
+        return domain == '' or login == '' or password == ''
