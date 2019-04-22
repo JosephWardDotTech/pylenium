@@ -16,20 +16,23 @@ class WebDriverFactory:
 
     @staticmethod
     def create_driver(config, proxy):
-        log.info('Browser: {}'.format(config.browser))
-        log.info('Browser version: {}'.format(config.browser_version))
-        log.info('Remote: {}'.format(config.remote))
-        log.info('Browser size: {}'.format(config.browser_size))
-        log.info('Start Maximized: {}'.format(config.start_maximized))
+        log.info('Browser: {}'.format(config.browser()))
+        log.info('Browser version: {}'.format(config.browser_version()))
+        log.info('Remote: {}'.format(config.remote()))
+        log.info('Browser size: {}'.format(config.browser_size()))
+        log.info('Start Maximized: {}'.format(config.start_maximized()))
 
         # build browser
-
+        browser = Browser(config.browser(), config.headless())
         # do web driver manager stuff
+        if config.wdm_enabled() and not config.remote():
+            #  todo -> pythons wdm is tightly coupled to driver instantiation?
+            log.info('Still to setup the wdm capabilities!')
+            pass
 
         # stream factories to build supported driver
 
         # set sizing of browser
-
 
         # log some info
 
