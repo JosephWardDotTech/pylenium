@@ -16,10 +16,11 @@ class FileDownloadMode(Enum):
 
 class PyleniumDriver:
     def __init__(self,
-                 navigator: Navigator,
+                 config,
                  users_proxy,
                  driver_listeners):
-        self.navigator = navigator
+        self.navigator = Navigator()
+        self.config = config
         self.proxy = users_proxy
         self.listeners = driver_listeners
 
