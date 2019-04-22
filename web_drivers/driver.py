@@ -138,7 +138,7 @@ class Navigator:
     __basic_auth: BasicAuth = BasicAuth()
 
     def open(self, driver, url):
-        pass
+        self.navigate_to(driver, url, AuthenticationType.BASIC, '', '', '')
 
     def navigate_to(self, driver: PyleniumDriver,
                     url: str,
