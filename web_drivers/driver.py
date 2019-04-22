@@ -1,7 +1,14 @@
 from __future__ import annotations
 
+import threading
 from enum import Enum
 import logging
+
+from selenium.common.exceptions import WebDriverException
+from selenium.webdriver.remote import webdriver
+
+from web_drivers.factories import WebDriverFactory
+
 log = logging.getLogger('pylenium')
 
 from configuration.config import PyleniumConfig
@@ -51,14 +58,32 @@ class PyleniumDriver:
         self.navigator.open(url)
 
     def get_and_check_driver(self):
-        return driver.get_and_check_webdriver()
+        return self.driver.get_and_check_webdriver()
 
 
 class LazyDriver:
     def __init__(self,
                  config,
                  proxy,
-                 listeners):
+                 listeners,
+                 factory: WebDriverFactory = None,
+                 browser_health_checker: BrowserHealthChecker = None):
+        self.config: PyleniumConfig = config
+        self.proxy = proxy
+        self.listeners = listeners,
+        self.factory = factory or WebDriverFactory()
+        self.browser_health_checker = browser_health_checker or BrowserHealthChecker()
+        self.web_driver = None
+
+    def get_and_check_webdriver(self, lock):
+        with lock:
+            if not self.web_driver and self.config.reopen_browser and not self.browser_health_checker.is_browser_open(self.web_driver):
+                log.info('Web driver has been closed, Lets recreate it')
+                self.close()
+                self.create_driver()
+            else:
+                log.info('No web driver is bound to the current thread: {} - lets create one'.format(threading.get_ident()))
+                self.create_driver()
 
 
 class Navigator:
@@ -119,3 +144,16 @@ class Navigator:
 
     def _has_auth(self, domain, login, password):
         return domain == '' or login == '' or password == ''
+
+class BrowserHealthChecker:
+
+    @staticmethod
+    def is_browser_open(driver: webdriver) -> bool:
+        try:
+            driver.get_title()
+            return True
+        except WebDriverException as ex:
+            log.info('Driver window, session or window was not found!')
+            return False
+
+
