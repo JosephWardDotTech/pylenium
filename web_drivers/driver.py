@@ -1,6 +1,8 @@
 from __future__ import annotations
 
 from enum import Enum
+import logging
+log = logging.getLogger('pylenium')
 
 from configuration.config import PyleniumConfig
 from exceptions.exceptions import PyleniumProxyException
@@ -43,13 +45,20 @@ class PyleniumDriver:
         self.config = config
         self.proxy = users_proxy
         self.listeners = driver_listeners
+        self.driver = LazyDriver(self.config, self.proxy, self.listeners)
 
     def open(self, url: str):
         self.navigator.open(url)
 
+    def get_and_check_driver(self):
+        return driver.get_and_check_webdriver()
+
 
 class LazyDriver:
-    pass
+    def __init__(self,
+                 config,
+                 proxy,
+                 listeners):
 
 
 class Navigator:
@@ -67,6 +76,10 @@ class Navigator:
         self.check_proxy_is_enabled(driver.config)
         url = self.absolute_url(driver.config, url)
         url = self.append_basic_auth_if_necessary(driver.config, url, auth, domain, login, password)
+
+        try:
+            driver = driver.get_and_check_driver()
+
 
     @staticmethod
     def check_proxy_is_enabled(config: PyleniumConfig):
