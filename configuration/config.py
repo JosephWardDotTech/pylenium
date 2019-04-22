@@ -21,7 +21,7 @@ class Selector(Enum):
 
 
 # Pyleniums possible browser (by default)
-class Browser(Enum):
+class Browser_type(Enum):
     CHROME = "chrome"
     FIREFOX = "firefox"
 
@@ -36,7 +36,7 @@ class PageLoadStrategy(Enum):
 
 class PyleniumConfig(metaclass=Singleton):
     def __init__(self):
-        self._browser = os.getenv("pylenium_browser", Browser.CHROME)
+        self._browser = os.getenv("pylenium_browser", Browser_type.CHROME)
         self._headless = os.getenv("pylenium_headless", False)
         self._remote = os.getenv("pylenium_remote", False)
         self._browser_size = os.getenv("pylenium_browser_size", "1366x768")
@@ -89,11 +89,11 @@ class PyleniumConfig(metaclass=Singleton):
         return self
 
     @property
-    def browser(self) -> Browser:
+    def browser(self) -> Browser_type:
         return self._browser
 
     @browser.setter
-    def browser(self, value: Browser) -> PyleniumConfig:
+    def browser(self, value: Browser_type) -> PyleniumConfig:
         self._browser = value
         return self
 

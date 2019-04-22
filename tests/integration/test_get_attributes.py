@@ -11,6 +11,8 @@ class TestRetrieveAttribute:
     def test_chained_text_retrieval(self):
         ID("attributes").should_have(attribute('random-attribute'))
 
+    @pytest.mark.brows
     def test_something(self):
         from web_drivers.factories import WebDriverFactory
         WebDriverFactory().create_driver(PyleniumConfig(), None)
+        a = 25
