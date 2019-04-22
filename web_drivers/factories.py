@@ -1,13 +1,25 @@
+import abc
 import logging
 log = logging.getLogger('pylenium')
 
 
-class AbstractFactory:
-    pass
+class AbstractFactory(metaclass=abc.ABCMeta):
+
+    @abc.abstractmethod
+    def create(self, config, browser):
+        pass
+
+    @abc.abstractmethod
+    def supports(self, config, proxy) -> bool:
+        pass
 
 
 class ChromeFactory(AbstractFactory):
-    pass
+    def create(self, config, browser):
+        pass
+
+    def supports(self, config, proxy) -> bool:
+        pass
 
 
 class WebDriverFactory:
