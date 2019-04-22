@@ -5,8 +5,10 @@ import threading
 from enum import Enum
 
 from selenium.common.exceptions import WebDriverException
+from selenium.webdriver.common.by import By
 from selenium.webdriver.remote import webdriver
 
+from core.locators import PyLocator
 from web_drivers.commands import CreateDriverCommand
 from web_drivers.factories import WebDriverFactory
 
@@ -55,6 +57,45 @@ class PyleniumDriver:
 
     def get_and_check_driver(self):
         return self.driver.get_and_check_webdriver()
+
+    def url(self) -> str:
+        return self.driver.web_driver.current_url
+
+    def execute_javascript(self, script: str, *args):
+        log.info('Executing javascript command')
+        return self.driver.web_driver.execute_script(script, args)
+
+    def quit(self):
+        self.driver.web_driver.quit()
+
+    @staticmethod
+    def find(locator: PyLocator):
+        from core.pylenium import PyElementWrapper
+        return PyElementWrapper(locator)
+
+    def X(self, identifier: str):
+        return self.find(PyLocator(By.XPATH, identifier))
+
+    def ID(self, identifier: str):
+        return self.find(PyLocator(By.ID, identifier))
+
+    def CSS(self, identifier: str):
+        return self.find(PyLocator(By.CSS_SELECTOR, identifier))
+
+    def PLT(self, identifier: str):
+        return self.find(PyLocator(By.PARTIAL_LINK_TEXT, identifier))
+
+    def LT(self, identifier: str):
+        return self.find(PyLocator(By.LINK_TEXT, identifier))
+
+    def NAME(self, identifier: str):
+        return self.find(PyLocator(By.NAME, identifier))
+
+    def TAG_NAME(self, identifier: str):
+        return self.find(PyLocator(By.TAG_NAME, identifier))
+
+    def CLASS(self, identifier: str):
+        return self.find(PyLocator(By.CLASS_NAME, identifier))
 
 
 class LazyDriver:

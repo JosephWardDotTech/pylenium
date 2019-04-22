@@ -31,7 +31,7 @@ config = PyleniumConfig()
 
 
 def start(entry_point):
-    return driver().maximize().goto(entry_point)
+    return driver().open(entry_point)
 
 
 def terminate() -> None:

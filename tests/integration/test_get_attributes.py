@@ -10,3 +10,6 @@ from core.pylenium import *
 class TestRetrieveAttribute:
     def test_chained_text_retrieval(self):
         ID("attributes").should_have(attribute('random-attribute'))
+
+    def test_something(self):
+        a = 25
