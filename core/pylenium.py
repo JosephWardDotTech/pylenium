@@ -15,7 +15,7 @@ from commands.should_have_command import ShouldHaveCommand
 from conditions.condition import PyCondition
 from configuration.config import PyleniumConfig
 from core.locators import PyLocator
-from web_drivers.driver import PyleniumDriver
+from drivers.driver import PyleniumDriver
 
 log = logging.getLogger("pylenium")
 log.setLevel(logging.INFO)

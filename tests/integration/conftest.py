@@ -5,7 +5,7 @@ import pytest
 
 from configuration.config import PyleniumConfig
 from core.pylenium import terminate
-from web_drivers.driver import PyleniumDriver
+from drivers.driver import PyleniumDriver
 
 log = logging.getLogger('pylenium')
 

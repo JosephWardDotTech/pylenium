@@ -1,6 +1,6 @@
 import threading
 
-from web_drivers.pylenium_driver import PyleniumDriver
+from drivers.pylenium_driver import PyleniumDriver
 
 
 class DriverContainers:
