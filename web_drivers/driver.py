@@ -7,6 +7,7 @@ import logging
 from selenium.common.exceptions import WebDriverException
 from selenium.webdriver.remote import webdriver
 
+from web_drivers.commands import CreateDriverCommand
 from web_drivers.factories import WebDriverFactory
 
 log = logging.getLogger('pylenium')
@@ -59,33 +60,32 @@ class PyleniumDriver:
 class LazyDriver:
     def __init__(self,
                  config,
-                 proxy,
+                 user_proxy,
                  listeners,
                  factory: WebDriverFactory = None,
                  browser_health_checker: BrowserHealthChecker = None):
         self.config: PyleniumConfig = config
-        self.proxy = proxy
+        self.proxy = user_proxy
         self.listeners = listeners,
         self.factory = factory or WebDriverFactory()
         self.browser_health_checker = browser_health_checker or BrowserHealthChecker()
         self.web_driver = None
         self.closed = False
 
-    def get_and_check_webdriver(self, lock):
-        with lock:
-            if not self.web_driver and self.config.reopen_browser and not self.browser_health_checker.is_browser_open(self.web_driver):
-                log.info('Web driver has been closed, Lets recreate it')
-                self.close()
-                self.create_driver()
-            else:
-                log.info('No web driver is bound to the current thread: {} - lets create one'.format(threading.get_ident()))
-                self.create_driver()
+    def get_and_check_webdriver(self):
+        if not self.web_driver and self.config.reopen_browser and not self.browser_health_checker.is_browser_open(self.web_driver):
+            log.info('Web driver has been closed, Lets recreate it')
+            self.close()
+            self.create_driver()
+        else:
+            log.info('No web driver is bound to the current thread: {} - lets create one'.format(threading.get_ident()))
+            self.create_driver()
 
     def close(self):
         pass
 
     def create_driver(self):
-        pass
+        result = CreateDriverCommand().create_driver(self.config, self.factory, self.proxy, self.listeners)
 
 
 class Navigator:
@@ -142,7 +142,8 @@ class Navigator:
                                      password: str):
         return self._has_auth(domain, login, password) and not config.proxy_enabled and auth == AuthenticationType.BASIC
 
-    def _has_auth(self, domain, login, password):
+    @staticmethod
+    def _has_auth(domain, login, password):
         return domain == '' or login == '' or password == ''
 
 

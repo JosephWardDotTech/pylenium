@@ -13,7 +13,7 @@ class BrowserResizer:
 
     @staticmethod
     def adjust_size(config, driver):
-        if config.browser_size:
+        if config.browser_size and not config.browser_maximized:
             log.info('Setting browser screen size to: {}'.format(config.browser_size))
             coordinates = config.browser_size.split('x')
             width = int(coordinates[0])
@@ -25,9 +25,9 @@ class BrowserResizer:
 
     @staticmethod
     def adjust_position(config, driver):
-        if config.browser_size:
-            log.info('Setting browser screen size to: {}'.format(config.browser_size))
-            coordinates = config.browser_size.split('x')
+        if config.browser_position:
+            log.info('Setting browser position to: {}'.format(config.browser_position))
+            coordinates = config.browser_position.split('x')
             width = int(coordinates[0])
             height = int(coordinates[1])
             driver.set_window_position(width, height)
