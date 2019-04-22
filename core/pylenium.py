@@ -32,7 +32,7 @@ config = PyleniumConfig()
 
 
 def start(entry_point):
-   return runner.start(entry_point)
+    return runner.start(entry_point)
 
 
 def go(url: str):
