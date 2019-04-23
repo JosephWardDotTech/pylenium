@@ -1,4 +1,5 @@
 import logging
+import os
 import subprocess
 import sys
 import time
@@ -13,6 +14,9 @@ log = logging.getLogger("pylenium")
 
 @pytest.fixture(scope='session', autouse=True)
 def web_server_for_integration_tests(request):
+    if os.environ.get('PYLENIUM_TRAVIS'):
+        log.info('Travis detected, travis can manage the integration server!')
+        return
     http_server = subprocess.Popen('python -m http.server -d ./tests/server/static_content')
     request.addfinalizer(http_server.kill)
     return
