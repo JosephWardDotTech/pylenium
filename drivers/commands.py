@@ -57,16 +57,25 @@ class CloseDriverCommand:
             if self.proxy is not None:
                 log.info('Closing pylenium proxy: {} -> server {}'.format(thread_id, self.proxy))
 
-            start = time.time()
-            t = threading.Thread(target=CloseBrowser(), args=self.driver, self.proxy, daemon=True)
+            t = CloseBrowser(self.driver, self.proxy, daemon=True)
             t.start()
+            t.join()
+        elif self.proxy is not None:
+            self.proxy.shutdown()
 
 
-class CloseBrowser(Runnable):
-    def __init__(self,
-                 driver,
-                 proxy):
+class CloseBrowser(threading.Thread):
+    def __init__(self, driver, proxy, daemon):
+        super().__init__()
         self.driver = driver
         self.proxy = proxy
+        self.daemon = daemon
+
+    def run(self):
+        log.info('Trying to close the browser')
+        self.driver.quit()
+
+        if self.proxy is not None:
+            self.proxy.shutdown()
 
 
