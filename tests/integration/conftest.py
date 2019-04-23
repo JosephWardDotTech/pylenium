@@ -12,11 +12,10 @@ log = logging.getLogger("pylenium")
 
 
 @pytest.fixture(scope='session', autouse=True)
-def web_server_for_integration_tests():
-    import http.server
-    subprocess.Popen('python -m http.server -d ./tests/server/static_content')
-    time.sleep(5)
-    yield
+def web_server_for_integration_tests(request):
+    http_server = subprocess.Popen('python -m http.server -d ./tests/server/static_content')
+    request.addfinalizer(http_server.kill)
+    return
 
 
 @pytest.fixture(scope="function", autouse=True)
