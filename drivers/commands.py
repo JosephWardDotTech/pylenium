@@ -1,5 +1,6 @@
 import logging
 import threading
+import time
 
 from selenium.webdriver.support.event_firing_webdriver import EventFiringWebDriver
 
@@ -40,3 +41,32 @@ class CreateDriverResult:
     def __init__(self, driver, proxy):
         self.driver = driver
         self.proxy = proxy
+
+
+class CloseDriverCommand:
+    def __init__(self,
+                 driver,
+                 proxy):
+        self.driver = driver
+        self.proxy = proxy
+
+    def run(self):
+        thread_id = threading.get_ident()
+        if self.driver is not None:
+            log.info('Closing webdriver: {} -> {}'.format(threading, self.driver))
+            if self.proxy is not None:
+                log.info('Closing pylenium proxy: {} -> server {}'.format(thread_id, self.proxy))
+
+            start = time.time()
+            t = threading.Thread(target=CloseBrowser(), args=self.driver, self.proxy, daemon=True)
+            t.start()
+
+
+class CloseBrowser(Runnable):
+    def __init__(self,
+                 driver,
+                 proxy):
+        self.driver = driver
+        self.proxy = proxy
+
+

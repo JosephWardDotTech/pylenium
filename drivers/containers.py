@@ -72,3 +72,8 @@ class UnusedWebDriverCleanupThread(threading.Thread):
 
     def close_web_driver(self):
         self.driver_threads.remove(threading.get_ident())
+        driver = self.thread_driver.pop(threading.get_ident())
+        if driver is None:
+            log.info('No web driver found for thread: {} - nothing to close'.format(threading.get_ident()))
+        else:
+            driver.close()

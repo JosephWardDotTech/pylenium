@@ -66,6 +66,9 @@ class PyleniumDriver:
         self.driver.web_driver.quit()
         self.driver.web_driver = None
 
+    def close(self):
+        self.driver.close()
+
     def __del__(self):
         log.error('destroying the driver')
 
@@ -147,7 +150,11 @@ class LazyDriver:
             return self.web_driver
 
     def close(self):
-        pass
+        if not self.config.reopen_browser:
+            CloseDriverCommand(self.web_driver, self.proxy).run()
+            self.web_driver = None
+            self.proxy = None
+            self.closed = True
 
     def create_driver(self):
         result = CreateDriverCommand().create_driver(
