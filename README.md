@@ -1,5 +1,5 @@
 <kbd>
-  <img src="https://github.com/symonk/pylenium/blob/master/.github/.images/pylenium.png">
+  <img src="https://github.com/symonk/pylenium/blob/master/.github/.images/pylenium_logo.png">
 </kbd>
   <p></p>
 
