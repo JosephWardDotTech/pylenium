@@ -18,7 +18,6 @@ pytest-parallel = "*"
 pytest-cov = "*"
 codecov = "*"
 pytest-xdist = "*"
-pytest-xprocess = "*"
 
 [requires]
 python_version = "3.7"
