@@ -5,7 +5,7 @@ import subprocess
 import pytest
 
 from configuration.config import PyleniumConfig
-from core.pylenium import terminate, start
+from core.pylenium import terminate, start, ROOT_DIR
 
 log = logging.getLogger("pylenium")
 
@@ -15,7 +15,7 @@ def web_server_for_integration_tests(request):
     if os.environ.get('PYLENIUM_TRAVIS'):
         log.info('Travis detected, travis can manage the integration server!')
         return
-    http_server = subprocess.Popen('python -m http.server -d ./tests/server/static_content/')
+    http_server = subprocess.Popen('python -m http.server')
     request.addfinalizer(http_server.kill)
     return
 
@@ -23,5 +23,5 @@ def web_server_for_integration_tests(request):
 @pytest.fixture(scope="function", autouse=True)
 def manage_test(request):
     request.addfinalizer(terminate)
-    PyleniumConfig().base_url = "http://localhost:8000/"
+    PyleniumConfig().base_url = "http://localhost:8000/tests/server/static_content/"
     start(request.node.get_closest_marker("IT").kwargs["page"])
