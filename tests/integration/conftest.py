@@ -1,8 +1,6 @@
 import logging
 import os
 import subprocess
-import sys
-import time
 
 import pytest
 
@@ -27,4 +25,3 @@ def manage_test(request):
     request.addfinalizer(terminate)
     PyleniumConfig().base_url = "http://localhost:8000/"
     start(request.node.get_closest_marker("IT").kwargs["page"])
-

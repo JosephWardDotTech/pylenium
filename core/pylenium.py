@@ -8,6 +8,7 @@ import typing
 from selenium.webdriver.common.by import By
 from selenium.webdriver.remote import webelement
 
+import drivers.web_driver_runner as runner
 from commands.click_command import ClickCommand
 from commands.get_tag_command import GetTagCommand
 from commands.get_text_command import GetTextCommand
@@ -16,7 +17,6 @@ from conditions.condition import PyCondition
 from configuration.config import PyleniumConfig
 from core.locators import PyLocator
 from drivers.driver import PyleniumDriver
-import drivers.web_driver_runner as runner
 
 log = logging.getLogger("pylenium")
 log.setLevel(logging.INFO)
@@ -95,6 +95,7 @@ def for_all_methods(decorator):
             if callable(getattr(cls, attr) and attr != '__init__'):
                 setattr(cls, attr, decorator(getattr(cls, attr)))
         return cls
+
     return decorate
 
 

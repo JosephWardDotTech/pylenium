@@ -1,7 +1,5 @@
 from __future__ import annotations
 
-from exceptions.exceptions import PyleniumProxyException
-from configuration.config import PyleniumConfig, FileDownloadMode
 import logging
 import threading
 from enum import Enum
@@ -12,9 +10,11 @@ from selenium.webdriver.common.by import By
 from selenium.webdriver.remote import webdriver
 from selenium.webdriver.support.abstract_event_listener import AbstractEventListener
 
+from configuration.config import PyleniumConfig, FileDownloadMode
 from core.locators import PyLocator
 from drivers.commands import CreateDriverCommand
 from drivers.factories import WebDriverFactory
+from exceptions.exceptions import PyleniumProxyException
 
 log = logging.getLogger("pylenium")
 
@@ -249,9 +249,9 @@ class Navigator:
             password: str,
     ):
         return (
-            self._has_auth(domain, login, password)
-            and not config.proxy_enabled
-            and auth == AuthenticationType.BASIC
+                self._has_auth(domain, login, password)
+                and not config.proxy_enabled
+                and auth == AuthenticationType.BASIC
         )
 
     @staticmethod
