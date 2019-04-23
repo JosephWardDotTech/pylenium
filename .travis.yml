@@ -7,6 +7,7 @@ install:
   - pipenv install
   - pipenv sync
 script:
+  - python -m http.server & # integration server
   - pytest -m IT --cov-report term --cov=./
   - sonar-scanner -Dsonar.projectKey=symonk_pylenium  -Dsonar.organization=symonk-github
 branches:
