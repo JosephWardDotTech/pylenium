@@ -21,10 +21,10 @@ Pylenium is a test automation harness for web applications written in python. Wh
     @pylenium.case_data(case='testcase-101', issue_id='issue-949')
     def test_my_login():
       start('http://www.google.co.uk')
-      find(Name('user.name')).set_value('simon')
-      find(Name('password')).set_value('securepassword')
-      find('#submit').click() 
-      find('#username').should_have(text('Hello, Simon!'))      
+      find(name('user.name')).set_value('simon')
+      find(name('password')).set_value('securepassword')
+      find(css('#submit')).click() 
+      find(id('username')).should_have(text('Hello, Simon!'))      
 
     # But I want page objects! - so easy: @see: below docs for Page object docs
     def test_some_cool_page(self):
