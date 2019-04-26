@@ -78,8 +78,8 @@ class PyleniumDriver:
 
     @staticmethod
     def find(locator: PyLocator):
-        from core.pylenium import PyElementWrapper
-        return PyElementWrapper(locator)
+        from core.pylenium import PyElement
+        return PyElement(locator)
 
     def X(self, identifier: str):
         return self.find(PyLocator(By.XPATH, identifier))

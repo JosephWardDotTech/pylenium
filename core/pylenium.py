@@ -7,6 +7,7 @@ import typing
 
 from selenium.webdriver.common.by import By
 from selenium.webdriver.remote import webelement
+from selenium.webdriver.remote.webelement import WebElement
 
 import drivers.web_driver_runner as runner
 from commands.click_command import ClickCommand
@@ -43,15 +44,15 @@ def get_pylenium_driver() -> PyleniumDriver:
     return runner.web_driver_container.get_pylenium_driver()
 
 
-def find(locator: PyLocator) -> PyElementWrapper:
+def find(locator: PyLocator) -> PyElement:
     return get_pylenium_driver().find(locator)
 
 
-def ID(selector: str) -> PyElementWrapper:
+def ID(selector: str) -> PyElement:
     return get_pylenium_driver().find(PyLocator(By.ID, selector))
 
 
-def X(selector: str) -> PyElementWrapper:
+def X(selector: str) -> PyElement:
     return find(PyLocator(By.XPATH, selector))
 
 
@@ -99,16 +100,20 @@ def for_all_methods(decorator):
     return decorate
 
 
-class PyElementWrapper:
+class PyElement(WebElement):
     __soft_asserts = {
         "should",
         "should_be",
-        "should_have" "should_not",
+        "should_have",
+        "should_not",
         "should_not_have",
-        "should_not_be" "wait_until" "wait_while",
+        "should_not_be",
+        "wait_until",
+        "wait_while"
     }
 
-    def __init__(self, locator):
+    def __init__(self, locator, parent, id_):
+        super().__init__(parent, id_)
         self.locator = locator
         self.wrapped_element: webelement = None
 
@@ -124,7 +129,7 @@ class PyElementWrapper:
 
     @ready_state
     @anti_staleness
-    def should_have(self, conditions: typing.Union[PyCondition, typing.List[PyCondition]]) -> PyElementWrapper:
+    def should_have(self, conditions: typing.Union[PyCondition, typing.List[PyCondition]]) -> PyElement:
         return ShouldHaveCommand(self, conditions).execute()
 
     @ready_state
