@@ -256,9 +256,9 @@ class Navigator:
             password: str,
     ):
         return (
-                self._has_auth(domain, login, password)
-                and not config.proxy_enabled
-                and auth == AuthenticationType.BASIC
+            self._has_auth(domain, login, password)
+            and not config.proxy_enabled
+            and auth == AuthenticationType.BASIC
         )
 
     @staticmethod

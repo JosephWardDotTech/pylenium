@@ -77,5 +77,3 @@ class CloseBrowser(threading.Thread):
 
         if self.proxy is not None:
             self.proxy.shutdown()
-
-
