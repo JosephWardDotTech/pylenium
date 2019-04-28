@@ -55,39 +55,6 @@ def X(selector: str) -> PyElement:
     return find(PyLocator(By.XPATH, selector))
 
 
-# refreshes the underlying web element to prevent staleness etc
-def anti_staleness(f):
-    def wrapper(*args):
-        log.info("refresh reference to the underlying webelement to prevent staleness")
-        args[0].wrapped_element = get_pylenium_driver().driver.web_driver.find_element(
-            args[0].locator.by, args[0].locator.selector
-        )
-        return f(*args)
-
-    return wrapper
-
-
-def ready_state(f):
-    def wrapper(*args):
-        start_ready_state = time.time()
-        log.info("Waiting for page ready state")
-        while time.time() < start_ready_state + config.explicit_wait_timeout:
-            if get_pylenium_driver().execute_javascript("return document.readyState") == "complete":
-                break
-        else:
-            log.error("page was not ready in time...")
-        log.info("Waiting for jquery")
-        start_jquery = time.time()
-        while time.time() < start_jquery + config.explicit_wait_timeout:
-            if not get_pylenium_driver().execute_javascript("return !!window.jQuery && window.jQuery.active == 0"):
-                break
-        else:
-            log.error("Jquery was not finished in time")
-        return f(*args)
-
-    return wrapper
-
-
 class PyElement:
     __soft_asserts = {
         "should",
@@ -105,7 +72,7 @@ class PyElement:
         self.wrapped_element: webelement = None
 
     def tag_name(self) -> str:
-        return GetTagCommand(driver=get_pylenium_driver(), element=self).execute()
+        return GetTagCommand(get_pylenium_driver(), self).execute()
 
     def text(self) -> str:
         return GetTextCommand(get_pylenium_driver(), self).execute()
@@ -114,4 +81,4 @@ class PyElement:
         return ShouldHaveCommand(get_pylenium_driver(), self, conditions).execute()
 
     def click(self):
-        return ClickCommand(self).execute()
+        return ClickCommand(get_pylenium_driver(), self).execute()
