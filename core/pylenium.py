@@ -7,7 +7,6 @@ import typing
 
 from selenium.webdriver.common.by import By
 from selenium.webdriver.remote import webelement
-from selenium.webdriver.remote.webelement import WebElement
 
 import drivers.web_driver_runner as runner
 from commands.click_command import ClickCommand
@@ -89,18 +88,7 @@ def ready_state(f):
     return wrapper
 
 
-# apply a decorator to every 'callable' method in a class
-def for_all_methods(decorator):
-    def decorate(cls):
-        for attr in cls.__dict__:
-            if callable(getattr(cls, attr) and attr != '__init__'):
-                setattr(cls, attr, decorator(getattr(cls, attr)))
-        return cls
-
-    return decorate
-
-
-class PyElement(WebElement):
+class PyElement:
     __soft_asserts = {
         "should",
         "should_be",
@@ -112,27 +100,18 @@ class PyElement(WebElement):
         "wait_while"
     }
 
-    def __init__(self, locator, parent, id_):
-        super().__init__(parent, id_)
+    def __init__(self, locator):
         self.locator = locator
         self.wrapped_element: webelement = None
 
-    @ready_state
-    @anti_staleness
     def tag_name(self) -> str:
-        return GetTagCommand(self).execute()
+        return GetTagCommand(driver=get_pylenium_driver(), element=self).execute()
 
-    @ready_state
-    @anti_staleness
     def text(self) -> str:
-        return GetTextCommand(self).execute()
+        return GetTextCommand(get_pylenium_driver(), self).execute()
 
-    @ready_state
-    @anti_staleness
     def should_have(self, conditions: typing.Union[PyCondition, typing.List[PyCondition]]) -> PyElement:
-        return ShouldHaveCommand(self, conditions).execute()
+        return ShouldHaveCommand(get_pylenium_driver(), self, conditions).execute()
 
-    @ready_state
-    @anti_staleness
     def click(self):
         return ClickCommand(self).execute()

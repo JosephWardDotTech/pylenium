@@ -1,3 +1,4 @@
+import logging
 import threading
 import time
 from typing import Dict
@@ -5,7 +6,6 @@ from typing import Dict
 from configuration.config import PyleniumConfig
 from drivers.driver import PyleniumDriver
 from utility.meta import Singleton
-import logging
 
 log = logging.getLogger('pylenium')
 

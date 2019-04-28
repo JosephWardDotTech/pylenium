@@ -5,7 +5,7 @@ import subprocess
 import pytest
 
 from configuration.config import PyleniumConfig
-from core.pylenium import terminate, start, ROOT_DIR
+from core.pylenium import terminate, start
 
 log = logging.getLogger("pylenium")
 
