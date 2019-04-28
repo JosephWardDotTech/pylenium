@@ -1,6 +1,7 @@
 import logging
 import os
 import subprocess
+import time
 
 import pytest
 
@@ -16,6 +17,7 @@ def web_server_for_integration_tests(request):
         log.info('Travis detected, travis can manage the integration server!')
         return
     http_server = subprocess.Popen('python -m http.server')
+    time.sleep(5)
     request.addfinalizer(http_server.kill)
     return
 

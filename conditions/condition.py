@@ -15,17 +15,17 @@ class text(PyCondition):  # NOSONAR
     def __init__(self, expected: str):
         self.expected = expected
 
-    def evaluate(self, proxy):
+    def evaluate(self, element):
         try:
-            assert proxy.wrapped_element.text == self.expected
+            assert element.wrapped_element.text == self.expected
         except AssertionError:
             raise UIAssertionException(
                 "Element should of had text: {} but it was actually: {}".format(
-                    self.expected, proxy.wrapped_element.text
+                    self.expected, element.wrapped_element.text
                 )
             )
 
-        return proxy
+        return element
 
 
 class attribute(PyCondition):  # NOSONAR

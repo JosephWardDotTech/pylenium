@@ -69,11 +69,7 @@ class PyleniumDriver:
     def close(self):
         self.driver.close()
 
-    def __del__(self):
-        log.error('destroying the driver')
-
     def execute_javascript(self, script: str, *args):
-        log.info("Executing javascript command")
         return self.driver.web_driver.execute_script(script, args)
 
     @staticmethod
