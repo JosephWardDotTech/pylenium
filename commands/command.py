@@ -41,6 +41,7 @@ class Command(metaclass=abc.ABCMeta):
 
     def wait_for_page_to_be_ready(self):
         log.info('Waiting for page source to be stable')
-        self.waiter.until(lambda driver: self.driver.execute_javascript("return document.readyState") == 0)
+        self.waiter.until(lambda driver: self.driver.execute_javascript("return document.readyState") == "complete")
         log.info('Detecting JQuery and waiting for ajax if applicable')
-        self.waiter.until(lambda driver: self.driver.execute_javascript("return jQuery.active == 0"))
+        self.waiter.until(lambda driver: self.driver.execute_javascript("return jQuery.active") == 0)
+
