@@ -7,6 +7,7 @@ from typing import Union
 
 from selenium.common.exceptions import StaleElementReferenceException
 from selenium.webdriver.support import expected_conditions
+from selenium.webdriver.support.wait import WebDriverWait
 
 from core.pylenium_wait import PyleniumWait
 
@@ -18,12 +19,12 @@ log = logging.getLogger("pylenium")
 
 class Command(metaclass=abc.ABCMeta):
     def __init__(self, driver: PyleniumDriver, element: PyElement):
-        self.driver = driver
-        self.element = element
-        self.waiter = PyleniumWait(driver=self.driver,
-                                   timeout=config.explicit_wait_timeout,
-                                   poll_frequency=config.polling_timeout,
-                                   ignored_exceptions=StaleElementReferenceException)
+        self.driver: PyleniumDriver = driver
+        self.element: PyElement = element
+        self.waiter: WebDriverWait = PyleniumWait(driver=self.driver,
+                                                  timeout=config.explicit_wait_timeout,
+                                                  poll_frequency=config.polling_timeout,
+                                                  ignored_exceptions=StaleElementReferenceException)
 
     @abc.abstractmethod
     def execute(self) -> Union[str, PyElement, bool, int]:

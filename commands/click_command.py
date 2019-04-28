@@ -2,8 +2,8 @@ from commands.command import Command
 
 
 class ClickCommand(Command):
-    def __init__(self, element):
-        super().__init__(element)
+    def __init__(self, driver, element):
+        super().__init__(driver, element)
 
     def execute(self) -> None:
-        return self.py_element.wrapped_element.click()
+        return self.element.wrapped_element.click()
