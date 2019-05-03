@@ -3,6 +3,7 @@ import logging
 
 from selenium import webdriver
 from webdriver_manager.chrome import ChromeDriverManager
+from webdriver_manager.firefox import GeckoDriverManager
 
 from configuration.config import Browser_type
 
@@ -68,7 +69,10 @@ class WebDriverFactory:
         if config.wdm_enabled and not config.remote:
             #  todo -> pythons wdm is tightly coupled to driver instantiation?
             log.info("Still to setup the wdm capabilities!")
-            pass
+            if config.browser == 'chrome':
+                ChromeDriverManager().install()
+            elif config.browser == 'firefox':
+                GeckoDriverManager().install()
 
         # stream factories to build supported driver
         actual_driver = next(
