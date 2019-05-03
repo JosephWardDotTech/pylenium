@@ -68,10 +68,12 @@ class WebDriverFactory:
         # do web driver manager stuff
         if config.wdm_enabled and not config.remote:
             #  todo -> pythons wdm is tightly coupled to driver instantiation?
-            log.info("Still to setup the wdm capabilities!")
+            log.info("This is a local run, attempting to require a binary if non are in cache")
             if config.browser == 'chrome':
+                log.info('Chrome detected, checking binary')
                 ChromeDriverManager().install()
             elif config.browser == 'firefox':
+                log.info('Firefox detected, checking binary')
                 GeckoDriverManager().install()
 
         # stream factories to build supported driver
