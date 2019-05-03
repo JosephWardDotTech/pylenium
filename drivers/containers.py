@@ -12,28 +12,29 @@ log = logging.getLogger('pylenium')
 
 class WebDriverThreadLocalContainer(metaclass=Singleton):
     _listeners = []
-    _driver_threads = []
-    _drivers = {}
-    clean_up_thread_started = False
+    _all_web_driver_threads = []
+    _thread_web_driver = {}
+    clean_up_thread_started = threading.local()
+    clean_up_thread_started.x = False
 
     def add_listener(self, listener):
         self._listeners.append(listener)
 
     def set_web_driver(self, driver, proxy=None):
         thread_id = threading.get_ident()
-        previous = self._drivers.get(thread_id, None)
+        previous = self._thread_web_driver.get(thread_id, None)
         if previous is not None:
             previous.close()
 
-        self._drivers[thread_id] = driver
+        self._thread_web_driver[thread_id] = driver
 
     def get_pylenium_driver(self):
-        if threading.get_ident() not in self._drivers:
-            self._drivers[threading.get_ident()] = self.mark_for_auto_close(threading.current_thread(),
-                                                                            PyleniumDriver(PyleniumConfig(), None))
-            return self._drivers[threading.get_ident()]
+        if threading.get_ident() not in self._thread_web_driver:
+            self._thread_web_driver[threading.get_ident()] = self.mark_for_auto_close(threading.current_thread(),
+                                                                                      PyleniumDriver(PyleniumConfig(), None))
+            return self._thread_web_driver[threading.get_ident()]
         else:
-            return self._drivers[threading.get_ident()]
+            return self._thread_web_driver[threading.get_ident()]
 
     def get_and_check_webdriver(self):
         return self.get_pylenium_driver().get_and_check_webdriver()
@@ -45,15 +46,16 @@ class WebDriverThreadLocalContainer(metaclass=Singleton):
         return self.get_pylenium_driver().get_proxy()
 
     def mark_for_auto_close(self, thread, driver):
-        self._driver_threads.append(thread)
-        UnusedWebDriverCleanupThread(self._driver_threads, self._drivers).start()
-        self.clean_up_thread_started = True
+        self._all_web_driver_threads.append(thread)
+        if not self.clean_up_thread_started.x:
+            UnusedWebDriverCleanupThread(self._all_web_driver_threads, self._thread_web_driver).start()
+        self.clean_up_thread_started.x = True
         return driver
 
 
 class UnusedWebDriverCleanupThread(threading.Thread):
     def __init__(self, driver_threads, thread_driver):
-        super().__init__(daemon=True, name='Web driver Killer Thread')
+        super().__init__(daemon=True, name='[WebDriver Exterminator]')
         self.driver_threads = driver_threads
         self.thread_driver: Dict = thread_driver
 
@@ -71,7 +73,9 @@ class UnusedWebDriverCleanupThread(threading.Thread):
                 self.close_web_driver()
 
     def close_web_driver(self):
-        self.driver_threads.remove(threading.get_ident())
+        log.info('Thread is is: {}'.format(threading.get_ident()))
+        #  todo -> fix this mess!
+        self.driver_threads = [t for t in self.driver_threads if not t.ident == threading.current_thread().ident]
         driver = self.thread_driver.pop(threading.get_ident())
         if driver is None:
             log.info('No web driver found for thread: {} - nothing to close'.format(threading.get_ident()))

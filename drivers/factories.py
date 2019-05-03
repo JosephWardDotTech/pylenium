@@ -63,11 +63,8 @@ class WebDriverFactory:
         log.info("Browser size: {}".format(config.browser_size))
         log.info("Start Maximized: {}".format(config.browser_maximized))
 
-        # build browser
         browser = Browser(config.browser, config.headless)
-        # do web driver manager stuff
         if config.wdm_enabled and not config.remote:
-            #  todo -> pythons wdm is tightly coupled to driver instantiation?
             log.info("This is a local run, attempting to require a binary if non are in cache")
             if config.browser == 'chrome':
                 log.info('Chrome detected, checking binary')

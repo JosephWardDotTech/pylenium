@@ -12,7 +12,7 @@ from selenium.webdriver.support.abstract_event_listener import AbstractEventList
 
 from configuration.config import PyleniumConfig, FileDownloadMode
 from core.locators import PyLocator
-from drivers.commands import CreateDriverCommand
+from drivers.commands import CreateDriverCommand, CloseDriverCommand
 from drivers.factories import WebDriverFactory
 from exceptions.exceptions import PyleniumProxyException
 
