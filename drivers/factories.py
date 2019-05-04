@@ -46,7 +46,7 @@ class AbstractFactory(metaclass=abc.ABCMeta):
 
 class ChromeFactory(AbstractFactory):
     def create(self, config, proxy):
-        return webdriver.Chrome(ChromeDriverManager().install())
+        return webdriver.Chrome()
 
     def supports(self, config, browser) -> bool:
         return browser.is_chrome()
