@@ -14,7 +14,7 @@ log = logging.getLogger("pylenium")
 @pytest.fixture(scope='session', autouse=True)
 def web_server_for_integration_tests(request):
     if os.environ.get('PYLENIUM_TRAVIS'):
-        log.info('Travis detected, travis can manage the integration server!')
+        log.info('Travis detected, Integration server is started automatically')
         return
     else:
         http_server = subprocess.Popen('python -m http.server')

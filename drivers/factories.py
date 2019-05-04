@@ -66,10 +66,10 @@ class WebDriverFactory:
         browser = Browser(config.browser, config.headless)
         if config.wdm_enabled and not config.remote:
             log.info("This is a local run, attempting to require a binary if non are in cache")
-            if config.browser == 'chrome':
+            if config.browser == Browser_type.CHROME:
                 log.info('Chrome detected, checking binary')
                 ChromeDriverManager().install()
-            elif config.browser == 'firefox':
+            elif config.browser == Browser_type.FIREFOX:
                 log.info('Firefox detected, checking binary')
                 GeckoDriverManager().install()
 
