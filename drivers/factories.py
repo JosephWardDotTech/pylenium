@@ -1,7 +1,9 @@
 import abc
 import logging
+import os
 
 from selenium import webdriver
+from selenium.webdriver.chrome.options import Options
 from webdriver_manager.chrome import ChromeDriverManager
 from webdriver_manager.firefox import GeckoDriverManager
 
@@ -46,7 +48,11 @@ class AbstractFactory(metaclass=abc.ABCMeta):
 
 class ChromeFactory(AbstractFactory):
     def create(self, config, proxy):
-        return webdriver.Chrome()
+        options = Options()
+        if os.environ.get('PYLENIUM_TRAVIS'):
+            options.add_argument('--headless')
+            options.add_argument('--disable-gpu')
+        return webdriver.Chrome(ChromeDriverManager().install(), options=options)
 
     def supports(self, config, browser) -> bool:
         return browser.is_chrome()
@@ -68,7 +74,6 @@ class WebDriverFactory:
             log.info("This is a local run, attempting to require a binary if non are in cache")
             if config.browser == Browser_type.CHROME:
                 log.info('Chrome detected, checking binary')
-                ChromeDriverManager().install()
             elif config.browser == Browser_type.FIREFOX:
                 log.info('Firefox detected, checking binary')
                 GeckoDriverManager().install()
