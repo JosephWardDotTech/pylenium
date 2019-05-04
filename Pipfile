@@ -18,7 +18,6 @@ selenium = "*"
 requests = "*"
 urllib3 = "*"
 webdriver-manager = "*"
-colorama = "*"
 
 
 [requires]
