@@ -4,8 +4,8 @@ dist: xenial
 python: 3.7
 
 install:
-  - pip install pipenv --dev
-  - pipenv install
+  - pip install pipenv
+  - pipenv install --dev
   - pipenv sync
 script:
   - python -m http.server & # integration server
