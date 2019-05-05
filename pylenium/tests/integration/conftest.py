@@ -17,7 +17,7 @@ def web_server_for_integration_tests(request):
         log.info('Travis detected, Integration server is started automatically')
         return
     else:
-        http_server = subprocess.Popen('python -m http.server')
+        http_server = subprocess.Popen('python -m http.server', shell=True)
         time.sleep(2.5)
         request.addfinalizer(http_server.kill)
     return
@@ -26,5 +26,5 @@ def web_server_for_integration_tests(request):
 @pytest.fixture(scope="function", autouse=True)
 def manage_test(request):
     request.addfinalizer(terminate)
-    PyleniumConfig().base_url = "http://localhost:8000/tests/server/static_content/"
+    PyleniumConfig().base_url = "http://localhost:8000/pylenium/tests/server/static_content/"
     start(request.node.get_closest_marker("IT").kwargs["page"])
