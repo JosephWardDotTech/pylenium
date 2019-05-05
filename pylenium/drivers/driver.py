@@ -10,11 +10,11 @@ from selenium.webdriver.common.by import By
 from selenium.webdriver.remote import webdriver
 from selenium.webdriver.support.abstract_event_listener import AbstractEventListener
 
-from pylenium.configuration import PyleniumConfig, FileDownloadMode
-from pylenium.core import PyLocator
+from pylenium.configuration.config import PyleniumConfig, FileDownloadMode
+from pylenium.core.locators import PyLocator
 from pylenium.drivers.commands import CreateDriverCommand, CloseDriverCommand
 from pylenium.drivers.factories import WebDriverFactory
-from pylenium.exceptions import PyleniumProxyException
+from pylenium.exceptions.exceptions import PyleniumProxyException
 
 log = logging.getLogger("pylenium")
 

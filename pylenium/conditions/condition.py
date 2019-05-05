@@ -2,7 +2,7 @@ from __future__ import annotations
 
 from abc import abstractmethod, ABC
 
-from pylenium.exceptions import UIAssertionException
+from pylenium.exceptions.exceptions import UIAssertionException
 
 
 class PyCondition(ABC):

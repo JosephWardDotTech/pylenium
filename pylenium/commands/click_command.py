@@ -1,6 +1,6 @@
 from __future__ import annotations
 import typing
-from pylenium.commands import Command
+from pylenium.commands.command import Command
 
 if typing.TYPE_CHECKING:
     from pylenium.core.pylenium import PyleniumDriver, PyElement

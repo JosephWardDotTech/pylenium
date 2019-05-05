@@ -2,8 +2,8 @@ from __future__ import annotations
 import typing
 from typing import Union
 
-from pylenium.commands import Command
-from pylenium.conditions import PyCondition
+from pylenium.commands.command import Command
+from pylenium.conditions.condition import PyCondition
 
 if typing.TYPE_CHECKING:
     from pylenium.core.pylenium import PyElement, PyleniumDriver

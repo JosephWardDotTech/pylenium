@@ -9,8 +9,8 @@ from selenium.common.exceptions import StaleElementReferenceException
 from selenium.webdriver.support import expected_conditions
 from selenium.webdriver.support.wait import WebDriverWait
 
-from pylenium.configuration import PyleniumConfig
-from pylenium.core import PyleniumWait
+from pylenium.configuration.config import PyleniumConfig
+from pylenium.core.pylenium_wait import PyleniumWait
 
 if typing.TYPE_CHECKING:
     from pylenium.core.pylenium import PyElement, PyleniumDriver

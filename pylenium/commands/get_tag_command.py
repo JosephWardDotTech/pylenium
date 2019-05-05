@@ -1,6 +1,6 @@
 from __future__ import annotations
 
-from pylenium.commands import Command
+from pylenium.commands.command import Command
 
 
 class GetTagCommand(Command):

@@ -1,4 +1,4 @@
-from pylenium.commands import Command
+from pylenium.commands.command import Command
 
 
 class GetTextCommand(Command):

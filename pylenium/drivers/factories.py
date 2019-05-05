@@ -7,7 +7,7 @@ from selenium.webdriver.chrome.options import Options
 from webdriver_manager.chrome import ChromeDriverManager
 from webdriver_manager.firefox import GeckoDriverManager
 
-from pylenium.configuration import Browser_type
+from pylenium.configuration.config import Browser_type
 
 log = logging.getLogger("pylenium")
 

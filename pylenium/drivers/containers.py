@@ -3,7 +3,7 @@ import threading
 import time
 from typing import Dict
 
-from pylenium.configuration import PyleniumConfig
+from pylenium.configuration.config import PyleniumConfig
 from pylenium.drivers.driver import PyleniumDriver
 from pylenium.utility.meta import Singleton
 

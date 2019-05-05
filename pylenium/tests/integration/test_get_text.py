@@ -2,7 +2,7 @@ from __future__ import annotations
 
 import pytest
 
-from pylenium.conditions import text
+from pylenium.conditions.condition import text
 from pylenium.core.pylenium import ID
 
 

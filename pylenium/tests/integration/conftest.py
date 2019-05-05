@@ -5,7 +5,7 @@ import time
 
 import pytest
 
-from pylenium.configuration import PyleniumConfig
+from pylenium.configuration.config import PyleniumConfig
 from pylenium.core.pylenium import terminate, start
 
 log = logging.getLogger("pylenium")

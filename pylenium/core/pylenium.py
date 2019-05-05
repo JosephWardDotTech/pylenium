@@ -11,10 +11,10 @@ import pylenium.drivers.web_driver_runner as runner
 from pylenium.commands.click_command import ClickCommand
 from pylenium.commands.get_tag_command import GetTagCommand
 from pylenium.commands.get_text_command import GetTextCommand
-from pylenium.commands import ShouldHaveCommand
-from pylenium.conditions import PyCondition
-from pylenium.configuration import PyleniumConfig
-from pylenium.core import PyLocator
+from pylenium.commands.should_have_command import ShouldHaveCommand
+from pylenium.conditions.condition import PyCondition
+from pylenium.configuration.config import PyleniumConfig
+from pylenium.core.locators import PyLocator
 from pylenium.drivers.driver import PyleniumDriver
 
 log = logging.getLogger("pylenium")
