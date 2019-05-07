@@ -16,9 +16,7 @@ Pylenium is a test automation harness for web applications written in python. Wh
 
 
 ```python
-    # Page objects sold seperately, see below!
-    @pylenium.case_description('Logging in is so easy!') 
-    @pylenium.case_data(case='testcase-101', issue_id='issue-949')
+    @pylenium_case_information(case='testcase-101', issue_id='issue-949', description='Logging in is so easy!')
     def test_my_login():
       start('http://www.google.co.uk')
       find(name('user.name')).set_value('simon')
@@ -26,7 +24,7 @@ Pylenium is a test automation harness for web applications written in python. Wh
       find('#submit')).click()  # default selector
       find(id('username')).should_have(text('Hello, Simon!'))      
 
-    # But I want page objects! - so easy: @see: below docs for Page object docs
+    # But I want page objects! - so easy: @see: below
     def test_some_cool_page(self):
         start(ExamplePageObject()) # page loaded, page object instantiated!
 ```
