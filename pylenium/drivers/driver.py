@@ -214,7 +214,7 @@ class Navigator:
 
     @staticmethod
     def check_proxy_is_enabled(config: PyleniumConfig):
-        if not config._file_download == FileDownloadMode.PROXY and config._proxy_enabled:
+        if not config.file_download == FileDownloadMode.PROXY and config.proxy_enabled:
             raise PyleniumProxyException(
                 "You are attempting to download files using a proxy but no"
                 "proxy was specified, download mode is: Proxy but proxy enablement is"
