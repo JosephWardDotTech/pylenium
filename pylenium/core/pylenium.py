@@ -30,6 +30,10 @@ with open(os.path.join(ROOT_DIR, "resources", "ascii.txt")) as art:
 config = PyleniumConfig()
 
 
+def get_config() -> PyleniumConfig:
+    return config
+
+
 def start(entry_point):
     return get_pylenium_driver().start(entry_point)
 
