@@ -23,7 +23,7 @@ Pylenium is a test automation harness for web applications written in python. Wh
       start('http://www.google.co.uk')
       find(name('user.name')).set_value('simon')
       find(name('password')).set_value('securepassword')
-      find(css('#submit')).click() 
+      find('#submit')).click()  # default selector
       find(id('username')).should_have(text('Hello, Simon!'))      
 
     # But I want page objects! - so easy: @see: below docs for Page object docs
