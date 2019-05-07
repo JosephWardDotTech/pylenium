@@ -21,7 +21,7 @@ class Selector(Enum):
 
 
 # Pyleniums possible browser (by default)
-class Browser_type(Enum):
+class BrowserType(Enum):
     CHROME = "chrome"
     FIREFOX = "firefox"
 
@@ -51,7 +51,7 @@ class PyleniumConfig(metaclass=Singleton):
     _explicit_wait_timeout = os.getenv('pylenium_wait_timeout', 15)
     _polling_interval = os.getenv('pylenium_polling_interval', 200)
     _capture_screenshots = os.getenv('pylenium_screenshot', True)
-    _capture_pagesource = os.getenv('pylenium_pagesource', True)
+    _capture_page_source = os.getenv('pylenium_page_source', True)
     _click_with_javascript = os.getenv('pylenium_js_click', False)
     _selector_default = Selector.CSS
     _proxy_enabled = os.getenv('pylenium_proxy_on', False)
