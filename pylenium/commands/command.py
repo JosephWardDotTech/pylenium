@@ -25,7 +25,7 @@ class Command(metaclass=abc.ABCMeta):
         self.config = PyleniumConfig()
         self.waiter: WebDriverWait = PyleniumWait(driver=self.driver.driver.web_driver,
                                                   timeout=self.config.explicit_wait_timeout,
-                                                  poll_frequency=self.config.polling_timeout,
+                                                  poll_frequency=self.config.polling_interval,
                                                   ignored_exceptions=StaleElementReferenceException)
 
     @abc.abstractmethod

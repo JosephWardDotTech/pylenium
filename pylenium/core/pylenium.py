@@ -26,7 +26,6 @@ with open(os.path.join(ROOT_DIR, "resources", "ascii.txt")) as art:
     for line in art:
         print(line)
 
-# global configuration object
 config = PyleniumConfig()
 
 

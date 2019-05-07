@@ -53,6 +53,7 @@ class PyleniumConfig(metaclass=Singleton):
     _capture_screenshots = os.getenv('pylenium_screenshot', True)
     _capture_page_source = os.getenv('pylenium_pagesource', True)
     _click_with_javascript = os.getenv('pylenium_js_click', False)
+    _javascript_sendkeys = os.getenv('pylenium_js_sendkeys', False)
     _selector_default = Selector.CSS
     _proxy_enabled = os.getenv('pylenium_proxy_on', False)
     _file_download = os.getenv('pylenium_file_download', FileDownloadMode.HTTP_GET)
@@ -63,117 +64,104 @@ class PyleniumConfig(metaclass=Singleton):
         return self._reopen_browser
 
     @reopen_browser.setter
-    def reopen_browser(self, value: bool) -> PyleniumConfig:
+    def reopen_browser(self, value: bool):
         self._reopen_browser = value
-        return self
 
     @property
     def proxy_enabled(self) -> bool:
         return self._proxy_enabled
 
     @proxy_enabled.setter
-    def proxy_enabled(self, value: bool) -> PyleniumConfig:
+    def proxy_enabled(self, value: bool):
         self._proxy_enabled = value
-        return self
 
     @property
     def file_download(self) -> FileDownloadMode:
-        return self._file_Download
+        return self._file_download
 
-    @proxy_enabled.setter
-    def file_download(self, value: FileDownloadMode) -> PyleniumConfig:
-        self.file_download = value
-        return self
+    @file_download.setter
+    def file_download(self, value: FileDownloadMode):
+        self._file_download = value
 
     @property
     def browser(self) -> BrowserType:
         return self._browser
 
     @browser.setter
-    def browser(self, value: BrowserType) -> PyleniumConfig:
+    def browser(self, value: BrowserType):
         self._browser = value
-        return self
 
     @property
     def headless(self) -> bool:
         return self._headless
 
     @headless.setter
-    def headless(self, value: bool) -> PyleniumConfig:
+    def headless(self, value: bool):
         self._headless = value
-        return self
 
     @property
     def remote(self) -> bool:
         return self._remote
 
     @remote.setter
-    def remote(self, value: bool) -> PyleniumConfig:
+    def remote(self, value: bool):
         self._remote = value
-        return self
 
     @property
     def browser_size(self) -> str:
         return self._browser_size
 
     @browser_size.setter
-    def browser_size(self, value: str) -> PyleniumConfig:
+    def browser_size(self, value: str):
         self._browser_size = value
-        return self
 
     @property
     def browser_version(self) -> str:
         return self._browser_version
 
     @browser_version.setter
-    def browser_version(self, value: str) -> PyleniumConfig:
+    def browser_version(self, value: str):
         self._browser_version = value
-        return self
 
     @property
     def browser_position(self) -> str:
         return self._browser_position
 
     @browser_position.setter
-    def browser_position(self, value: str) -> PyleniumConfig:
+    def browser_position(self, value: str):
         self._browser_position = value
-        return self
 
     @property
     def browser_maximized(self) -> bool:
         return self._browser_maximized
 
     @browser_maximized.setter
-    def browser_maximized(self, value: bool) -> PyleniumConfig:
+    def browser_maximized(self, value: bool):
         self._browser_maximized = value
-        return self
 
     @property
     def wdm_enabled(self) -> bool:
         return self._wdm_enabled
 
     @wdm_enabled.setter
-    def wdm_enabled(self, value: bool) -> PyleniumConfig:
+    def wdm_enabled(self, value: bool):
         self._wdm_enabled = value
-        return self
 
     @property
     def browser_binary(self) -> str:
         return self._browser_binary
 
     @browser_binary.setter
-    def browser_binary(self, value: str) -> PyleniumConfig:
+    def browser_binary(self, value: str):
         self._browser_binary = value
-        return self
 
     @property
-    def page_load_strategy(self) -> str:
+    def page_load_strategy(self) -> PageLoadStrategy:
         return self._page_load_strategy
 
     @page_load_strategy.setter
-    def page_load_strategy(self, value: PageLoadStrategy) -> PyleniumConfig:
+    def page_load_strategy(self, value: PageLoadStrategy):
         self._page_load_strategy = value
-        return self
 
     @property
     def desired_capabilities(self) -> DesiredCapabilities:
@@ -182,67 +170,59 @@ class PyleniumConfig(metaclass=Singleton):
     @desired_capabilities.setter
     def desired_capabilities(self, value: DesiredCapabilities):
         self._desired_capabilities = value
-        return self
 
     @property
     def base_url(self) -> str:
         return self._base_url
 
     @base_url.setter
-    def base_url(self, value: str) -> PyleniumConfig:
+    def base_url(self, value: str):
         self._base_url = value
-        return self
 
     @property
     def explicit_wait_timeout(self) -> int:
         return self._explicit_wait_timeout
 
     @explicit_wait_timeout.setter
-    def explicit_wait_timeout(self, value: int) -> PyleniumConfig:
+    def explicit_wait_timeout(self, value: int):
         self._explicit_wait_timeout = value
-        return self
 
     @property
-    def polling_timeout(self) -> int:
-        return self._polling_timeout
+    def polling_interval(self) -> int:
+        return self._polling_interval
 
-    @polling_timeout.setter
-    def polling_timeout(self, value: int) -> PyleniumConfig:
-        self._polling_timeout = value
-        return self
+    @polling_interval.setter
+    def polling_interval(self, value: int):
+        self._polling_interval = value
 
     @property
-    def capture_screenshot(self) -> bool:
-        return self._capture_screenshot
+    def capture_screenshots(self) -> bool:
+        return self._capture_screenshots
 
-    @capture_screenshot.setter
-    def capture_screenshot(self, value: bool) -> PyleniumConfig:
-        self._capture_screenshot = value
-        return self
+    @capture_screenshots.setter
+    def capture_screenshots(self, value: bool):
+        self._capture_screenshots = value
 
     @property
     def capture_page_source(self) -> bool:
-        return self._capture_pagesource
+        return self._capture_page_source
 
     @capture_page_source.setter
-    def capture_page_source(self, value: bool) -> PyleniumConfig:
-        self._capture_pagesource = value
-        return self
+    def capture_page_source(self, value: bool):
+        self._capture_page_source = value
 
     @property
-    def javascript_clicking(self) -> bool:
-        return self._javascript_clicking
+    def click_with_javascript(self) -> bool:
+        return self._click_with_javascript
 
-    @javascript_clicking.setter
-    def javascript_clicking(self, value: bool) -> PyleniumConfig:
-        self._javascript_clicking = value
-        return self
+    @click_with_javascript.setter
+    def click_with_javascript(self, value: bool):
+        self._click_with_javascript = value
 
     @property
     def javascript_sendkeys(self) -> bool:
         return self._javascript_sendkeys
 
     @javascript_sendkeys.setter
-    def javascript_sendkeys(self, value: bool) -> PyleniumConfig:
+    def javascript_sendkeys(self, value: bool):
         self._javascript_sendkeys = value
-        return self
