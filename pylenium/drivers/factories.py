@@ -7,7 +7,7 @@ from selenium.webdriver.chrome.options import Options
 from webdriver_manager.chrome import ChromeDriverManager
 from webdriver_manager.firefox import GeckoDriverManager
 
-from pylenium.configuration.config import Browser_type
+from pylenium.configuration.config import BrowserType
 
 log = logging.getLogger("pylenium")
 
@@ -72,9 +72,9 @@ class WebDriverFactory:
         browser = Browser(config.browser, config.headless)
         if config.wdm_enabled and not config.remote:
             log.info("This is a local run, attempting to require a binary if non are in cache")
-            if config.browser == Browser_type.CHROME:
+            if config.browser == BrowserType.CHROME:
                 log.info('Chrome detected, checking binary')
-            elif config.browser == Browser_type.FIREFOX:
+            elif config.browser == BrowserType.FIREFOX:
                 log.info('Firefox detected, checking binary')
                 GeckoDriverManager().install()
 
@@ -101,7 +101,7 @@ class Browser:
         return self.is_phantom_js() or self.is_html_unit() or self.headless
 
     def is_chrome(self) -> bool:
-        if isinstance(self.name, Browser_type):
+        if isinstance(self.name, BrowserType):
             return self.name.value.lower().startswith("chrome")
         return self.name.lower().startswith("chrome")
 

@@ -36,7 +36,7 @@ class PageLoadStrategy(Enum):
 
 class PyleniumConfig(metaclass=Singleton):
 
-    _browser = os.getenv('pylenium_browser', Browser_type.CHROME)
+    _browser = os.getenv('pylenium_browser', BrowserType.CHROME)
     _headless = os.getenv('pylenium_headless', False)
     _remote = os.getenv('pylenium_remote', False)
     _browser_size = os.getenv('pylenium_browser_size', '1920x1080')
