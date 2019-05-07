@@ -101,6 +101,9 @@ class PyleniumDriver:
     def CLASS(self, identifier: str):
         return self.find(PyLocator(By.CLASS_NAME, identifier))
 
+    def get_current_url(self) -> str:
+        return self.driver.web_driver.current_url
+
 
 class LazyDriver:
     def __init__(

@@ -1,0 +1,5 @@
+
+
+class BaseIntegrationTest:
+    pass
+

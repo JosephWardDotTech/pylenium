@@ -43,18 +43,8 @@ def start(entry_point):
     return get_pylenium_driver().start(entry_point)
 
 
-def go(entry_point):
-    """
-    Interchangeable with start()
-    """
-    return start(entry_point)
-
-
-def open(entry_point):
-    """
-    Interchangeable with start()
-    """
-    return start(entry_point)
+def current_url():
+    return get_pylenium_driver()
 
 
 def terminate() -> None:
