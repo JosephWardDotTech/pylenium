@@ -34,7 +34,27 @@ def get_config() -> PyleniumConfig:
 
 
 def start(entry_point):
+    """
+    Entry point for testing, this is the window into pylenium and will instantiate a new thread local driver
+    if necessary, if a driver is already assigned to the executing thread, it will return such driver
+    :param entry_point: The url to load to begin testing: default -> 'localhost:8080'
+    :return: thread-local scoped driver as per your configurations
+    """
     return get_pylenium_driver().start(entry_point)
+
+
+def go(entry_point):
+    """
+    Interchangeable with start()
+    """
+    return start(entry_point)
+
+
+def open(entry_point):
+    """
+    Interchangeable with start()
+    """
+    return start(entry_point)
 
 
 def terminate() -> None:
