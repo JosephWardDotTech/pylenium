@@ -1,6 +1,5 @@
 from __future__ import annotations
 import typing
-from typing import Union
 
 from pylenium.commands.command import Command
 from pylenium.conditions.condition import PyCondition
@@ -15,9 +14,8 @@ class ShouldHaveCommand(Command):
         super().__init__(driver, element)
         self.conditions = conditions
 
-    def execute(self) -> Union[str, PyElement, bool, int]:
-        self.wait_for_element()
-        self.wait_for_page_to_be_ready()
+    def execute(self):
+        super().execute()
         if type(self.conditions) is not list:
             self.conditions.evaluate(self.element)
         else:

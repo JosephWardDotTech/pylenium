@@ -28,11 +28,11 @@ class Command(metaclass=abc.ABCMeta):
                                                   poll_frequency=self.config.polling_interval,
                                                   ignored_exceptions=StaleElementReferenceException)
 
-    @abc.abstractmethod
-    def execute(self) -> Union[str, PyElement, bool, int]:
-        pass
+    def execute(self):
+        self._wait_for_page_ready_state()
+        self._wait_for_element()
 
-    def wait_for_element(self) -> PyElement:
+    def _wait_for_element(self) -> PyElement:
         log.info('Resolving the web element for stability')
         log.info('By is: {}'.format(self.element.locator.by))
         log.info('Selector is: {}'.format(self.element.locator.selector))
@@ -40,7 +40,7 @@ class Command(metaclass=abc.ABCMeta):
             (self.element.locator.by, self.element.locator.selector)))
         return self.element
 
-    def wait_for_page_to_be_ready(self):
+    def _wait_for_page_ready_state(self):
         log.info('Waiting for page source to be stable for up to: {} seconds'.format(self.config.explicit_wait_timeout))
         log.info('Detecting JQuery and waiting for ajax if applicable')
         self.waiter.until(lambda driver: self.driver.execute_javascript("return document.readyState") == "complete")

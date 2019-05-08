@@ -11,6 +11,7 @@ import pylenium.drivers.web_driver_runner as runner
 from pylenium.commands.click_command import ClickCommand
 from pylenium.commands.get_tag_command import GetTagCommand
 from pylenium.commands.get_text_command import GetTextCommand
+from pylenium.commands.should_be_command import ShouldBeCommand
 from pylenium.commands.should_have_command import ShouldHaveCommand
 from pylenium.conditions.condition import PyCondition
 from pylenium.configuration.config import PyleniumConfig
@@ -79,9 +80,13 @@ class PyElement:
         "wait_while"
     }
 
-    def __init__(self, locator):
-        self.locator = locator
+    def __init__(self, locator: PyLocator):
+        self.locator: PyLocator = locator
         self.wrapped_element: webelement = None
+
+    def find(self):
+        self.wrapped_element = None
+        self.wrapped_element = get_pylenium_driver().driver.web_driver.find_element(self.locator.by, self.locator.selector)
 
     def tag_name(self) -> str:
         return GetTagCommand(get_pylenium_driver(), self).execute()
@@ -91,6 +96,9 @@ class PyElement:
 
     def should_have(self, conditions: typing.Union[PyCondition, typing.List[PyCondition]]) -> PyElement:
         return ShouldHaveCommand(get_pylenium_driver(), self, conditions).execute()
+
+    def should_be(self, conditions: typing.Union[PyCondition, typing.List[PyCondition]]) -> PyElement:
+        return ShouldBeCommand(get_pylenium_driver(), self, conditions).execute()
 
     def click(self):
         return ClickCommand(get_pylenium_driver(), self).execute()

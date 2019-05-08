@@ -1,8 +1,11 @@
 from __future__ import annotations
 
+import time
 from abc import abstractmethod, ABC
 
-from pylenium.exceptions.exceptions import UIAssertionException
+from selenium.common.exceptions import NoSuchElementException
+
+from pylenium.exceptions.exceptions import UIAssertionException, PyAssertionError
 
 
 class PyCondition(ABC):
@@ -11,7 +14,7 @@ class PyCondition(ABC):
         pass
 
 
-class text(PyCondition):  # NOSONAR
+class Text(PyCondition):
     def __init__(self, expected: str):
         self.expected = expected
 
@@ -28,13 +31,26 @@ class text(PyCondition):  # NOSONAR
         return element
 
 
-class attribute(PyCondition):  # NOSONAR
+class NonExistent(PyCondition):
+    def __init__(self):
+        pass
+
+    def evaluate(self, py_element):
+        try:
+            time.sleep(0.1)
+            py_element.find()
+            raise PyAssertionError("Expected element to be non existent but it was found in the DOM")
+        except NoSuchElementException:
+            pass  # do nothing, this is good!
+
+
+class Attribute(PyCondition):
     def __init__(self, expected: str):
         self.expected = expected
 
     def evaluate(self, proxy):
         try:
-            assert proxy.wrapped_element.get_attribute(self.expected) is not None
+            proxy.wrapped_element.get_attribute(self.expected) is not None
         except AssertionError:
             raise UIAssertionException(
                 "Expected element have the attribute: {} but it did not".format(

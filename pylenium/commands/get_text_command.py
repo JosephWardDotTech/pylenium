@@ -6,6 +6,5 @@ class GetTextCommand(Command):
         super().__init__(driver, element)
 
     def execute(self) -> str:
-        self.wait_for_element()
-        self.wait_for_page_to_be_ready()
+        self._wait_for_page_ready_state()
         return self.element.wrapped_element.text

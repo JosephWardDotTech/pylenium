@@ -1,19 +1,18 @@
 import typing
 
-from pylenium.commands import Command
-from pylenium.conditions import PyCondition
+from pylenium.commands.command import Command
+from pylenium.conditions.condition import PyCondition
 
 
-class ShouldBe(Command):
+class ShouldBeCommand(Command):
     def __init__(
-            self, proxy, conditions: typing.Union[typing.List[PyCondition], PyCondition]
+            self, driver, element, conditions: typing.Union[typing.List[PyCondition], PyCondition]
     ):
-        super().__init__(proxy)
+        super().__init__(driver, element)
         self.conditions = conditions
 
     def execute(self):
-        self.wait_for_element()
-        self.wait_for_page_to_be_ready()
+        super().execute()
         if type(self.conditions) is not list:
             self.conditions.evaluate(self.element)
         else:
