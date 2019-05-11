@@ -5,7 +5,8 @@ from abc import abstractmethod, ABC
 
 from selenium.common.exceptions import NoSuchElementException
 
-from pylenium.exceptions.exceptions import UIAssertionException, PyAssertionError
+from pylenium.exceptions.errors import PyAssertionError
+from pylenium.exceptions.exceptions import UIAssertionException
 
 
 class PyCondition(ABC):

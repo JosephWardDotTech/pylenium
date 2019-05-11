@@ -3,8 +3,9 @@ from pylenium.conditions.conditions import ShouldHave
 
 class Text(ShouldHave):
 
-    def __init__(self, element):
+    def __init__(self, element, expected_text: str):
         super().__init__(element)
+        self.expected_text = expected_text
 
     def confirm(self):
         pass
