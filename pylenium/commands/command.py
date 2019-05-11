@@ -2,6 +2,7 @@ from __future__ import annotations
 
 import abc
 import logging
+import time
 import typing
 
 from selenium.common.exceptions import StaleElementReferenceException
@@ -30,6 +31,7 @@ class Command(metaclass=abc.ABCMeta):
     def execute(self):
         self._wait_for_page_ready_state()
         self._wait_for_element()
+        time.sleep(0.1)
 
     def _wait_for_element(self) -> PyElement:
         log.info('Resolving the web element for stability')

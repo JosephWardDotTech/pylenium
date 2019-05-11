@@ -1,6 +1,6 @@
 import pytest
 
-from pylenium.conditions.condition import NonExistent
+from pylenium.conditions.be_conditions import NonExistent
 from pylenium.core.pylenium import ID
 
 
