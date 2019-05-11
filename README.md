@@ -13,7 +13,7 @@
 
 ## What is Pylenium? :flags: 
 Pylenium is a test automation framework written in python, it has one simple goal:  Increase stability and time to market
-when building automated testing solutions with python.
+when building automated testing solutions for a frontend web application with python.
 
 ```python
     @pylenium_case_information(case='testcase-101', issue_id='issue-949', description='Logging in is so easy!')
