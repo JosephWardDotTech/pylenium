@@ -26,7 +26,7 @@ when building automated testing solutions for a frontend web application with py
 
     # But I want page objects! - so easy: @see: below
     def test_some_cool_page(self):
-        start(ExamplePageObject()) # page loaded, page object instantiated!
+        start(ExampleLoginPage()) # page loaded, page object instantiated!
 ```
 
 ---
@@ -38,7 +38,7 @@ Easy, hassle free, abstracted -> Exactly how page objects should be!
     # driver less page objects? must be magic! -> no page factory, init elements or messing with driver code
     # pages are not necessary, but recommended! (@see: our page objectless example code!)
     # pyleniums own web element is very smart and handles waiting to increase stability
-    @loadable(page="/login.php")
+    @loadable(page='/login.php')
     class ExampleLoginPage:
         _page_field = ID("basic_text")
     
