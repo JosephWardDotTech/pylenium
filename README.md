@@ -31,6 +31,30 @@ Pylenium is a test automation harness for web applications written in python. Wh
 
 ---
 
+### Page Objects :hearts:
+Easy, hassle free, abstracted -> Exactly how page objects should be!
+
+```python
+    # Page objects don't care or even know about the driver, its magic!
+    # No Pagefactory, no initiating elements, no driver mess, just create a page and do stuff, driver is implicit
+    # Not necessary, but definitely recommended! (@see: our page objectless example code!)
+    # PyElement is extremely smart, no chance of staleness and built in smart waiting for conditions!
+    
+    @loadable(page="/login.php")
+    class ExampleLoginPage:
+        _page_field = ID("basic_text")
+    
+        def retrieve_the_text(self) -> str:
+            return self._page_field.text()
+    
+        def set_the_text(self, value: str) -> ExampleLoginPage:
+            self._page_field.set_text(value)
+            self._page_field.should_have(Text(value))
+            return self
+```
+    
+---
+
 ### Configuration :clipboard:
 Pylenium config is very powerful, but also assumes sensible defaults.  You can modify your config via:
 
@@ -104,30 +128,6 @@ Pylenium config is very powerful, but also assumes sensible defaults.  You can m
     # -> default: [css_selector]
     selector_default = Selector.CSS  
 ```
----
-
-### Page Objects :hearts:
-Easy, hassle free, abstracted -> Exactly how page objects should be!
-
-```python
-    # Page objects don't care or even know about the driver, its magic!
-    # No Pagefactory, no initiating elements, no driver mess, just create a page and do stuff, driver is implicit
-    # Not necessary, but definitely recommended! (@see: our page objectless example code!)
-    # PyElement is extremely smart, no chance of staleness and built in smart waiting for conditions!
-    
-    @loadable(page="/login.php")
-    class ExampleLoginPage:
-        _page_field = ID("basic_text")
-    
-        def retrieve_the_text(self) -> str:
-            return self._page_field.text()
-    
-        def set_the_text(self, value: str) -> ExampleLoginPage:
-            self._page_field.set_text(value)
-            self._page_field.should_have(Text(value))
-            return self
-```
-    
 ---
 
 ### Page Actions :trophy:
