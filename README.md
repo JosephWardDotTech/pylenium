@@ -12,8 +12,8 @@
 [![Find_Me Slack](https://img.shields.io/badge/Find_Me-Slack-brightgreen.svg)](https://testersio.slack.com)
 
 ## What is Pylenium? :flags: 
-Pylenium is a test automation harness for web applications written in python. Why spend time fussing around boilerplate code and instability in your end to end tests, Pylenium takes care of it. Let's see how simple it really is:
-
+Pylenium is a test automation framework written in python, it has one simple goal:  Increase stability and time to market
+when building automated testing solutions with python.
 
 ```python
     @pylenium_case_information(case='testcase-101', issue_id='issue-949', description='Logging in is so easy!')
@@ -35,11 +35,9 @@ Pylenium is a test automation harness for web applications written in python. Wh
 Easy, hassle free, abstracted -> Exactly how page objects should be!
 
 ```python
-    # Page objects don't care or even know about the driver, its magic!
-    # No Pagefactory, no initiating elements, no driver mess, just create a page and do stuff, driver is implicit
-    # Not necessary, but definitely recommended! (@see: our page objectless example code!)
-    # PyElement is extremely smart, no chance of staleness and built in smart waiting for conditions!
-    
+    # driver less page objects? must be magic! -> no page factory, init elements or messing with driver code
+    # pages are not necessary, but recommended! (@see: our page objectless example code!)
+    # pyleniums own web element is very smart and handles waiting to increase stability
     @loadable(page="/login.php")
     class ExampleLoginPage:
         _page_field = ID("basic_text")
