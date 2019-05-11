@@ -2,7 +2,7 @@ from __future__ import annotations
 
 import logging
 import os
-import typing
+from typing import Union, List
 
 from selenium.webdriver.common.by import By
 from selenium.webdriver.remote import webelement
@@ -13,7 +13,7 @@ from pylenium.commands.get_tag_command import GetTagCommand
 from pylenium.commands.get_text_command import GetTextCommand
 from pylenium.commands.should_be_command import ShouldBeCommand
 from pylenium.commands.should_have_command import ShouldHaveCommand
-from pylenium.conditions.condition import PyCondition
+from pylenium.conditions.conditions import ShouldBe, ShouldHave
 from pylenium.configuration.config import PyleniumConfig
 from pylenium.core.locators import PyLocator
 from pylenium.drivers.driver import PyleniumDriver
@@ -94,10 +94,10 @@ class PyElement:
     def text(self) -> str:
         return GetTextCommand(get_pylenium_driver(), self).execute()
 
-    def should_have(self, conditions: typing.Union[PyCondition, typing.List[PyCondition]]) -> PyElement:
+    def should_have(self, conditions: Union[ShouldHave, List[ShouldHave]]) -> PyElement:
         return ShouldHaveCommand(get_pylenium_driver(), self, conditions).execute()
 
-    def should_be(self, conditions: typing.Union[PyCondition, typing.List[PyCondition]]) -> PyElement:
+    def should_be(self, conditions: Union[ShouldBe, List[ShouldBe]]) -> PyElement:
         return ShouldBeCommand(get_pylenium_driver(), self, conditions).execute()
 
     def click(self):
