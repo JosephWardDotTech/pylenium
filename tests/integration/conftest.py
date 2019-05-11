@@ -25,5 +25,5 @@ def web_server_for_integration_tests(request):
 @pytest.fixture(scope="function", autouse=True)
 def manage_test(request):
     request.addfinalizer(terminate)
-    get_config().base_url = "http://localhost:8000/pylenium/tests/server/static_content/"
+    get_config().base_url = "http://localhost:8000/tests/server/static_content/"
     start(request.node.get_closest_marker("IT").kwargs["page"])
