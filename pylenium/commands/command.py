@@ -3,7 +3,6 @@ from __future__ import annotations
 import abc
 import logging
 import typing
-from typing import Union
 
 from selenium.common.exceptions import StaleElementReferenceException
 from selenium.webdriver.support import expected_conditions

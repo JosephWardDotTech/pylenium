@@ -1,10 +1,10 @@
 from abc import abstractmethod, ABC
+
 from pylenium.core.pylenium import get_pylenium_driver
 
 
-# This is a contract in which any implemented condition must meet, the condition must return true if the confirm method
-# was deemed to be successful, else return False.  Various types of conditions exist and these are also outlined in this
-# module
+# The base pylenium condition, if the condition does not match the expected, e.g a Has is False or a HasNot is True
+# then pylenium should raise a PyleniumAssertionError with helpful information
 class PyCondition(ABC):
 
     def __init__(self, element, is_not_condition):
