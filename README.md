@@ -40,14 +40,14 @@ Easy, hassle free, abstracted -> Exactly how page objects should be!
     # pyleniums own web element is very smart and handles waiting to increase stability
     @loadable(page='/login.php')
     class ExampleLoginPage:
-        _page_field = ID("basic_text")
+        _text_field_on_login_page = ID("some_id_attribute_value")
     
         def retrieve_the_text(self) -> str:
-            return self._page_field.text()
+            return self._text_field_on_login_page.text()
     
         def set_the_text(self, value: str) -> ExampleLoginPage:
-            self._page_field.set_text(value)
-            self._page_field.should_have(Text(value))
+            self._text_field_on_login_page.set_text(value)
+            self._text_field_on_login_page.should_have(Text(value))
             return self
 ```
     
