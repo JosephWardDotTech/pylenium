@@ -2,11 +2,17 @@ from __future__ import annotations
 
 import logging
 import os
+from typing import Union, List
 
 from selenium.webdriver.common.by import By
 from selenium.webdriver.remote.webelement import WebElement as RemoteWebElement
 
 import pylenium.drivers.web_driver_runner as runner
+from pylenium.commands.click_command import ClickCommand
+from pylenium.commands.get_tag_command import GetTagCommand
+from pylenium.commands.should_be_command import ShouldBeCommand
+from pylenium.commands.should_have_command import ShouldHaveCommand
+from pylenium.conditions.conditions import ShouldHave, ShouldBe
 from pylenium.configuration.config import PyleniumConfig
 from pylenium.core.locators import PyLocator
 from pylenium.drivers.driver import PyleniumDriver
@@ -81,3 +87,15 @@ class PyElement(RemoteWebElement):
 
     def get_text(self) -> str:
         return self.text()
+
+    def tag_name(self) -> str:
+        return GetTagCommand(get_pylenium_driver(), self).execute()
+
+    def should_have(self, conditions: Union[ShouldHave, List[ShouldHave]]) -> PyElement:
+        return ShouldHaveCommand(get_pylenium_driver(), self, conditions).execute()
+
+    def should_be(self, conditions: Union[ShouldBe, List[ShouldBe]]) -> PyElement:
+        return ShouldBeCommand(get_pylenium_driver(), self, conditions).execute()
+
+    def click(self) -> None:
+        return ClickCommand(get_pylenium_driver(), self).execute()

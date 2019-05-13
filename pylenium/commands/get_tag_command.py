@@ -8,4 +8,4 @@ class GetTagCommand(Command):
         super().__init__(driver, element)
 
     def execute(self) -> str:
-        return self.element.wrapped_element.tag_name()
+        return self.element.tag_name()

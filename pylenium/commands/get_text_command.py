@@ -7,4 +7,4 @@ class GetTextCommand(Command):
 
     def execute(self) -> str:
         self._wait_for_page_ready_state()
-        return self.element.wrapped_element.text
+        return self.element.text

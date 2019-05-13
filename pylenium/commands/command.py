@@ -37,7 +37,7 @@ class Command(metaclass=abc.ABCMeta):
         log.info('Resolving the web element for stability')
         log.info('By is: {}'.format(self.element.locator.by))
         log.info('Selector is: {}'.format(self.element.locator.selector))
-        self.element.wrapped_element = self.waiter.until(expected_conditions.presence_of_element_located(
+        self.element = self.waiter.until(expected_conditions.presence_of_element_located(
             (self.element.locator.by, self.element.locator.selector)))
         return self.element
 

@@ -26,8 +26,8 @@ class ClickCommand(Command):
         while time.time() < starting + self.config.explicit_wait_timeout:
             try:
                 self.element.find()
-                if self.element.wrapped_element.is_displayed() and self.element.wrapped_element.is_enabled():
-                    self.element.wrapped_element.click()
+                if self.element.is_displayed() and self.element.is_enabled():
+                    self.element.click()
                     return
             except StaleElementReferenceException:
                 pass  # do nothing, keep re-finding using our locator until its clickable and not stale

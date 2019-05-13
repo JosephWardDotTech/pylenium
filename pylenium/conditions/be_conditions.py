@@ -1,6 +1,6 @@
 from selenium.common.exceptions import NoSuchElementException
 
-from pylenium.conditions.conditions import ShouldHave, ShouldBe
+from pylenium.conditions.conditions import ShouldBe
 from pylenium.core.pylenium import PyElement
 from pylenium.exceptions.errors import PyAssertionError
 

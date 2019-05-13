@@ -9,7 +9,7 @@ class Text(ShouldHave):
         super().__init__(expected)
 
     def confirm(self, element: PyElement):
-        actual_text = element.wrapped_element.text
+        actual_text = element.text
         if actual_text != self.expected:
             raise PyAssertionError(f"Expected element to contain text: '{self.expected}' "
                                    f"but the elements text was: '{actual_text}'")
@@ -30,7 +30,7 @@ class Attribute(ShouldHave):
         super().__init__(expected)
 
     def confirm(self, element: PyElement):
-        if element.wrapped_element.get_attribute(self.expected) is None:
+        if element.get_attribute(self.expected) is None:
             raise PyAssertionError(f"Expected element to have: {self.expected} attribute, but it did not")
 
 
