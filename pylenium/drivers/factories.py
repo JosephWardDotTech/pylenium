@@ -51,8 +51,8 @@ class ChromeFactory(AbstractFactory):
         options = Options()
         if os.environ.get('PYLENIUM_TRAVIS'):
             options.add_argument('--headless')
-            options.add_argument('--disable-gpu')
-        return webdriver.Chrome(ChromeDriverManager().install(), options=options)
+        driver = webdriver.Chrome(ChromeDriverManager().install(), options=options)
+        return driver
 
     def supports(self, config, browser) -> bool:
         return browser.is_chrome()

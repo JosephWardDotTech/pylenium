@@ -5,7 +5,7 @@ import os
 from typing import Union, List
 
 from selenium.webdriver.common.by import By
-from selenium.webdriver.remote import webelement
+from selenium.webdriver.remote.webelement import WebElement as RemoteWebElement
 
 import pylenium.drivers.web_driver_runner as runner
 from pylenium.commands.click_command import ClickCommand
@@ -82,7 +82,7 @@ class PyElement:
 
     def __init__(self, locator: PyLocator):
         self.locator: PyLocator = locator
-        self.wrapped_element: webelement = None
+        self.wrapped_element: RemoteWebElement = None
 
     def find(self):
         self.wrapped_element = None
@@ -102,3 +102,14 @@ class PyElement:
 
     def click(self):
         return ClickCommand(get_pylenium_driver(), self).execute()
+
+
+class PyElementTwo(RemoteWebElement):
+    def __init__(self, parent, id_):
+        super().__init__(parent, id_)
+
+    def text(self) -> str:
+        pass
+
+    def get_text(self) -> str:
+        return self.text()

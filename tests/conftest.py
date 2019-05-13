@@ -17,7 +17,7 @@ def web_server_for_integration_tests(request):
         return
     else:
         http_server = subprocess.Popen('python -m http.server', shell=True)
-        time.sleep(2.5)
+        time.sleep(2.5)  # let the http server 'ready-up'
         request.addfinalizer(http_server.kill)
     return
 
