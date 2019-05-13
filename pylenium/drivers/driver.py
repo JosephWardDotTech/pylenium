@@ -77,7 +77,9 @@ class PyleniumDriver:
         return self.driver.web_driver.execute_script(script, args)
 
     def find_element(self, locator: PyLocator) -> PyElement:
-        return self.driver.web_driver.find_element(locator.by, locator.selector)
+        element = self.driver.web_driver.find_element(locator.by, locator.selector)
+        element.locator = locator
+        return element
 
     def X(self, identifier: str):
         return self.find_element(PyLocator(By.XPATH, identifier))

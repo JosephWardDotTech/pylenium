@@ -25,7 +25,6 @@ class ClickCommand(Command):
         starting = time.time()
         while time.time() < starting + self.config.explicit_wait_timeout:
             try:
-                self.element.find()
                 if self.element.is_displayed() and self.element.is_enabled():
                     self.element.click()
                     return

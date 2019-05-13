@@ -81,6 +81,16 @@ class PyElement(RemoteWebElement):
 
     def __init__(self, parent, id_, w3c):
         super().__init__(parent, id_, w3c)
+        self._locator = None
+
+    @property
+    def locator(self):
+        return self._locator
+
+    @locator.setter
+    def locator(self, locator):
+        log.info('Finding web element with custom locator')
+        self._locator = locator
 
     def text(self) -> str:
         pass
