@@ -64,13 +64,17 @@ class PyChrome(ChromeDriver):
         super().__init__(executable_path=ChromeDriverManager().install())
 
     def create_web_element(self, element_id):
-        from pylenium.core.pylenium import PyElementTwo
-        return PyElementTwo(self, element_id, w3c=self.w3c)
+        from pylenium.core.pylenium import PyElement
+        return PyElement(self, element_id, w3c=self.w3c)
 
 
 class PyFirefox(FirefoxDriver):
-    def __init__(self, *kwargs):
+    def __init__(self, options=None):
         super().__init__()
+
+    def create_web_element(self, element_id):
+        from pylenium.core.pylenium import PyElement
+        return PyElement(self, element_id, w3c=self.w3c)
 
 
 class WebDriverFactory:

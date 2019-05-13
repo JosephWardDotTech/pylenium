@@ -3,7 +3,7 @@ from __future__ import annotations
 import logging
 import threading
 from enum import Enum
-from typing import Optional
+import typing
 
 from selenium.common.exceptions import WebDriverException
 from selenium.webdriver.common.by import By
@@ -15,6 +15,10 @@ from pylenium.core.locators import PyLocator
 from pylenium.drivers.commands import CreateDriverCommand, CloseDriverCommand
 from pylenium.drivers.factories import WebDriverFactory
 from pylenium.exceptions.exceptions import PyleniumProxyException
+
+if typing.TYPE_CHECKING:
+    from pylenium.core.pylenium import PyElement
+
 
 log = logging.getLogger("pylenium")
 
@@ -72,34 +76,32 @@ class PyleniumDriver:
     def execute_javascript(self, script: str, *args):
         return self.driver.web_driver.execute_script(script, args)
 
-    @staticmethod
-    def find(locator: PyLocator):
-        from pylenium.core.pylenium import PyElement
-        return PyElement(locator)
+    def find_element(self, locator: PyLocator) -> PyElement:
+        return self.driver.web_driver.find_element(locator.by, locator.selector)
 
     def X(self, identifier: str):
-        return self.find(PyLocator(By.XPATH, identifier))
+        return self.find_element(PyLocator(By.XPATH, identifier))
 
     def ID(self, identifier: str):
-        return self.find(PyLocator(By.ID, identifier))
+        return self.find_element(PyLocator(By.ID, identifier))
 
     def CSS(self, identifier: str):
-        return self.find(PyLocator(By.CSS_SELECTOR, identifier))
+        return self.find_element(PyLocator(By.CSS_SELECTOR, identifier))
 
     def PLT(self, identifier: str):
-        return self.find(PyLocator(By.PARTIAL_LINK_TEXT, identifier))
+        return self.find_element(PyLocator(By.PARTIAL_LINK_TEXT, identifier))
 
     def LT(self, identifier: str):
-        return self.find(PyLocator(By.LINK_TEXT, identifier))
+        return self.find_element(PyLocator(By.LINK_TEXT, identifier))
 
     def NAME(self, identifier: str):
-        return self.find(PyLocator(By.NAME, identifier))
+        return self.find_element(PyLocator(By.NAME, identifier))
 
     def TAG_NAME(self, identifier: str):
-        return self.find(PyLocator(By.TAG_NAME, identifier))
+        return self.find_element(PyLocator(By.TAG_NAME, identifier))
 
     def CLASS(self, identifier: str):
-        return self.find(PyLocator(By.CLASS_NAME, identifier))
+        return self.find_element(PyLocator(By.CLASS_NAME, identifier))
 
     def get_current_url(self) -> str:
         return self.driver.web_driver.current_url
