@@ -10,5 +10,5 @@ class TestPyleniumElement(BaseIntegrationTest):
     @pytest.mark.element
     def test_driver_returns_pyelement(self):
         element = ID('remove')
-        breakpoint()
+        element.click()
         assert isinstance(element, PyElementTwo)

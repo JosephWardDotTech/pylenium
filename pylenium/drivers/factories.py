@@ -2,12 +2,14 @@ import abc
 import logging
 import os
 
-from selenium import webdriver
+from selenium.webdriver.chrome.webdriver import WebDriver as ChromeDriver
+from selenium.webdriver.firefox.webdriver import WebDriver as FirefoxDriver
 from selenium.webdriver.chrome.options import Options
 from webdriver_manager.chrome import ChromeDriverManager
 from webdriver_manager.firefox import GeckoDriverManager
 
 from pylenium.configuration.config import BrowserType
+
 
 log = logging.getLogger("pylenium")
 
@@ -51,11 +53,24 @@ class ChromeFactory(AbstractFactory):
         options = Options()
         if os.environ.get('PYLENIUM_TRAVIS'):
             options.add_argument('--headless')
-        driver = webdriver.Chrome(ChromeDriverManager().install(), options=options)
-        return driver
+        return PyChrome(options=options)
 
     def supports(self, config, browser) -> bool:
         return browser.is_chrome()
+
+
+class PyChrome(ChromeDriver):
+    def __init__(self, options=None):
+        super().__init__(executable_path=ChromeDriverManager().install())
+
+    def create_web_element(self, element_id):
+        from pylenium.core.pylenium import PyElementTwo
+        return PyElementTwo(self, element_id, w3c=self.w3c)
+
+
+class PyFirefox(FirefoxDriver):
+    def __init__(self, *kwargs):
+        super().__init__()
 
 
 class WebDriverFactory:

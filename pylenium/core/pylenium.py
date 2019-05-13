@@ -105,8 +105,19 @@ class PyElement:
 
 
 class PyElementTwo(RemoteWebElement):
-    def __init__(self, parent, id_):
-        super().__init__(parent, id_)
+    __soft_asserts = {
+        "should",
+        "should_be",
+        "should_have",
+        "should_not",
+        "should_not_have",
+        "should_not_be",
+        "wait_until",
+        "wait_while"
+    }
+
+    def __init__(self, parent, id_, w3c):
+        super().__init__(parent, id_, w3c)
 
     def text(self) -> str:
         pass
