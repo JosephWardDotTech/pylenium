@@ -1,49 +1,46 @@
-from abc import ABC
-
+from typing import Tuple
 from selenium.webdriver.common.by import By
 
 
-class PyLocator(ABC):
-    def __init__(self, by: By, selector: str):
-        self.by = by
-        self.selector = selector
+def X(expression: str) -> Tuple:
+    return By.XPATH, expression
 
 
-class X(PyLocator):  # NOSONAR
-    def __init__(self, selector: str):
-        super().__init__(By.XPATH, selector)
+def XPATH(expression: str) -> Tuple:
+    return X(expression)
 
 
-class CSS(PyLocator):
-    def __init__(self, selector: str):
-        super().__init__(By.CSS_SELECTOR, selector)
+def CSS(expression: str) -> Tuple:
+    return By.CSS_SELECTOR(expression)
 
 
-class LT(PyLocator):
-    def __init__(self, selector: str):
-        super().__init__(By.LINK_TEXT, selector)
+def LT(text: str) -> Tuple:
+    return By.LINK_TEXT(text)
 
 
-class PTL(PyLocator):
-    def __init__(self, selector: str):
-        super().__init__(By.PARTIAL_LINK_TEXT, selector)
+def LINK_TEXT(text: str) -> Tuple:
+    return LT(text)
 
 
-class Class(PyLocator):
-    def __init__(self, selector: str):
-        super().__init__(By.CLASS_NAME, selector)
+def PTL(text: str) -> Tuple:
+    return By.LINK_TEXT(text)
 
 
-class Name(PyLocator):
-    def __init__(self, selector: str):
-        super().__init__(By.NAME, selector)
+def PARTIAL_LINK_TEXT(text: str) -> Tuple:
+    return LT(text)
 
 
-class Tag(PyLocator):
-    def __init__(self, selector: str):
-        super().__init__(By.TAG_NAME, selector)
+def CLASS(class_name: str) -> Tuple:
+    return By.CLASS_NAME(class_name)
 
 
-class ID(PyLocator):
-    def __init__(self, selector: str):
-        super().__init__(By.ID, selector)
+def NAME(name: str) -> Tuple:
+    return By.NAME(name)
+
+
+def TAG(tag_name: str) -> Tuple:
+    return By.TAG_NAME(tag_name)
+
+
+def ID(unique_id: str) -> Tuple:
+    return By.ID(unique_id)
