@@ -11,7 +11,6 @@ from selenium.webdriver.remote import webdriver
 from selenium.webdriver.support.abstract_event_listener import AbstractEventListener
 
 from pylenium.configuration.config import PyleniumConfig, FileDownloadMode
-from pylenium.core.locators import PyLocator
 from pylenium.drivers.commands import CreateDriverCommand, CloseDriverCommand
 from pylenium.drivers.factories import WebDriverFactory
 from pylenium.exceptions.exceptions import PyleniumProxyException
@@ -49,7 +48,7 @@ class AuthenticationType(Enum):
 
 class PyleniumDriver:
     def __init__(
-            self, config, users_proxy=None, driver=None, listener: Optional[AbstractEventListener] = None
+            self, config, users_proxy=None, driver=None, listener: typing.Optional[AbstractEventListener] = None
     ):
         self.navigator = Navigator()
         self.config = config

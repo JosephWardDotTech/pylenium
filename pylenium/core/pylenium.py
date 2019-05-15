@@ -14,7 +14,7 @@ from pylenium.commands.should_be_command import ShouldBeCommand
 from pylenium.commands.should_have_command import ShouldHaveCommand
 from pylenium.conditions.conditions import ShouldHave, ShouldBe
 from pylenium.configuration.config import PyleniumConfig
-from pylenium.core.locators import PyLocator
+from pylenium.core.bys import PyLocator
 from pylenium.drivers.driver import PyleniumDriver
 
 log = logging.getLogger("pylenium")
