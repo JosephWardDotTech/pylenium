@@ -18,6 +18,7 @@ selenium = "*"
 requests = "*"
 urllib3 = "*"
 webdriver-manager = "*"
+assertpy = "*"
 
 
 [requires]
