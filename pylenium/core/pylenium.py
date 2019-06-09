@@ -14,7 +14,7 @@ from pylenium.commands.should_be_command import ShouldBeCommand
 from pylenium.commands.should_have_command import ShouldHaveCommand
 from pylenium.conditions.conditions import ShouldHave, ShouldBe
 from pylenium.configuration.config import PyleniumConfig
-from pylenium.core.bys import PyLocator
+from pylenium.core.bys import identity, xpath
 from pylenium.drivers.driver import PyleniumDriver
 
 log = logging.getLogger("pylenium")
@@ -55,19 +55,19 @@ def get_pylenium_driver() -> PyleniumDriver:
     return runner.web_driver_container.get_pylenium_driver()
 
 
-def find(locator: PyLocator) -> PyElement:
+def find(locator) -> PyElement:
     return get_pylenium_driver().find_element(locator)
 
 
 def ID(selector: str) -> PyElement:
-    return get_pylenium_driver().find_element(PyLocator(By.ID, selector))
+    return get_pylenium_driver().find_element(identity(selector))
 
 
 def X(selector: str) -> PyElement:
-    return find(PyLocator(By.XPATH, selector))
+    return find(xpath(selector))
 
 
-class PyElement(RemoteWebElement):
+class PyElement:
     __soft_asserts = {
         "should",
         "should_be",
@@ -79,18 +79,9 @@ class PyElement(RemoteWebElement):
         "wait_while"
     }
 
-    def __init__(self, parent, id_, w3c):
-        super().__init__(parent, id_, w3c)
-        self._locator = None
-
-    @property
-    def locator(self):
-        return self._locator
-
-    @locator.setter
-    def locator(self, locator):
-        log.info('Finding web element with custom locator')
-        self._locator = locator
+    def __init__(self, locatable):
+        self.locatable = locatable
+        self.web_element: RemoteWebElement
 
     def text(self) -> str:
         pass
@@ -109,3 +100,6 @@ class PyElement(RemoteWebElement):
 
     def click(self) -> None:
         return ClickCommand(get_pylenium_driver(), self).execute()
+
+    def _prevent_staleness(self):
+        pass

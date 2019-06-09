@@ -81,28 +81,28 @@ class PyleniumDriver:
         return element
 
     def X(self, identifier: str):
-        return self.find_element(ID(identifier))
+        return self.find_element(identity(identifier))
 
     def ID(self, identifier: str):
-        return self.find_element(ID(identifier))
+        return self.find_element(identity(identifier))
 
     def CSS(self, identifier: str):
-        return self.find_element(CSS(identifier))
+        return self.find_element(css(identifier))
 
     def PLT(self, identifier: str):
-        return self.find_element(PTL(identifier))
+        return self.find_element(partial_link_text(identifier))
 
     def LT(self, identifier: str):
-        return self.find_element(LT(identifier))
+        return self.find_element(link_text(identifier))
 
     def NAME(self, identifier: str):
-        return self.find_element(NAME(identifier))
+        return self.find_element(name(identifier))
 
     def TAG_NAME(self, identifier: str):
-        return self.find_element(TAG(identifier))
+        return self.find_element(tag(identifier))
 
     def CLASS(self, identifier: str):
-        return self.find_element(CLASS(identifier))
+        return self.find_element(clazz(identifier))
 
     def get_current_url(self) -> str:
         return self.driver.web_driver.current_url
