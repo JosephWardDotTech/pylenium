@@ -1,4 +1,5 @@
 import pytest
+from assertpy import assert_that
 
 from pylenium.core.pylenium import PyElement, ID
 from tests.integration.base_integration_test import BaseIntegrationTest
@@ -11,4 +12,4 @@ class TestPyleniumElement(BaseIntegrationTest):
     def test_driver_returns_pyelement(self):
         element = ID('remove')
         element.click()
-        assert isinstance(element, PyElement)
+        assert_that(element).is_instance_of(PyElement)
