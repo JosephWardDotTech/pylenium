@@ -27,7 +27,6 @@ before-install:
 cache:
   directories:
     - "$HOME/.sonar/cache"
-    -
 addons:
   apt:
     update: true
